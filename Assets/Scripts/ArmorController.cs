@@ -5,7 +5,7 @@ public class ArmorController : MonoBehaviour
 {
 	public float maxHitPoints;
 	public float startHitPoints;
-	public GameObject destructionAnimationPrefab;
+	public GameObject destructionPrefab;
 
 	private float currentHitPoints;
 
@@ -27,10 +27,10 @@ public class ArmorController : MonoBehaviour
 
 	public void DestroyObject()
 	{
-		if(destructionAnimationPrefab!=null)
+		if(destructionPrefab!=null)
 		{
 			print(transform.position);
-			Instantiate(destructionAnimationPrefab,transform.position,transform.rotation);
+			Instantiate(destructionPrefab,transform.position,transform.rotation);
 		}
 		Destroy(gameObject);
 	}

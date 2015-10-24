@@ -5,6 +5,8 @@ public class ProjectileController : MonoBehaviour
 {
 	public float projectileSpeed;
 	public float projectileDamage;
+	public GameObject destructionAnimation;
+	public GameObject destructionSound;
 
 	public void LaunchProjectile(Vector3 startVelocity)
 	{
@@ -23,6 +25,14 @@ public class ProjectileController : MonoBehaviour
 		if(armorController != null)
 		{
 			armorController.TakeDamage(projectileDamage);
+		}
+		if (destructionAnimation != null)
+		{
+			Instantiate (destructionAnimation, transform.position, transform.rotation);
+		}
+		if (destructionSound != null)
+		{
+			Instantiate (destructionSound, transform.position, transform.rotation);
 		}
 		Destroy (gameObject);
 	}
