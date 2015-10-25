@@ -22,7 +22,7 @@ public class ArmorController : MonoBehaviour
 		if (currentHitPoints <= 0)
 		{
 			DestroyObject();
-		}
+		} 
 	}
 
 	public void DestroyObject()
