@@ -2,7 +2,18 @@ using UnityEngine;
 using System;
 using System.Collections.Generic;
 
-public enum Tags{Player,Ship,AI,Projectile,ProjectileWeapon};
+public enum Tags{
+					Player,
+				 	Ship,
+				 	AI,
+					Projectile,
+					ProjectileWeapon,
+					EnvironmentHazard,
+					ShipEngine,
+					ShipFuselage,
+					Model,
+					MissileEngine
+				}
 
 public class TagController : MonoBehaviour
 {

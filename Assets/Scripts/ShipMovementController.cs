@@ -5,29 +5,39 @@ using System.Linq;
 
 public class ShipMovementController : MonoBehaviour 
 {
-
+	[HideInInspector]
+	public float thrustPercentage;
 	public float maxForwardSpeed;
 	public float forwardAcceleration;
 	public float maxRearSpeed;
 	public float rearAcceleration;
 	public float maxAngularSpeed;
 	public float angularAcceleration;
-
-	public float thrustPercentage;
 	public float angularThrustPercentage;
+	public float brakeFactor;
+	[HideInInspector]
+	public bool brakesOn = false;
 
 	public void FixedUpdate()
 	{
 		Rigidbody body = GetComponent<Rigidbody> ();
 		float acceleration = 0;
 
-		if (thrustPercentage >= 0)
+		if (brakesOn)
 		{
-			acceleration = forwardAcceleration;
+			body.AddForce (-brakeFactor * body.velocity);
 		}
 		else
 		{
-			acceleration = rearAcceleration;
+
+			if (thrustPercentage >= 0)
+			{
+				acceleration = forwardAcceleration;
+			}
+			else
+			{
+				acceleration = rearAcceleration;
+			}
 		}
 
 		body.velocity=Vector3.ClampMagnitude (body.velocity,maxForwardSpeed);

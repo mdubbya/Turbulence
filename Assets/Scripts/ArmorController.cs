@@ -1,11 +1,14 @@
 ﻿using UnityEngine;
-using System.Collections;
+using System.Linq;
+using System.Collections.Generic;
 
 public class ArmorController : MonoBehaviour 
 {
 	public float maxHitPoints;
 	public float startHitPoints;
-	public GameObject destructionPrefab;
+	public List<GameObject> destructionPrefabs;
+	public float explosionForce;
+	public float explosionRadius;
 
 	private float currentHitPoints;
 
@@ -27,11 +30,16 @@ public class ArmorController : MonoBehaviour
 
 	public void DestroyObject()
 	{
-		if(destructionPrefab!=null)
+		if(destructionPrefabs.Count>0)
 		{
-			print(transform.position);
-			Instantiate(destructionPrefab,transform.position,transform.rotation);
+			foreach(GameObject destructionPrefab in destructionPrefabs)
+			{
+				Instantiate(destructionPrefab,transform.position,transform.rotation);
+			}
 		}
-		Destroy(gameObject);
+		if (gameObject != null)
+		{
+			Destroy (gameObject);
+		}
 	}
 }
