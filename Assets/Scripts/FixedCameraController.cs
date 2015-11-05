@@ -4,7 +4,7 @@ using System.Collections;
 
 public class FixedCameraController : MonoBehaviour 
 {
-	private GameObject objectToFollow;
+	public GameObject objectToFollow;
 	private Vector3 _startPosition;
 	public delegate void targetObjectDestroyedType();
 	public targetObjectDestroyedType targetObjectDestroyed;
@@ -15,11 +15,6 @@ public class FixedCameraController : MonoBehaviour
 		_startPosition = new Vector3 (transform.position.x,
 		                              transform.position.y,
 		                              transform.position.z);
-	}
-
-	public void FixCameraOnObject (GameObject obj)
-	{
-		objectToFollow = obj;
 	}
 
 	void Update () 

@@ -6,7 +6,6 @@ using System.Collections;
 
 public class GameController : Singleton<GameController>
 {
-	public List<GameObject> constructedOnStart;
 	public float numberOfAsteroids;
 	public GameObject asteroidPrefab;
 
@@ -15,11 +14,6 @@ public class GameController : Singleton<GameController>
 
 	void Start ()
 	{
-		foreach (GameObject obj in constructedOnStart)
-		{
-			GameObject instantiatedObj = Instantiate(obj);
-			instantiatedObjects.Add(instantiatedObj);
-		}
 
 		for (int i=0; i < numberOfAsteroids; i++)
 		{
