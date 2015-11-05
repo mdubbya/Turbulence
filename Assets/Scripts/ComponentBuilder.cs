@@ -11,43 +11,43 @@ public class ComponentBuilder : MonoBehaviour
 
 	public void Awake()
 	{
-		try
-		{
-			Transform components = null;
-			foreach (Transform trans in transform)
-			{
-				if(trans.name == "Components")
-				{
-					components = trans;
-				}
-			}
-
-			if (components == null)
-			{
-				Build ();
-			}
-		}
-		catch(System.NullReferenceException)
-		{
-			Build ();
-		}
-
+		Rebuild ();
 	}
 
 
 	public void Build()
 	{
-
 		foreach(ComponentBlock component in prefabComponents)
 		{
 			AddComponent(component);
 		}
 	}
 
+
+
+	public void Rebuild()
+	{
+		try
+		{
+			if(!Application.isPlaying)
+			{
+				while (true)
+				{
+					GameObject components = transform.Find ("Component").gameObject;
+					DestroyImmediate(components);
+				}
+			}
+		}
+		catch(System.NullReferenceException)
+		{
+			Build();
+		}
+	}
+
 	private void AddComponent(ComponentBlock component)
 	{	
 		GameObject components = new GameObject();
-		components.name = "Components";
+		components.name = "Component";
 		components.transform.parent = transform;
 		GameObject gObject = Instantiate(component.component,
 		                                 component.transform.position,

@@ -10,9 +10,13 @@ public class GameEditorController : Editor
 		DrawDefaultInspector ();
 
 		ComponentBuilder builder = (ComponentBuilder)target;
-		if (GUILayout.Button ("Build All"))
+		if (GUILayout.Button ("Build"))
 		{
 			builder.Awake();
+		}
+		if(GUILayout.Button ("Rebuild"))
+		{
+			builder.Rebuild();
 		}
 	}
 }
