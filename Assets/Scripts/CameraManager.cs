@@ -12,9 +12,12 @@ public class CameraManager : Singleton<CameraManager>
 	{
 		foreach (GameObject obj in GameController.Instance.instantiatedObjects)
 		{
-			if (obj.GetComponent<TagController>().HasTag(Tags.Player))
+			if (obj.GetComponent<TagController>() != null)
 			{
-				RegisterNewFixedCamera(playerCameraPrefab,obj,"Player"+obj.GetInstanceID().ToString());
+				if (obj.GetComponent<TagController>().HasTag(Tags.Player))
+				{
+					RegisterNewFixedCamera(playerCameraPrefab,obj,"Player"+obj.GetInstanceID().ToString());
+				}
 			}
 		}
 	}
