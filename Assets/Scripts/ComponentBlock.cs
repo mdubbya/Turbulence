@@ -2,13 +2,13 @@ using UnityEngine;
 using System;
 
 [Serializable]
-public class Component
+public class ComponentBlock
 {
-	public Component()
+	public ComponentBlock()
 	{
 	}
 
-	public Component(Transform componentTransform,GameObject shipComponent, Tags componentType)
+	public ComponentBlock(Transform componentTransform,GameObject shipComponent, Tags componentType)
 	{
 		transform = componentTransform;
 		component = shipComponent;

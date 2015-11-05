@@ -5,9 +5,9 @@ using System.Collections.Generic;
 
 public class ComponentBuilder : MonoBehaviour 
 {
-	public List<Component> components;
+	public List<ComponentBlock> components;
 
-	private List<Component> existingComponents = new List<Component>();
+	private List<ComponentBlock> existingComponents = new List<ComponentBlock>();
 
 	public void Awake()
 	{
@@ -19,7 +19,7 @@ public class ComponentBuilder : MonoBehaviour
 	{
 		Destroy ();
 
-		foreach(Component component in components)
+		foreach(ComponentBlock component in components)
 		{
 			AddShipComponent(component);
 		}
@@ -28,7 +28,7 @@ public class ComponentBuilder : MonoBehaviour
 
 	public void Destroy()
 	{
-		foreach(Component component in existingComponents)
+		foreach(ComponentBlock component in existingComponents)
 		{
 			Destroy(component.component);
 			existingComponents.Remove(component);
@@ -36,11 +36,11 @@ public class ComponentBuilder : MonoBehaviour
 	}
 
 
-	private void AddShipComponent(Component component)
+	private void AddShipComponent(ComponentBlock component)
 	{	
 		GameObject gObject = Instantiate(component.component,component.transform.position,component.transform.rotation) as GameObject;
 		gObject.transform.SetParent(transform);
-		existingComponents.Add (new Component (gObject.transform,gObject,component.type));
+		existingComponents.Add (new ComponentBlock (gObject.transform,gObject,component.type));
 	}
 
 }
