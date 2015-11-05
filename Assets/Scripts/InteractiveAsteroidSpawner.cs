@@ -7,7 +7,7 @@ using System.Collections;
 
 public class InteractiveAsteroidSpawner : Singleton<InteractiveAsteroidSpawner>
 {
-	[Range(0.1f,10)]
+	[Range(1,10)]
 	public float minAsteroidSpacing;
 	public int numberOfAsteroids;
 	public List<Box> excludedAreas;
@@ -44,6 +44,7 @@ public class InteractiveAsteroidSpawner : Singleton<InteractiveAsteroidSpawner>
 				}
 				j = j + minAsteroidSpacing;
 			}
+			j = asteroidSpawnArea.zMin;
 			i = i + minAsteroidSpacing;
 		}
 
