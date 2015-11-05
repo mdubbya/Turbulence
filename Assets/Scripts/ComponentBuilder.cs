@@ -11,36 +11,26 @@ public class ComponentBuilder : MonoBehaviour
 
 	public void Awake()
 	{
-		Rebuild ();
+		Build ();
 	}
-
+	
 
 	public void Build()
 	{
-		foreach(ComponentBlock component in prefabComponents)
-		{
-			AddComponent(component);
-		}
-	}
-
-
-
-	public void Rebuild()
-	{
 		try
 		{
-			if(!Application.isPlaying)
+			while (true)
 			{
-				while (true)
-				{
-					GameObject components = transform.Find ("Component").gameObject;
-					DestroyImmediate(components);
-				}
+				GameObject components = transform.Find ("Component").gameObject;
+				DestroyImmediate(components);
 			}
 		}
 		catch(System.NullReferenceException)
 		{
-			Build();
+			foreach(ComponentBlock component in prefabComponents)
+			{
+				AddComponent(component);
+			}
 		}
 	}
 
