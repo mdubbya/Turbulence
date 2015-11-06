@@ -14,9 +14,5 @@ public class GameEditorController : Editor
 		{
 			builder.Build();
 		}
-		if(GUILayout.Button ("Destroy"))
-		{
-			builder.DestroyComponents(builder.gameObject.transform);
-		}
 	}
 }
