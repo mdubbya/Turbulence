@@ -9,6 +9,13 @@ public class EngineAnimator : MonoBehaviour
 	void FixedUpdate () 
 	{
 		ShipMovementController shipMovementController = GetComponentInParent<ShipMovementController> ();
-		GetComponentInChildren<ParticleSystem> ().startSpeed = maxJetSize * -shipMovementController.thrustPercentage;
+        foreach (ParticleSystem system in GetComponentsInChildren<ParticleSystem>())
+        {
+            system.startSpeed = maxJetSize * -shipMovementController.thrustPercentage;
+        }
+        foreach (AudioSource source in GetComponentsInChildren<AudioSource>())
+        {
+            source.volume = shipMovementController.thrustPercentage;
+        }
 	}
 }
