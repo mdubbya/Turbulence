@@ -8,10 +8,10 @@ public class ProjectileWeaponController : MonoBehaviour
 	public float maxProjectilesPerSecond;
 	private float lastProjectileSpawned=0;
 
-	public void Update()
+	public void Fire()
 	{
 		float projectileSpawnTimeSpacing = 1 / maxProjectilesPerSecond;
-		if(Input.GetButton("Fire1") && ((Time.time-lastProjectileSpawned) > projectileSpawnTimeSpacing))
+		if(Time.time-lastProjectileSpawned > projectileSpawnTimeSpacing)
 		{
 			lastProjectileSpawned = Time.time;
 			CreateAndLaunchProjectile();
