@@ -12,7 +12,9 @@ public enum Tags{
 					ShipEngine,
 					ShipFuselage,
 					Model,
-					MissileEngine
+					MissileEngine,
+					VFX,
+					SFX
 				}
 
 public class TagController : MonoBehaviour
