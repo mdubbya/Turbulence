@@ -18,7 +18,7 @@ public class ProjectileWeaponController : MonoBehaviour
 		}
 	}
 
-	public void CreateAndLaunchProjectile()
+	private void CreateAndLaunchProjectile()
 	{
 		GameObject projectile = Instantiate (projectilePrefab, projectileSpawnLocation.position, projectileSpawnLocation.rotation) as GameObject;
 		projectile.GetComponent<ProjectileController> ().LaunchProjectile (GetComponentInParent<Rigidbody> ().velocity);
