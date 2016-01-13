@@ -21,7 +21,11 @@ public class ProjectileController : MonoBehaviour
 
 	public void OnTriggerEnter(Collider other)
 	{
-		ArmorController armorController = other.GetComponent<ArmorController> ();
+		ArmorController armorController = other.GetComponentInChildren<ArmorController> ();
+        if(armorController==null)
+        {
+            armorController = other.GetComponentInParent<ArmorController>();
+        }
 		if(armorController != null)
 		{
 			armorController.TakeDamage(projectileDamage);

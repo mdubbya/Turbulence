@@ -4,6 +4,7 @@ class ShipAIWeaponController : MonoBehaviour
 {
     public GameObject target;
     public float targetingDistance;
+    public float targetZoneWidth;
     private ProjectileWeaponController[] projectileControllers;
     
 
@@ -15,7 +16,14 @@ class ShipAIWeaponController : MonoBehaviour
     public void FixedUpdate()
     {
         RaycastHit info = new RaycastHit();
-        if(Physics.Raycast(transform.position,transform.forward,out info,targetingDistance))
+        Vector3 right = transform.position + (transform.right * (targetZoneWidth/2));
+        Vector3 left = transform.position - (transform.right * (targetZoneWidth/2));
+
+        Debug.DrawRay(right,transform.forward*targetingDistance,Color.blue,1);
+        Debug.DrawRay(left, transform.forward*targetingDistance, Color.blue, 1);
+        Debug.DrawRay(transform.position, transform.forward*targetingDistance, Color.blue, 1);
+
+        if (Physics.Raycast(transform.position,transform.forward,out info,targetingDistance))
         {
             if(info.transform==target.transform)
             {
@@ -24,7 +32,7 @@ class ShipAIWeaponController : MonoBehaviour
                     controller.Fire();
                 }
             }
-        } 
+        }
     }
 }
 
