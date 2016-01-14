@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnitySteer.Behaviors;
 
-namespace Assets.UnitySteer.Behaviors
+namespace UnitySteer.Behaviors
 {
     class SteerForObstacleAvoid : Steering
     {
@@ -33,7 +33,7 @@ namespace Assets.UnitySteer.Behaviors
             {
                 avoidance = avoidance * 0f; // nullify the avoidance force
             }
-
+            DebugExtension.DebugArrow(Vehicle.Position, avoidance, Color.green, 0.1f);
             return avoidance;
         }
 
@@ -54,6 +54,7 @@ namespace Assets.UnitySteer.Behaviors
 
         protected override Vector3 CalculateForce()
         {
+            
             return collisionAvoidance();
         }
     }
