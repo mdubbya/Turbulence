@@ -28,9 +28,28 @@ namespace UnitySteer.Behaviors
                             Vector3 coneApex = Vehicle.Position + ((neighbor.attachedRigidbody.velocity + Vehicle.Velocity) / 2);
 
                             cones.Add(new ClearPathCone(coneApex, leftVector, rightVector));
+                            
+                            Debug.DrawRay(coneApex, leftVector, Color.red, 0.2f);
+                            Debug.DrawRay(coneApex, rightVector, Color.red, 0.2f);
+                        }
+                    }
+                }
+                foreach(Vehicle neighbor in Vehicle.Radar.Vehicles)
+                {
+                    if(neighbor!=null)
+                    {
+                        Vector3 beginVector = (neighbor.transform.position - Vehicle.Position).normalized;
 
-                            //Debug.DrawRay(coneApex, leftVector, Color.red, 0.2f);
-                            //Debug.DrawRay(coneApex, rightVector, Color.red, 0.2f);
+                        if (Physics.Raycast(Vehicle.Position, beginVector, Vehicle.Velocity.magnitude))
+                        {
+                            float neighborBounds = neighbor.Collider.bounds.extents.magnitude + Vehicle.GetComponentInChildren<Collider>().bounds.extents.magnitude;
+                            Vector3 leftVector = (((neighbor.transform.position + (neighbor.transform.right * neighborBounds)) - Vehicle.Position).normalized) * Vehicle.Velocity.magnitude;
+                            Vector3 rightVector = (((neighbor.transform.position + -neighbor.transform.right * neighborBounds)) - Vehicle.Position).normalized * Vehicle.Velocity.magnitude;
+                            Vector3 coneApex = Vehicle.Position + ((neighbor.Rigidbody.velocity + Vehicle.Velocity) / 2);
+
+                            cones.Add(new ClearPathCone(coneApex, leftVector, rightVector));
+                            Debug.DrawRay(coneApex, leftVector, Color.red, 0.2f);
+                            Debug.DrawRay(coneApex, rightVector, Color.red, 0.2f);
                         }
                     }
                 }
