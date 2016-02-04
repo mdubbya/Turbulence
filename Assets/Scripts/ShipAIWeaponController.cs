@@ -15,22 +15,24 @@ class ShipAIWeaponController : MonoBehaviour
 
     public void FixedUpdate()
     {
-        RaycastHit info = new RaycastHit();
-        Vector3 right = transform.position + (transform.right * (targetZoneWidth/2));
-        Vector3 left = transform.position - (transform.right * (targetZoneWidth/2));
-
-
-        if(Utilities.PhysicsUtilities.RayCastPath(transform.position,transform.forward,targetZoneWidth,targetingDistance,0.2f,out info))
+        if (target != null)
         {
-            if(info.transform==target.transform)
+            RaycastHit info = new RaycastHit();
+            Vector3 right = transform.position + (transform.right * (targetZoneWidth / 2));
+            Vector3 left = transform.position - (transform.right * (targetZoneWidth / 2));
+
+
+            if (Utilities.PhysicsUtilities.RayCastPath(transform.position, transform.forward, targetZoneWidth, targetingDistance, 0.2f, out info))
             {
-                foreach(ProjectileWeaponController controller in projectileControllers)
+                if (info.transform == target.transform)
                 {
-                    controller.Fire();
+                    foreach (ProjectileWeaponController controller in projectileControllers)
+                    {
+                        controller.Fire();
+                    }
                 }
             }
         }
-        
     }
 }
 

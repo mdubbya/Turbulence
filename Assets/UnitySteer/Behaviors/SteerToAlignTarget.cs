@@ -6,6 +6,7 @@ namespace UnitySteer.Behaviors
     class SteerToAlignTarget : Steering
     {
         public GameObject target;
+        public float force;
 
         protected override Vector3 CalculateForce()
         {
@@ -23,18 +24,18 @@ namespace UnitySteer.Behaviors
                             int sign = Vector3.Cross(transform.forward, (vectorToTarget)).y < 0 ? -1 : 1;
                             if (sign > 0)
                             {
-                                returnVal = transform.right / 10;
+                                returnVal = transform.right;
                             }
                             else if (sign < 0)
                             {
-                                returnVal = -transform.right / 10;
+                                returnVal = -transform.right;
                             }
                         }
                     }
                 }
             }
             
-            return returnVal;
+            return returnVal * force;
         }
     }
 }
