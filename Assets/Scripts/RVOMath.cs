@@ -1,4 +1,4 @@
-﻿/*
+/*
  * RVOMath.cs
  * RVO2 Library C#
  *
@@ -54,7 +54,6 @@
  */
 
 using System;
-using UnityEngine;
 
 namespace RVO
 {
@@ -77,23 +76,9 @@ namespace RVO
          * computed.</param>
          * <returns>The length of the two-dimensional vector.</returns>
          */
-        public static float abs(Vector3 vector)
+        public static float abs(Vector2 vector)
         {
             return sqrt(absSq(vector));
-        }
-
-        /**
-         * <summary>Computes the product of two Vector3, with Vector3.y=0 .
-         * </summary>
-         *
-         * <param name="vector1">The first three-dimensional vector to be multiplied</param>
-         * <param name="vector1">The second three-dimensional vector to be multiplied</param>
-         * computed.</param>
-         * <returns>The product of the two Vector3.</returns>
-         */
-        public static float product(Vector3 vector1, Vector3 vector2)
-        {
-            return (vector1.x * vector2.x) + (vector1.y * vector2.y);
         }
 
         /**
@@ -105,9 +90,9 @@ namespace RVO
          * <param name="vector">The two-dimensional vector whose squared length
          * is to be computed.</param>
          */
-        public static float absSq(Vector3 vector)
+        public static float absSq(Vector2 vector)
         {
-            return vector.x*vector.x + vector.y*vector.y;
+            return vector * vector;
         }
 
         /**
@@ -119,7 +104,7 @@ namespace RVO
          * <param name="vector">The two-dimensional vector whose normalization
          * is to be computed.</param>
          */
-        public static Vector3 normalize(Vector3 vector)
+        public static Vector2 normalize(Vector2 vector)
         {
             return vector / abs(vector);
         }
@@ -134,12 +119,12 @@ namespace RVO
          *
          * <param name="vector1">The top row of the two-dimensional square
          * matrix.</param>
-         * <param name="Vector3">The bottom row of the two-dimensional square
+         * <param name="vector2">The bottom row of the two-dimensional square
          * matrix.</param>
          */
-        internal static float det(Vector3 vector1, Vector3 Vector3)
+        internal static float det(Vector2 vector1, Vector2 vector2)
         {
-            return vector1.x * Vector3.y - vector1.y * Vector3.x;
+            return vector1.x_ * vector2.y_ - vector1.y_ * vector2.x_;
         }
 
         /**
@@ -149,29 +134,27 @@ namespace RVO
          * <returns>The squared distance from the line segment to the point.
          * </returns>
          *
-         * <param name="segmentEndPoint1">The first endpoint of the line segment.</param>
-         * <param name="segmentEndPoint2">The second endpoint of the line segment.
+         * <param name="vector1">The first endpoint of the line segment.</param>
+         * <param name="vector2">The second endpoint of the line segment.
          * </param>
-         * <param name="destinationPoint">The point to which the squared distance is to
+         * <param name="vector3">The point to which the squared distance is to
          * be calculated.</param>
          */
-        internal static float distSqPointLineSegment(Vector3 segmentEndPoint1, Vector3 segmentEndPoint2, Vector3 destinationPoint)
+        internal static float distSqPointLineSegment(Vector2 vector1, Vector2 vector2, Vector2 vector3)
         {
-            Vector3 vec1 = destinationPoint - segmentEndPoint1;
-            Vector3 vec2 = segmentEndPoint2 - segmentEndPoint1;
-            float r = (product(vec1, vec2)) / absSq(vec2);
+            float r = ((vector3 - vector1) * (vector2 - vector1)) / absSq(vector2 - vector1);
 
             if (r < 0.0f)
             {
-                return absSq(destinationPoint - segmentEndPoint1);
+                return absSq(vector3 - vector1);
             }
 
             if (r > 1.0f)
             {
-                return absSq(destinationPoint - segmentEndPoint2);
+                return absSq(vector3 - vector2);
             }
 
-            return absSq(destinationPoint - (segmentEndPoint1 + r * (segmentEndPoint2 - segmentEndPoint1)));
+            return absSq(vector3 - (vector1 + r * (vector2 - vector1)));
         }
 
         /**
@@ -199,7 +182,7 @@ namespace RVO
          * <param name="c">The point to which the signed distance is to be
          * calculated.</param>
          */
-        internal static float leftOf(Vector3 a, Vector3 b, Vector3 c)
+        internal static float leftOf(Vector2 a, Vector2 b, Vector2 c)
         {
             return det(a - c, b - a);
         }

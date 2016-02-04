@@ -52,9 +52,7 @@
  *
  * <http://gamma.cs.unc.edu/RVO2/>
  */
-
-using UnityEngine;
-
+ 
 namespace RVO
 {
     /**
@@ -62,7 +60,7 @@ namespace RVO
      */
     public struct Line
     {
-        public Vector3 direction;
-        public Vector3 point;
+        public Vector2 direction;
+        public Vector2 point;
     }
 }

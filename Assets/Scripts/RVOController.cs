@@ -8,7 +8,7 @@ namespace RVO
     class RVOController : Singleton<RVOController>
     {
 
-        public RVO.KdTree KDTree = new RVO.KdTree();
+        public KdTree KDTree = new RVO.KdTree();
         public List<SteerForRVO> RVOAgents = new List<SteerForRVO>();
         public List<RVO.Obstacle> RVOObstacles = new List<RVO.Obstacle>();
 
@@ -18,7 +18,7 @@ namespace RVO
         public float defaultAgentRadius;
         public float defaultAgentTimeHorizon;
         public float defaultAgentTimeHorizonObst;
-        public Vector3 defaultAgentVelocity;
+        public Vector2 defaultAgentVelocity;
 
         public SteerForRVO defaultAgent;
 
@@ -39,7 +39,7 @@ namespace RVO
             if (!RVOAgents.Contains(agent))
             {
                 RVOAgents.Add(agent);
-                KDTree.buildAgentTree(RVOAgents);
+                KDTree.buildAgentTree();
             }
 
         }
@@ -49,11 +49,15 @@ namespace RVO
             if (!RVOObstacles.Contains(obstacle))
             {
                 RVOObstacles.Add(obstacle);
-                KDTree.buildObstacleTree(RVOObstacles);
+                KDTree.buildObstacleTree();
             }
 
         }
 
+        public void RebuildKDTree()
+        {
+            KDTree.buildAgentTree();
+        }
     }
 
 }
