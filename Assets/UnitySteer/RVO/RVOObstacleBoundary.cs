@@ -15,7 +15,7 @@ namespace UnitySteer.RVO
 
         public void Awake()
         {
-            //id = RVOController.Instance.AddRVOObstacle(vertices);
+            id = RVOController.Instance.AddRVOObstacle(vertices);
         }
 
         public void AddPoint(Vector2 point)
@@ -43,18 +43,6 @@ namespace UnitySteer.RVO
                 vertices = new List<Vector2>();
             }
             vertices.Clear();
-        }
-
-        public void OnDrawGizmos()
-        {
-            //List<RVOObstacle> obstacles = RVOController.Instance.RVOObstacles;
-
-            //foreach(RVOObstacle obstacle in obstacles)
-            //{
-
-            //    Gizmos.color = Color.green;
-            //    Gizmos.DrawSphere(new Vector3(obstacle.point_.x, 0, obstacle.point_.y), 1);                                    
-            //}
         }
 
         public void OnDestroy()

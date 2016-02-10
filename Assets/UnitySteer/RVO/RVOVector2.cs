@@ -61,10 +61,11 @@ namespace UnitySteer.RVO
     /**
      * <summary>Defines a two-dimensional vector.</summary>
      */
+    [Serializable]
     public struct Vector2
     {
-        internal float x_;
-        internal float y_;
+        public float x;
+        public float y;
 
         /**
          * <summary>Constructs and initializes a two-dimensional vector from the
@@ -77,8 +78,8 @@ namespace UnitySteer.RVO
          */
         public Vector2(float x, float y)
         {
-            x_ = x;
-            y_ = y;
+            this.x = x;
+            this.y = y;
         }
 
         /**
@@ -88,31 +89,10 @@ namespace UnitySteer.RVO
          */
         public override string ToString()
         {
-            return "(" + x_.ToString(new CultureInfo("").NumberFormat) + "," + y_.ToString(new CultureInfo("").NumberFormat) + ")";
+            return "(" + x.ToString(new CultureInfo("").NumberFormat) + "," + y.ToString(new CultureInfo("").NumberFormat) + ")";
         }
 
-        /**
-         * <summary>Returns the x-coordinate of this two-dimensional vector.
-         * </summary>
-         *
-         * <returns>The x-coordinate of the two-dimensional vector.</returns>
-         */
-        public float x()
-        {
-            return x_;
-        }
-
-        /**
-         * <summary>Returns the y-coordinate of this two-dimensional vector.
-         * </summary>
-         *
-         * <returns>The y-coordinate of the two-dimensional vector.</returns>
-         */
-        public float y()
-        {
-            return y_;
-        }
-
+        
         /**
          * <summary>Computes the dot product of the two specified
          * two-dimensional vectors.</summary>
@@ -125,7 +105,7 @@ namespace UnitySteer.RVO
          */
         public static float operator *(Vector2 vector1, Vector2 vector2)
         {
-            return vector1.x_ * vector2.x_ + vector1.y_ * vector2.y_;
+            return vector1.x * vector2.x + vector1.y * vector2.y;
         }
 
         /**
@@ -155,7 +135,7 @@ namespace UnitySteer.RVO
          */
         public static Vector2 operator *(Vector2 vector, float scalar)
         {
-            return new Vector2(vector.x_ * scalar, vector.y_ * scalar);
+            return new Vector2(vector.x * scalar, vector.y * scalar);
         }
 
         /**
@@ -170,7 +150,7 @@ namespace UnitySteer.RVO
          */
         public static Vector2 operator /(Vector2 vector, float scalar)
         {
-            return new Vector2(vector.x_ / scalar, vector.y_ / scalar);
+            return new Vector2(vector.x / scalar, vector.y / scalar);
         }
 
         /**
@@ -185,7 +165,7 @@ namespace UnitySteer.RVO
          */
         public static Vector2 operator +(Vector2 vector1, Vector2 vector2)
         {
-            return new Vector2(vector1.x_ + vector2.x_, vector1.y_ + vector2.y_);
+            return new Vector2(vector1.x + vector2.x, vector1.y + vector2.y);
         }
 
         /**
@@ -200,7 +180,7 @@ namespace UnitySteer.RVO
          */
         public static Vector2 operator -(Vector2 vector1, Vector2 vector2)
         {
-            return new Vector2(vector1.x_ - vector2.x_, vector1.y_ - vector2.y_);
+            return new Vector2(vector1.x - vector2.x, vector1.y - vector2.y);
         }
 
         /**
@@ -214,7 +194,7 @@ namespace UnitySteer.RVO
          */
         public static Vector2 operator -(Vector2 vector)
         {
-            return new Vector2(-vector.x_, -vector.y_);
+            return new Vector2(-vector.x, -vector.y);
         }
     }
 }

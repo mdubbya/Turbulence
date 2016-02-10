@@ -124,7 +124,7 @@ namespace UnitySteer.RVO
          */
         internal static float det(Vector2 vector1, Vector2 vector2)
         {
-            return vector1.x_ * vector2.y_ - vector1.y_ * vector2.x_;
+            return vector1.x * vector2.y - vector1.y * vector2.x;
         }
 
         /**
