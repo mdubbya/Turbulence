@@ -1,5 +1,5 @@
 ﻿/*
- * Obstacle.cs
+ * Line.cs
  * RVO2 Library C#
  *
  * Copyright (c) 2008-2015 University of North Carolina at Chapel Hill.
@@ -52,22 +52,15 @@
  *
  * <http://gamma.cs.unc.edu/RVO2/>
  */
-
-using UnityEngine;
-
-namespace RVO
+ 
+namespace UnitySteer.RVO
 {
     /**
-     * <summary>Defines static obstacles in the simulation.</summary>
+     * <summary>Defines a directed line.</summary>
      */
-    internal class Obstacle
+    public struct Line
     {
-
-        internal Obstacle next_;
-        internal Obstacle previous_;
-        internal Vector2 direction_;
-        internal Vector2 point_;
-        internal int id_;
-        internal bool convex_;
+        public Vector2 direction;
+        public Vector2 point;
     }
 }

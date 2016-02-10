@@ -56,7 +56,7 @@
 using System;
 using System.Globalization;
 
-namespace RVO
+namespace UnitySteer.RVO
 {
     /**
      * <summary>Defines a two-dimensional vector.</summary>

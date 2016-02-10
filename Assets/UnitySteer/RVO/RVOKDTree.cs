@@ -55,14 +55,16 @@
 
 using System.Collections.Generic;
 using System;
+using UnitySteer.Behaviors;
 
-namespace RVO
+
+namespace UnitySteer.RVO
 {
     /**
      * <summary>Defines k-D trees for agents and static obstacles in the
      * simulation.</summary>
      */
-    internal class KdTree
+    public class KdTree
     {
         /**
          * <summary>Defines a node of an agent k-D tree.</summary>

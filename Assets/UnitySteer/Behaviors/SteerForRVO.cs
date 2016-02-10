@@ -55,17 +55,16 @@
 
 using System;
 using System.Collections.Generic;
-using UnityEngine;
-using UnitySteer.Behaviors;
+using UnitySteer.RVO;
 
-namespace RVO
+namespace UnitySteer.Behaviors
 {
     /**
      * <summary>Defines an agent in the simulation.</summary>
      */
-    internal class SteerForRVO : Steering
+    public class SteerForRVO : Steering
     {
-        public GameObject target;
+        public UnityEngine.GameObject target;
         internal IList<KeyValuePair<float, SteerForRVO>> agentNeighbors_ = new List<KeyValuePair<float, SteerForRVO>>();
         internal IList<KeyValuePair<float, Obstacle>> obstacleNeighbors_ = new List<KeyValuePair<float, Obstacle>>();
         internal IList<Line> orcaLines_ = new List<Line>();
@@ -758,7 +757,7 @@ namespace RVO
             RVOController.Instance.AddRVOAgent(this);
         }
 
-        protected override Vector3 CalculateForce()
+        protected override UnityEngine.Vector3 CalculateForce()
         {
             
             maxNeighbors_ = RVOController.Instance.defaultAgent.maxNeighbors_;
@@ -770,11 +769,11 @@ namespace RVO
             timeHorizonObst_ = RVOController.Instance.defaultAgent.timeHorizonObst_;
             velocity_ = new Vector2(Vehicle.Velocity.x, Vehicle.Velocity.z);
             prefVelocity_ = RVOMath.normalize((new Vector2(target.transform.position.x,target.transform.position.z) -position_));
-            Debug.DrawRay(new Vector3(position_.x(),0,position_.y()), new Vector3(newVelocity_.x(), 0, newVelocity_.y()), Color.magenta, 0.2f);
+            UnityEngine.Debug.DrawRay(new UnityEngine.Vector3(position_.x(),0,position_.y()), new UnityEngine.Vector3(newVelocity_.x(), 0, newVelocity_.y()), UnityEngine.Color.magenta, 0.2f);
             RVOController.Instance.RebuildKDTree();
             computeNeighbors();
             computeNewVelocity();
-            return new Vector3(newVelocity_.x(), 0, newVelocity_.y());
+            return new UnityEngine.Vector3(newVelocity_.x(), 0, newVelocity_.y());
         }
     }
 }

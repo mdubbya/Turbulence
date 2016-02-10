@@ -55,7 +55,7 @@
 
 using System;
 
-namespace RVO
+namespace UnitySteer.RVO
 {
     /**
      * <summary>Contains functions and constants used in multiple classes.

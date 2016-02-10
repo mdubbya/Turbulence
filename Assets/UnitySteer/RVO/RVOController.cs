@@ -1,9 +1,7 @@
 ﻿using System.Collections.Generic;
-using UnityEngine;
 using UnitySteer.Behaviors;
-using RVO;
 
-namespace RVO
+namespace UnitySteer.RVO
 {
     class RVOController : Singleton<RVOController>
     {
