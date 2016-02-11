@@ -10,39 +10,64 @@ namespace UnitySteer.RVO
     public class RVOObstacleBoundary : MonoBehaviour
     {
         [SerializeField]
-        public List<Vector2> vertices;
+        public List<GameObject> points;
         private int id = -1;
 
         public void Awake()
         {
-            id = RVOController.Instance.AddRVOObstacle(vertices);
+            if (points != null)
+            {
+                List<Vector2> vertices = (from p in points select new Vector2(p.transform.position.x, p.transform.position.y)).ToList();
+                if (vertices != null)
+                {
+                    id = RVOController.Instance.AddRVOObstacle(vertices);
+                }
+            }
         }
 
-        public void AddPoint(Vector2 point)
+        public void AddPoint(Vector3 point)
         {
-            if(vertices== null)
+            if(points== null)
             {
-                vertices = new List<Vector2>();
+                points = new List<GameObject>();
             }
-            vertices.Add(point);      
+            GameObject newPoint = new GameObject();
+            newPoint.transform.position = point;
+            newPoint.transform.parent = transform;
+            points.Add( newPoint);      
         }
 
-        public void RemovePoint(Vector2 point)
+        public void RemovePoint(GameObject point)
         {
-            if(vertices==null)
+            if(points==null)
             {
-                vertices = new List<Vector2>();
+                points = new List<GameObject>();
             }
-            vertices.Remove(point);
+            points.Remove(point);
         }
 
         public void ClearPoints()
         {
-            if(vertices == null)
+
+            if (points == null)
             {
-                vertices = new List<Vector2>();
+                points = new List<GameObject>();
             }
-            vertices.Clear();
+            if (Application.isEditor)
+            {
+                foreach (var p in points)
+                {
+                    DestroyImmediate(p);
+                }
+            }
+            else
+            {
+                foreach(var p in points)
+                {
+                    Destroy(p);
+                }
+            }
+            points.Clear();
         }
 
         public void OnDestroy()
