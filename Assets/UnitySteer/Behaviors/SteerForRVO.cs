@@ -759,21 +759,27 @@ namespace UnitySteer.Behaviors
 
         protected override UnityEngine.Vector3 CalculateForce()
         {
-            
-            maxNeighbors_ = RVOController.Instance.defaultAgent.maxNeighbors_;
-            maxSpeed_ = RVOController.Instance.defaultAgent.maxSpeed_;
-            neighborDist_ = RVOController.Instance.defaultAgent.neighborDist_;
-            position_ = new Vector2(Vehicle.Position.x,Vehicle.Position.z);
-            radius_ = RVOController.Instance.defaultAgent.radius_;
-            timeHorizon_ = RVOController.Instance.defaultAgent.timeHorizon_;
-            timeHorizonObst_ = RVOController.Instance.defaultAgent.timeHorizonObst_;
-            velocity_ = new Vector2(Vehicle.Velocity.x, Vehicle.Velocity.z);
-            prefVelocity_ = RVOMath.normalize((new Vector2(target.transform.position.x,target.transform.position.z) -position_));
-            UnityEngine.Debug.DrawRay(new UnityEngine.Vector3(position_.x,0,position_.y), new UnityEngine.Vector3(newVelocity_.x, 0, newVelocity_.y), UnityEngine.Color.magenta, 0.2f);
-            RVOController.Instance.RebuildKDTree();
-            computeNeighbors();
-            computeNewVelocity();
-            return new UnityEngine.Vector3(newVelocity_.x, 0, newVelocity_.y);
+            if (target != null)
+            {
+                maxNeighbors_ = RVOController.Instance.defaultAgent.maxNeighbors_;
+                maxSpeed_ = RVOController.Instance.defaultAgent.maxSpeed_;
+                neighborDist_ = RVOController.Instance.defaultAgent.neighborDist_;
+                position_ = new Vector2(Vehicle.Position.x, Vehicle.Position.z);
+                radius_ = RVOController.Instance.defaultAgent.radius_;
+                timeHorizon_ = RVOController.Instance.defaultAgent.timeHorizon_;
+                timeHorizonObst_ = RVOController.Instance.defaultAgent.timeHorizonObst_;
+                velocity_ = new Vector2(Vehicle.Velocity.x, Vehicle.Velocity.z);
+                prefVelocity_ = RVOMath.normalize((new Vector2(target.transform.position.x, target.transform.position.z) - position_));
+                UnityEngine.Debug.DrawRay(new UnityEngine.Vector3(position_.x, 0, position_.y), new UnityEngine.Vector3(newVelocity_.x, 0, newVelocity_.y), UnityEngine.Color.magenta, 0.2f);
+                RVOController.Instance.RebuildKDTree();
+                computeNeighbors();
+                computeNewVelocity();
+                return new UnityEngine.Vector3(newVelocity_.x, 0, newVelocity_.y);
+            }
+            else
+            {
+                return new UnityEngine.Vector3();
+            }
         }
     }
 }

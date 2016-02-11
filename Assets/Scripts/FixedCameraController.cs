@@ -6,8 +6,6 @@ public class FixedCameraController : MonoBehaviour
 {
 	public GameObject objectToFollow;
 	private Vector3 _startPosition;
-	public delegate void targetObjectDestroyedType();
-	public targetObjectDestroyedType targetObjectDestroyed;
 
 
 	public void Start()
@@ -24,10 +22,6 @@ public class FixedCameraController : MonoBehaviour
 			transform.position = new Vector3 (objectToFollow.transform.position.x + _startPosition.x,
 			                                  transform.position.y,
 			                                  objectToFollow.transform.position.z+_startPosition.z);
-		}
-		else
-		{
-			targetObjectDestroyed();
 		}
 	}
 }
