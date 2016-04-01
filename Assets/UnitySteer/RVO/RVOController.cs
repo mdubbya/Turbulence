@@ -7,7 +7,7 @@ namespace UnitySteer.RVO
     {
 
         public KdTree KDTree = new RVO.KdTree();
-        public List<SteerForRVO> RVOAgents = new List<SteerForRVO>();
+        public List<RVOVehicle> RVOAgents = new List<RVOVehicle>();
         public List<RVO.Obstacle> obstacles_ = new List<RVO.Obstacle>();
 
         public int defaultAgentMaxNeighbors;
@@ -18,11 +18,11 @@ namespace UnitySteer.RVO
         public float defaultAgentTimeHorizonObst;
         public Vector2 defaultAgentVelocity;
 
-        public SteerForRVO defaultAgent;
+        public RVOVehicle defaultAgent;
 
         public void Awake()
         {
-            defaultAgent = new SteerForRVO();
+            defaultAgent = new RVOVehicle();
             defaultAgent.maxNeighbors_ = defaultAgentMaxNeighbors;
             defaultAgent.maxSpeed_ = defaultAgentMaxSpeed;
             defaultAgent.neighborDist_ = defaultAgentNeighborDist;
@@ -32,7 +32,7 @@ namespace UnitySteer.RVO
             defaultAgent.velocity_ = defaultAgentVelocity;
         }
 
-        public void AddRVOAgent(SteerForRVO agent)
+        public void AddRVOAgent(RVOVehicle agent)
         {
             if (!RVOAgents.Contains(agent))
             {

@@ -179,7 +179,7 @@ namespace UnitySteer.RVO
          */
         private const int MAX_LEAF_SIZE = 10;
 
-        private SteerForRVO[] agents_;
+        private RVOVehicle[] agents_;
         private AgentTreeNode[] agentTree_;
         private ObstacleTreeNode obstacleTree_;
 
@@ -190,7 +190,7 @@ namespace UnitySteer.RVO
         {
             if (agents_ == null || agents_.Length != RVOController.Instance.RVOAgents.Count)
             {
-                agents_ = new SteerForRVO[RVOController.Instance.RVOAgents.Count];
+                agents_ = new RVOVehicle[RVOController.Instance.RVOAgents.Count];
 
                 for (int i = 0; i < agents_.Length; ++i)
                 {
@@ -236,7 +236,7 @@ namespace UnitySteer.RVO
          * computed.</param>
          * <param name="rangeSq">The squared range around the agent.</param>
          */
-        internal void computeAgentNeighbors(SteerForRVO agent, ref float rangeSq)
+        internal void computeAgentNeighbors(RVOVehicle agent, ref float rangeSq)
         {
             queryAgentTreeRecursive(agent, ref rangeSq, 0);
         }
@@ -249,7 +249,7 @@ namespace UnitySteer.RVO
          * computed.</param>
          * <param name="rangeSq">The squared range around the agent.</param>
          */
-        internal void computeObstacleNeighbors(SteerForRVO agent, float rangeSq)
+        internal void computeObstacleNeighbors(RVOVehicle agent, float rangeSq)
         {
             queryObstacleTreeRecursive(agent, rangeSq, obstacleTree_);
         }
@@ -319,7 +319,7 @@ namespace UnitySteer.RVO
 
                     if (left < right)
                     {
-                        SteerForRVO tempAgent = agents_[left];
+                        RVOVehicle tempAgent = agents_[left];
                         agents_[left] = agents_[right - 1];
                         agents_[right - 1] = tempAgent;
                         ++left;
@@ -510,7 +510,7 @@ namespace UnitySteer.RVO
          * <param name="rangeSq">The squared range around the agent.</param>
          * <param name="node">The current agent k-D tree node index.</param>
          */
-        private void queryAgentTreeRecursive(SteerForRVO agent, ref float rangeSq, int node)
+        private void queryAgentTreeRecursive(RVOVehicle agent, ref float rangeSq, int node)
         {
             if (agentTree_[node].end_ - agentTree_[node].begin_ <= MAX_LEAF_SIZE)
             {
@@ -561,7 +561,7 @@ namespace UnitySteer.RVO
          * <param name="rangeSq">The squared range around the agent.</param>
          * <param name="node">The current obstacle k-D node.</param>
          */
-        private void queryObstacleTreeRecursive(SteerForRVO agent, float rangeSq, ObstacleTreeNode node)
+        private void queryObstacleTreeRecursive(RVOVehicle agent, float rangeSq, ObstacleTreeNode node)
         {
             if (node != null)
             {
