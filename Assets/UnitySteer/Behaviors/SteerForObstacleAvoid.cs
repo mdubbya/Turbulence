@@ -15,7 +15,6 @@ namespace UnitySteer.Behaviors
             float dynamicLength = Vehicle.Velocity.magnitude / maxVelocity;
             Vector3 ahead = Vehicle.Position + Vehicle.Velocity.normalized * dynamicLength;
             ahead = Vehicle.Position + Vehicle.Velocity.normalized * maxSeeAheadDistance;
-            Vector3 ahead2 = Vehicle.Position + Vehicle.Velocity.normalized * maxSeeAheadDistance * 0.5f;
 
             GameObject mostThreatening = findMostThreateningObstacle();
             Vector3 avoidance = new Vector3(0, 0, 0);

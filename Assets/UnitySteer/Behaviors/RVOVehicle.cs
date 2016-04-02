@@ -63,7 +63,7 @@ namespace UnitySteer.Behaviors
     /**
      * <summary>Defines an agent in the simulation.</summary>
      */
-    public class RVOVehicle : TickedVehicle
+    public class RVOVehicle : AutonomousVehicle
     {
         internal IList<KeyValuePair<float, RVOVehicle>> agentNeighbors_ = new List<KeyValuePair<float, RVOVehicle>>();
         internal IList<KeyValuePair<float, Obstacle>> obstacleNeighbors_ = new List<KeyValuePair<float, Obstacle>>();
@@ -87,17 +87,19 @@ namespace UnitySteer.Behaviors
          */
         internal void computeNeighbors()
         {
-            obstacleNeighbors_.Clear();
-            float rangeSq = Mathf.Pow((timeHorizonObst_ * maxSpeed_ + radius_),2);
+            //obstacleNeighbors_.Clear();
+            //float rangeSq = Mathf.Pow((timeHorizonObst_ * maxSpeed_ + radius_),2);
 
-            RVOController.Instance.KDTree.computeObstacleNeighbors(this, rangeSq);
-
+            //RVOController.Instance.KDTree.computeObstacleNeighbors(this, rangeSq);
+            
             agentNeighbors_.Clear();
-
-            if (maxNeighbors_ > 0)
+            foreach(Vehicle vehicle in Radar.Vehicles)
             {
-                rangeSq = Mathf.Pow((neighborDist_), 2);
-                RVOController.Instance.KDTree.computeAgentNeighbors(this, ref rangeSq);
+                RVOVehicle vehicleAsRVOVehicle = vehicle as RVOVehicle;
+                if (vehicleAsRVOVehicle != null)
+                {
+                    agentNeighbors_.Add(new KeyValuePair<float, RVOVehicle>(Mathf.Pow((neighborDist_), 2), vehicleAsRVOVehicle));
+                }
             }
         }
 
@@ -372,7 +374,11 @@ namespace UnitySteer.Behaviors
             for (int i = 0; i < agentNeighbors_.Count; ++i)
             {
                 RVOVehicle other = agentNeighbors_[i].Value;
-
+                if(other==null)
+                {
+                    var stuff = true;
+                    var ohno = true;
+                }
                 Vector2 relativePosition = other.position_ - position_;
                 Vector2 relativeVelocity = velocity_ - other.velocity_;
                 float distSq = (relativePosition).sqrMagnitude;
@@ -779,56 +785,10 @@ namespace UnitySteer.Behaviors
             
         }
 
-
-        //Overriding ticked vehicle methods
-
-        #region Internal state values
-
-        private float _speed;
-
-        #endregion
-
-        /// <summary>
-        /// Acceleration rate - it'll be used as a multiplier for the speed
-        /// at which the velocity is interpolated when accelerating. A rate
-        /// of 1 means that we interpolate across 1 second; a rate of 5 means
-        /// we do it five times as fast.
-        /// </summary>
-        [UnityEngine.SerializeField]
-        private float _accelerationRate = 5;
-
-        /// <summary>
-        /// Deceleration rate - it'll be used as a multiplier for the speed
-        /// at which the velocity is interpolated when decelerating. A rate
-        /// of 1 means that we interpolate across 1 second; a rate of 5 means
-        /// we do it five times as fast.
-        /// </summary>
-        [UnityEngine.SerializeField]
-        private float _decelerationRate = 8;
-
-
-        /// <summary>
-        /// Current vehicle speed
-        /// </summary>
-        public override float Speed
-        {
-            get { return _speed; }
-        }
-
-        /// <summary>
-        /// Current vehicle velocity
-        /// </summary>
-        public override UnityEngine.Vector3 Velocity
-        {
-            get { return Transform.forward * Speed; }
-            protected set { throw new NotSupportedException("Cannot set the velocity directly on AutonomousVehicle"); }
-        }
-
-        #region Speed-related methods
-
         /// <summary>
         /// Uses a desired velocity vector to adjust the vehicle's target speed and 
-        /// orientation velocity.
+        /// orientation velocity.  Overrides AutonomousVehicle.SetCalculatedVelocity
+        /// in order to apply RVO transformations to final velocity.
         /// </summary>
         /// <param name="velocity">Newly calculated velocity</param>
         protected override void SetCalculatedVelocity(UnityEngine.Vector3 velocity)
@@ -837,42 +797,6 @@ namespace UnitySteer.Behaviors
             TargetSpeed = velocity.magnitude;
             OrientationVelocity = UnityEngine.Mathf.Approximately(_speed, 0) ? Transform.forward : adjustedVelocity / TargetSpeed;
         }
-
-        /// <summary>
-        /// Calculates how much the agent's position should change in a manner that
-        /// is specific to the vehicle's implementation.
-        /// </summary>
-        /// <param name="deltaTime">Time delta to use in position calculations</param>
-        protected override UnityEngine.Vector3 CalculatePositionDelta(float deltaTime)
-        {
-            /*
-		 * Notice that we clamp the target speed and not the speed itself, 
-		 * because the vehicle's maximum speed might just have been lowered
-		 * and we don't want its actual speed to suddenly drop.
-		 */
-            var targetSpeed = UnityEngine.Mathf.Clamp(TargetSpeed, 0, MaxSpeed);
-            if (UnityEngine.Mathf.Approximately(_speed, targetSpeed))
-            {
-                _speed = targetSpeed;
-            }
-            else
-            {
-                var rate = TargetSpeed > _speed ? _accelerationRate : _decelerationRate;
-                _speed = UnityEngine.Mathf.Lerp(_speed, targetSpeed, deltaTime * rate);
-            }
-
-            return Velocity * deltaTime;
-        }
-
-        /// <summary>
-        /// Zeros this vehicle's target speed, which results on its desired velocity
-        /// being zero.
-        /// </summary>
-        protected override void ZeroVelocity()
-        {
-            TargetSpeed = 0;
-        }
-
-        #endregion
+        
     }
 }

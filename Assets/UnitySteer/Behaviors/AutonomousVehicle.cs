@@ -14,7 +14,7 @@ namespace UnitySteer.Behaviors
     {
         #region Internal state values
 
-        private float _speed;
+        protected float _speed;
 
         #endregion
 
