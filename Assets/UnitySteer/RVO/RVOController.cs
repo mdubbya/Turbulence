@@ -75,7 +75,7 @@ namespace UnitySteer.RVO
                     obstacle.next_.previous_ = obstacle;
                 }
 
-                obstacle.direction_ = RVOMath.normalize(vertices[(i == vertices.Count - 1 ? 0 : i + 1)] - vertices[i]);
+                obstacle.direction_ = (vertices[(i == vertices.Count - 1 ? 0 : i + 1)] - vertices[i]).normalized;
 
                 if (vertices.Count == 2)
                 {

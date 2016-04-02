@@ -88,14 +88,15 @@ namespace UnitySteer.Behaviors
         internal void computeNeighbors()
         {
             obstacleNeighbors_.Clear();
-            float rangeSq = RVOMath.sqr(timeHorizonObst_ * maxSpeed_ + radius_);
+            float rangeSq = Mathf.Pow((timeHorizonObst_ * maxSpeed_ + radius_),2);
+
             RVOController.Instance.KDTree.computeObstacleNeighbors(this, rangeSq);
 
             agentNeighbors_.Clear();
 
             if (maxNeighbors_ > 0)
             {
-                rangeSq = RVOMath.sqr(neighborDist_);
+                rangeSq = Mathf.Pow((neighborDist_), 2);
                 RVOController.Instance.KDTree.computeAgentNeighbors(this, ref rangeSq);
             }
         }
@@ -127,7 +128,7 @@ namespace UnitySteer.Behaviors
 
                 for (int j = 0; j < orcaLines_.Count; ++j)
                 {
-                    if (RVOMath.det(invTimeHorizonObst * relativePosition1 - orcaLines_[j].point, orcaLines_[j].direction) - invTimeHorizonObst * radius_ >= -RVOMath.RVO_EPSILON && RVOMath.det(invTimeHorizonObst * relativePosition2 - orcaLines_[j].point, orcaLines_[j].direction) - invTimeHorizonObst * radius_ >= -RVOMath.RVO_EPSILON)
+                    if (RVOMath.det(invTimeHorizonObst * relativePosition1 - orcaLines_[j].point, orcaLines_[j].direction) - invTimeHorizonObst * radius_ >= -Single.Epsilon && RVOMath.det(invTimeHorizonObst * relativePosition2 - orcaLines_[j].point, orcaLines_[j].direction) - invTimeHorizonObst * radius_ >= -Single.Epsilon)
                     {
                         alreadyCovered = true;
 
@@ -141,14 +142,14 @@ namespace UnitySteer.Behaviors
                 }
 
                 /* Not yet covered. Check for collisions. */
-                float distSq1 = RVOMath.absSq(relativePosition1);
-                float distSq2 = RVOMath.absSq(relativePosition2);
+                float distSq1 = (relativePosition1).sqrMagnitude;
+                float distSq2 = (relativePosition2).sqrMagnitude;
 
-                float radiusSq = RVOMath.sqr(radius_);
+                float radiusSq = Mathf.Pow((radius_), 2);
 
                 Vector2 obstacleVector = obstacle2.point_ - obstacle1.point_;
-                float s = (Vector2.Dot(-relativePosition1 , obstacleVector)) / RVOMath.absSq(obstacleVector);
-                float distSqLine = RVOMath.absSq(-relativePosition1 - s * obstacleVector);
+                float s = (Vector2.Dot(-relativePosition1 , obstacleVector)) / (obstacleVector).sqrMagnitude;
+                float distSqLine = (-relativePosition1 - s * obstacleVector).sqrMagnitude;
 
                 Line line;
 
@@ -158,7 +159,7 @@ namespace UnitySteer.Behaviors
                     if (obstacle1.convex_)
                     {
                         line.point = new Vector2(0.0f, 0.0f);
-                        line.direction = RVOMath.normalize(new Vector2(-relativePosition1.y, relativePosition1.x));
+                        line.direction = (new Vector2(-relativePosition1.y, relativePosition1.x)).normalized;
                         orcaLines_.Add(line);
                     }
 
@@ -173,7 +174,7 @@ namespace UnitySteer.Behaviors
                     if (obstacle2.convex_ && RVOMath.det(relativePosition2, obstacle2.direction_) >= 0.0f)
                     {
                         line.point = new Vector2(0.0f, 0.0f);
-                        line.direction = RVOMath.normalize(new Vector2(-relativePosition2.y, relativePosition2.x));
+                        line.direction = (new Vector2(-relativePosition2.y, relativePosition2.x)).normalized;
                         orcaLines_.Add(line);
                     }
 
@@ -210,8 +211,8 @@ namespace UnitySteer.Behaviors
                     }
 
                     obstacle2 = obstacle1;
-
-                    float leg1 = RVOMath.sqrt(distSq1 - radiusSq);
+                    
+                    float leg1 = Mathf.Sqrt(distSq1 - radiusSq);
                     leftLegDirection = new Vector2(relativePosition1.x * leg1 - relativePosition1.y * radius_, relativePosition1.x * radius_ + relativePosition1.y * leg1) / distSq1;
                     rightLegDirection = new Vector2(relativePosition1.x * leg1 + relativePosition1.y * radius_, -relativePosition1.x * radius_ + relativePosition1.y * leg1) / distSq1;
                 }
@@ -229,7 +230,7 @@ namespace UnitySteer.Behaviors
 
                     obstacle1 = obstacle2;
 
-                    float leg2 = RVOMath.sqrt(distSq2 - radiusSq);
+                    float leg2 = Mathf.Sqrt(distSq2 - radiusSq);
                     leftLegDirection = new Vector2(relativePosition2.x * leg2 - relativePosition2.y * radius_, relativePosition2.x * radius_ + relativePosition2.y * leg2) / distSq2;
                     rightLegDirection = new Vector2(relativePosition2.x * leg2 + relativePosition2.y * radius_, -relativePosition2.x * radius_ + relativePosition2.y * leg2) / distSq2;
                 }
@@ -238,7 +239,7 @@ namespace UnitySteer.Behaviors
                     /* Usual situation. */
                     if (obstacle1.convex_)
                     {
-                        float leg1 = RVOMath.sqrt(distSq1 - radiusSq);
+                        float leg1 = Mathf.Sqrt(distSq1 - radiusSq);
                         leftLegDirection = new Vector2(relativePosition1.x * leg1 - relativePosition1.y * radius_, relativePosition1.x * radius_ + relativePosition1.y * leg1) / distSq1;
                     }
                     else
@@ -249,7 +250,7 @@ namespace UnitySteer.Behaviors
 
                     if (obstacle2.convex_)
                     {
-                        float leg2 = RVOMath.sqrt(distSq2 - radiusSq);
+                        float leg2 = Mathf.Sqrt(distSq2 - radiusSq);
                         rightLegDirection = new Vector2(relativePosition2.x * leg2 + relativePosition2.y * radius_, -relativePosition2.x * radius_ + relativePosition2.y * leg2) / distSq2;
                     }
                     else
@@ -292,14 +293,14 @@ namespace UnitySteer.Behaviors
                 /* Project current velocity on velocity obstacle. */
 
                 /* Check if current velocity is projected on cutoff circles. */
-                float t = obstacle1 == obstacle2 ? 0.5f : (Vector2.Dot((velocity_ - leftCutOff) , cutOffVector)) / RVOMath.absSq(cutOffVector);
+                float t = obstacle1 == obstacle2 ? 0.5f : (Vector2.Dot((velocity_ - leftCutOff) , cutOffVector)) / (cutOffVector).sqrMagnitude;
                 float tLeft = Vector2.Dot((velocity_ - leftCutOff) , leftLegDirection);
                 float tRight = Vector2.Dot((velocity_ - rightCutOff) , rightLegDirection);
 
                 if ((t < 0.0f && tLeft < 0.0f) || (obstacle1 == obstacle2 && tLeft < 0.0f && tRight < 0.0f))
                 {
                     /* Project on left cut-off circle. */
-                    Vector2 unitW = RVOMath.normalize(velocity_ - leftCutOff);
+                    Vector2 unitW = (velocity_ - leftCutOff).normalized;
 
                     line.direction = new Vector2(unitW.y, -unitW.x);
                     line.point = leftCutOff + radius_ * invTimeHorizonObst * unitW;
@@ -310,7 +311,7 @@ namespace UnitySteer.Behaviors
                 else if (t > 1.0f && tRight < 0.0f)
                 {
                     /* Project on right cut-off circle. */
-                    Vector2 unitW = RVOMath.normalize(velocity_ - rightCutOff);
+                    Vector2 unitW = (velocity_ - rightCutOff).normalized;
 
                     line.direction = new Vector2(unitW.y, -unitW.x);
                     line.point = rightCutOff + radius_ * invTimeHorizonObst * unitW;
@@ -323,9 +324,9 @@ namespace UnitySteer.Behaviors
                  * Project on left leg, right leg, or cut-off line, whichever is
                  * closest to velocity.
                  */
-                float distSqCutoff = (t < 0.0f || t > 1.0f || obstacle1 == obstacle2) ? float.PositiveInfinity : RVOMath.absSq(velocity_ - (leftCutOff + t * cutOffVector));
-                float distSqLeft = tLeft < 0.0f ? float.PositiveInfinity : RVOMath.absSq(velocity_ - (leftCutOff + tLeft * leftLegDirection));
-                float distSqRight = tRight < 0.0f ? float.PositiveInfinity : RVOMath.absSq(velocity_ - (rightCutOff + tRight * rightLegDirection));
+                float distSqCutoff = (t < 0.0f || t > 1.0f || obstacle1 == obstacle2) ? float.PositiveInfinity : (velocity_ - (leftCutOff + t * cutOffVector)).sqrMagnitude;
+                float distSqLeft = tLeft < 0.0f ? float.PositiveInfinity : (velocity_ - (leftCutOff + tLeft * leftLegDirection)).sqrMagnitude;
+                float distSqRight = tRight < 0.0f ? float.PositiveInfinity : (velocity_ - (rightCutOff + tRight * rightLegDirection)).sqrMagnitude;
 
                 if (distSqCutoff <= distSqLeft && distSqCutoff <= distSqRight)
                 {
@@ -374,9 +375,9 @@ namespace UnitySteer.Behaviors
 
                 Vector2 relativePosition = other.position_ - position_;
                 Vector2 relativeVelocity = velocity_ - other.velocity_;
-                float distSq = RVOMath.absSq(relativePosition);
+                float distSq = (relativePosition).sqrMagnitude;
                 float combinedRadius = radius_ + other.radius_;
-                float combinedRadiusSq = RVOMath.sqr(combinedRadius);
+                float combinedRadiusSq = Mathf.Pow((combinedRadius), 2);
 
                 Line line;
                 Vector2 u;
@@ -387,13 +388,13 @@ namespace UnitySteer.Behaviors
                     Vector2 w = relativeVelocity - invTimeHorizon * relativePosition;
 
                     /* Vector from cutoff center to relative velocity. */
-                    float wLengthSq = RVOMath.absSq(w);
+                    float wLengthSq =  w.sqrMagnitude;
                     float dotProduct1 = Vector2.Dot(w , relativePosition);
 
-                    if (dotProduct1 < 0.0f && RVOMath.sqr(dotProduct1) > combinedRadiusSq * wLengthSq)
+                    if (dotProduct1 < 0.0f && Mathf.Pow((dotProduct1), 2) > combinedRadiusSq * wLengthSq)
                     {
                         /* Project on cut-off circle. */
-                        float wLength = RVOMath.sqrt(wLengthSq);
+                        float wLength = Mathf.Sqrt(wLengthSq);
                         Vector2 unitW = w / wLength;
 
                         line.direction = new Vector2(unitW.y, -unitW.x);
@@ -402,7 +403,7 @@ namespace UnitySteer.Behaviors
                     else
                     {
                         /* Project on legs. */
-                        float leg = RVOMath.sqrt(distSq - combinedRadiusSq);
+                        float leg = Mathf.Sqrt(distSq - combinedRadiusSq);
 
                         if (RVOMath.det(relativePosition, w) > 0.0f)
                         {
@@ -427,7 +428,7 @@ namespace UnitySteer.Behaviors
                     /* Vector from cutoff center to relative velocity. */
                     Vector2 w = relativeVelocity - invTimeStep * relativePosition;
 
-                    float wLength = RVOMath.abs(w);
+                    float wLength = w.magnitude;
                     Vector2 unitW = w / wLength;
 
                     line.direction = new Vector2(unitW.y, -unitW.x);
@@ -457,7 +458,7 @@ namespace UnitySteer.Behaviors
         {
             if (this != agent)
             {
-                float distSq = RVOMath.absSq(position_ - agent.position_);
+                float distSq = (position_ - agent.position_).sqrMagnitude;
 
                 if (distSq < rangeSq)
                 {
@@ -542,7 +543,7 @@ namespace UnitySteer.Behaviors
         private bool linearProgram1(IList<Line> lines, int lineNo, float radius, Vector2 optVelocity, bool directionOpt, ref Vector2 result)
         {
             float dotProduct = Vector2.Dot(lines[lineNo].point , lines[lineNo].direction);
-            float discriminant = RVOMath.sqr(dotProduct) + RVOMath.sqr(radius) - RVOMath.absSq(lines[lineNo].point);
+            float discriminant = Mathf.Pow((dotProduct), 2) + Mathf.Pow((radius), 2) - (lines[lineNo].point).sqrMagnitude;
 
             if (discriminant < 0.0f)
             {
@@ -550,7 +551,7 @@ namespace UnitySteer.Behaviors
                 return false;
             }
 
-            float sqrtDiscriminant = RVOMath.sqrt(discriminant);
+            float sqrtDiscriminant = Mathf.Sqrt(discriminant);
             float tLeft = -dotProduct - sqrtDiscriminant;
             float tRight = -dotProduct + sqrtDiscriminant;
 
@@ -559,7 +560,7 @@ namespace UnitySteer.Behaviors
                 float denominator = RVOMath.det(lines[lineNo].direction, lines[i].direction);
                 float numerator = RVOMath.det(lines[i].direction, lines[lineNo].point - lines[i].point);
 
-                if (RVOMath.fabs(denominator) <= RVOMath.RVO_EPSILON)
+                if (Math.Abs(denominator) <= Single.Epsilon)
                 {
                     /* Lines lineNo and i are (almost) parallel. */
                     if (numerator < 0.0f)
@@ -650,10 +651,10 @@ namespace UnitySteer.Behaviors
                  */
                 result = optVelocity * radius;
             }
-            else if (RVOMath.absSq(optVelocity) > RVOMath.sqr(radius))
+            else if (optVelocity.sqrMagnitude > Mathf.Pow((radius), 2))
             {
                 /* Optimize closest point and outside circle. */
-                result = RVOMath.normalize(optVelocity) * radius;
+                result = ((optVelocity) * radius).normalized;
             }
             else
             {
@@ -712,7 +713,7 @@ namespace UnitySteer.Behaviors
 
                         float determinant = RVOMath.det(lines[i].direction, lines[j].direction);
 
-                        if (RVOMath.fabs(determinant) <= RVOMath.RVO_EPSILON)
+                        if (Math.Abs(determinant) <= Single.Epsilon)
                         {
                             /* Line i and line j are parallel. */
                             if (Vector2.Dot(lines[i].direction , lines[j].direction) > 0.0f)
@@ -731,7 +732,7 @@ namespace UnitySteer.Behaviors
                             line.point = lines[i].point + (RVOMath.det(lines[j].direction, lines[i].point - lines[j].point) / determinant) * lines[i].direction;
                         }
 
-                        line.direction = RVOMath.normalize(lines[j].direction - lines[i].direction);
+                        line.direction = (lines[j].direction - lines[i].direction).normalized;
                         projLines.Add(line);
                     }
 
@@ -769,7 +770,7 @@ namespace UnitySteer.Behaviors
             timeHorizon_ = RVOController.Instance.defaultAgent.timeHorizon_;
             timeHorizonObst_ = RVOController.Instance.defaultAgent.timeHorizonObst_;
             velocity_ = new Vector2(this.Velocity.x, this.Velocity.z);
-            prefVelocity_ = RVOMath.normalize((new Vector2(oldVector.x, oldVector.z) - position_));
+            prefVelocity_ = ((new Vector2(oldVector.x, oldVector.z) - position_)).normalized;
             UnityEngine.Debug.DrawRay(new UnityEngine.Vector3(position_.x, 0, position_.y), new UnityEngine.Vector3(newVelocity_.x, 0, newVelocity_.y), UnityEngine.Color.magenta, 0.2f);
             RVOController.Instance.RebuildKDTree();
             computeNeighbors();

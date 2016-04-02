@@ -64,52 +64,8 @@ namespace UnitySteer.RVO
      */
     public struct RVOMath
     {
-        /**
-         * <summary>A sufficiently small positive number.</summary>
-         */
-        internal const float RVO_EPSILON = 0.00001f;
-
-        /**
-         * <summary>Computes the length of a specified two-dimensional vector.
-         * </summary>
-         *
-         * <param name="vector">The two-dimensional vector whose length is to be
-         * computed.</param>
-         * <returns>The length of the two-dimensional vector.</returns>
-         */
-        public static float abs(Vector2 vector)
-        {
-            return sqrt(absSq(vector));
-        }
-
-        /**
-         * <summary>Computes the squared length of a specified two-dimensional
-         * vector.</summary>
-         *
-         * <returns>The squared length of the two-dimensional vector.</returns>
-         *
-         * <param name="vector">The two-dimensional vector whose squared length
-         * is to be computed.</param>
-         */
-        public static float absSq(Vector2 vector)
-        {
-            return Vector2.Dot(vector , vector);
-        }
-
-        /**
-         * <summary>Computes the normalization of the specified two-dimensional
-         * vector.</summary>
-         *
-         * <returns>The normalization of the two-dimensional vector.</returns>
-         *
-         * <param name="vector">The two-dimensional vector whose normalization
-         * is to be computed.</param>
-         */
-        public static Vector2 normalize(Vector2 vector)
-        {
-            return vector / abs(vector);
-        }
-
+            
+         
         /**
          * <summary>Computes the determinant of a two-dimensional square matrix
          * with rows consisting of the specified two-dimensional vectors.
@@ -143,33 +99,21 @@ namespace UnitySteer.RVO
          */
         internal static float distSqPointLineSegment(Vector2 vector1, Vector2 vector2, Vector2 vector3)
         {
-            float r = (Vector2.Dot((vector3 - vector1) , (vector2 - vector1))) / absSq(vector2 - vector1);
+            float r = (Vector2.Dot((vector3 - vector1) , (vector2 - vector1))) / (vector2 - vector1).sqrMagnitude;
 
             if (r < 0.0f)
             {
-                return absSq(vector3 - vector1);
+                return (vector3 - vector1).sqrMagnitude;
             }
 
             if (r > 1.0f)
             {
-                return absSq(vector3 - vector2);
+                return (vector3 - vector2).sqrMagnitude;
             }
 
-            return absSq(vector3 - (vector1 + r * (vector2 - vector1)));
+            return (vector3 - (vector1 + r * (vector2 - vector1))).sqrMagnitude;
         }
 
-        /**
-         * <summary>Computes the absolute value of a float.</summary>
-         *
-         * <returns>The absolute value of the float.</returns>
-         *
-         * <param name="scalar">The float of which to compute the absolute
-         * value.</param>
-         */
-        internal static float fabs(float scalar)
-        {
-            return Math.Abs(scalar);
-        }
 
         /**
          * <summary>Computes the signed distance from a line connecting the
@@ -188,29 +132,6 @@ namespace UnitySteer.RVO
             return det(a - c, b - a);
         }
 
-        /**
-         * <summary>Computes the square of a float.</summary>
-         *
-         * <returns>The square of the float.</returns>
-         *
-         * <param name="scalar">The float to be squared.</param>
-         */
-        internal static float sqr(float scalar)
-        {
-            return scalar * scalar;
-        }
-
-        /**
-         * <summary>Computes the square root of a float.</summary>
-         *
-         * <returns>The square root of the float.</returns>
-         *
-         * <param name="scalar">The float of which to compute the square root.
-         * </param>
-         */
-        internal static float sqrt(float scalar)
-        {
-            return (float)Math.Sqrt(scalar);
-        }
+        
     }
 }

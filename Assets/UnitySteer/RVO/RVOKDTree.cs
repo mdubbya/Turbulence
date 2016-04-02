@@ -388,11 +388,11 @@ namespace UnitySteer.RVO
                     float j1LeftOfI = RVOMath.leftOf(obstacleI1.point_, obstacleI2.point_, obstacleJ1.point_);
                     float j2LeftOfI = RVOMath.leftOf(obstacleI1.point_, obstacleI2.point_, obstacleJ2.point_);
 
-                    if (j1LeftOfI >= -RVOMath.RVO_EPSILON && j2LeftOfI >= -RVOMath.RVO_EPSILON)
+                    if (j1LeftOfI >= -Single.Epsilon && j2LeftOfI >= -Single.Epsilon)
                     {
                         ++leftSize;
                     }
-                    else if (j1LeftOfI <= RVOMath.RVO_EPSILON && j2LeftOfI <= RVOMath.RVO_EPSILON)
+                    else if (j1LeftOfI <= Single.Epsilon && j2LeftOfI <= Single.Epsilon)
                     {
                         ++rightSize;
                     }
@@ -452,11 +452,11 @@ namespace UnitySteer.RVO
                     float j1LeftOfI = RVOMath.leftOf(obstacleI1.point_, obstacleI2.point_, obstacleJ1.point_);
                     float j2LeftOfI = RVOMath.leftOf(obstacleI1.point_, obstacleI2.point_, obstacleJ2.point_);
 
-                    if (j1LeftOfI >= -RVOMath.RVO_EPSILON && j2LeftOfI >= -RVOMath.RVO_EPSILON)
+                    if (j1LeftOfI >= -Single.Epsilon && j2LeftOfI >= -Single.Epsilon)
                     {
                         leftObstacles[leftCounter++] = obstacles[j];
                     }
-                    else if (j1LeftOfI <= RVOMath.RVO_EPSILON && j2LeftOfI <= RVOMath.RVO_EPSILON)
+                    else if (j1LeftOfI <= Single.Epsilon && j2LeftOfI <= Single.Epsilon)
                     {
                         rightObstacles[rightCounter++] = obstacles[j];
                     }
@@ -522,8 +522,9 @@ namespace UnitySteer.RVO
             }
             else
             {
-                float distSqLeft = RVOMath.sqr(Math.Max(0.0f, agentTree_[agentTree_[node].left_].minX_ - agent.position_.x)) + RVOMath.sqr(Math.Max(0.0f, agent.position_.x - agentTree_[agentTree_[node].left_].maxX_)) + RVOMath.sqr(Math.Max(0.0f, agentTree_[agentTree_[node].left_].minY_ - agent.position_.y)) + RVOMath.sqr(Math.Max(0.0f, agent.position_.y - agentTree_[agentTree_[node].left_].maxY_));
-                float distSqRight = RVOMath.sqr(Math.Max(0.0f, agentTree_[agentTree_[node].right_].minX_ - agent.position_.x)) + RVOMath.sqr(Math.Max(0.0f, agent.position_.x - agentTree_[agentTree_[node].right_].maxX_)) + RVOMath.sqr(Math.Max(0.0f, agentTree_[agentTree_[node].right_].minY_ - agent.position_.y)) + RVOMath.sqr(Math.Max(0.0f, agent.position_.y - agentTree_[agentTree_[node].right_].maxY_));
+                float distSqLeft = Mathf.Pow(Math.Max(0.0f, agentTree_[agentTree_[node].left_].minX_ - agent.position_.x), 2) + Mathf.Pow(Math.Max(0.0f, agent.position_.x - agentTree_[agentTree_[node].left_].maxX_), 2) + Mathf.Pow(Math.Max(0.0f, agentTree_[agentTree_[node].left_].minY_ - agent.position_.y), 2) + Mathf.Pow(Math.Max(0.0f, agent.position_.y - agentTree_[agentTree_[node].left_].maxY_), 2);
+                float distSqRight = Mathf.Pow(Math.Max(0.0f, agentTree_[agentTree_[node].right_].minX_ - agent.position_.x), 2) + Mathf.Pow(Math.Max(0.0f, agent.position_.x - agentTree_[agentTree_[node].right_].maxX_), 2) + Mathf.Pow(Math.Max(0.0f, agentTree_[agentTree_[node].right_].minY_ - agent.position_.y), 2) + Mathf.Pow(Math.Max(0.0f, agent.position_.y - agentTree_[agentTree_[node].right_].maxY_), 2);
+                
 
                 if (distSqLeft < distSqRight)
                 {
@@ -573,7 +574,7 @@ namespace UnitySteer.RVO
 
                 queryObstacleTreeRecursive(agent, rangeSq, agentLeftOfLine >= 0.0f ? node.left_ : node.right_);
 
-                float distSqLine = RVOMath.sqr(agentLeftOfLine) / RVOMath.absSq(obstacle2.point_ - obstacle1.point_);
+                float distSqLine = Mathf.Pow(agentLeftOfLine, 2) / (obstacle2.point_ - obstacle1.point_).sqrMagnitude;
 
                 if (distSqLine < rangeSq)
                 {
@@ -619,16 +620,16 @@ namespace UnitySteer.RVO
 
             float q1LeftOfI = RVOMath.leftOf(obstacle1.point_, obstacle2.point_, q1);
             float q2LeftOfI = RVOMath.leftOf(obstacle1.point_, obstacle2.point_, q2);
-            float invLengthI = 1.0f / RVOMath.absSq(obstacle2.point_ - obstacle1.point_);
+            float invLengthI = 1.0f / (obstacle2.point_ - obstacle1.point_).sqrMagnitude;
 
             if (q1LeftOfI >= 0.0f && q2LeftOfI >= 0.0f)
             {
-                return queryVisibilityRecursive(q1, q2, radius, node.left_) && ((RVOMath.sqr(q1LeftOfI) * invLengthI >= RVOMath.sqr(radius) && RVOMath.sqr(q2LeftOfI) * invLengthI >= RVOMath.sqr(radius)) || queryVisibilityRecursive(q1, q2, radius, node.right_));
+                return queryVisibilityRecursive(q1, q2, radius, node.left_) && ((Mathf.Pow(q1LeftOfI, 2) * invLengthI >= Mathf.Pow(radius, 2) && Mathf.Pow(q2LeftOfI, 2) * invLengthI >= Mathf.Pow(radius, 2)) || queryVisibilityRecursive(q1, q2, radius, node.right_));
             }
 
             if (q1LeftOfI <= 0.0f && q2LeftOfI <= 0.0f)
             {
-                return queryVisibilityRecursive(q1, q2, radius, node.right_) && ((RVOMath.sqr(q1LeftOfI) * invLengthI >= RVOMath.sqr(radius) && RVOMath.sqr(q2LeftOfI) * invLengthI >= RVOMath.sqr(radius)) || queryVisibilityRecursive(q1, q2, radius, node.left_));
+                return queryVisibilityRecursive(q1, q2, radius, node.right_) && ((Mathf.Pow(q1LeftOfI, 2) * invLengthI >= Mathf.Pow(radius, 2) && Mathf.Pow(q2LeftOfI, 2) * invLengthI >= Mathf.Pow(radius, 2)) || queryVisibilityRecursive(q1, q2, radius, node.left_));
             }
 
             if (q1LeftOfI >= 0.0f && q2LeftOfI <= 0.0f)
@@ -639,9 +640,9 @@ namespace UnitySteer.RVO
 
             float point1LeftOfQ = RVOMath.leftOf(q1, q2, obstacle1.point_);
             float point2LeftOfQ = RVOMath.leftOf(q1, q2, obstacle2.point_);
-            float invLengthQ = 1.0f / RVOMath.absSq(q2 - q1);
+            float invLengthQ = 1.0f / (q2 - q1).sqrMagnitude;
 
-            return point1LeftOfQ * point2LeftOfQ >= 0.0f && RVOMath.sqr(point1LeftOfQ) * invLengthQ > RVOMath.sqr(radius) && RVOMath.sqr(point2LeftOfQ) * invLengthQ > RVOMath.sqr(radius) && queryVisibilityRecursive(q1, q2, radius, node.left_) && queryVisibilityRecursive(q1, q2, radius, node.right_);
+            return point1LeftOfQ * point2LeftOfQ >= 0.0f && Mathf.Pow(point1LeftOfQ, 2) * invLengthQ > Mathf.Pow(radius, 2) && Mathf.Pow(point2LeftOfQ, 2) * invLengthQ > Mathf.Pow(radius, 2) && queryVisibilityRecursive(q1, q2, radius, node.left_) && queryVisibilityRecursive(q1, q2, radius, node.right_);
         }
     }
 }
