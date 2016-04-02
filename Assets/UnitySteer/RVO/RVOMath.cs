@@ -54,6 +54,7 @@
  */
 
 using System;
+using UnityEngine;
 
 namespace UnitySteer.RVO
 {
@@ -92,7 +93,7 @@ namespace UnitySteer.RVO
          */
         public static float absSq(Vector2 vector)
         {
-            return vector * vector;
+            return Vector2.Dot(vector , vector);
         }
 
         /**
@@ -142,7 +143,7 @@ namespace UnitySteer.RVO
          */
         internal static float distSqPointLineSegment(Vector2 vector1, Vector2 vector2, Vector2 vector3)
         {
-            float r = ((vector3 - vector1) * (vector2 - vector1)) / absSq(vector2 - vector1);
+            float r = (Vector2.Dot((vector3 - vector1) , (vector2 - vector1))) / absSq(vector2 - vector1);
 
             if (r < 0.0f)
             {

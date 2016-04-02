@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnitySteer.Behaviors;
+using UnityEngine;
 
 namespace UnitySteer.RVO
 {

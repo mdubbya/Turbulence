@@ -56,6 +56,7 @@
 using System.Collections.Generic;
 using System;
 using UnitySteer.Behaviors;
+using UnityEngine;
 
 
 namespace UnitySteer.RVO

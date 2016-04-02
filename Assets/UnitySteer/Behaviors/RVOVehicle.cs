@@ -56,6 +56,7 @@
 using System;
 using System.Collections.Generic;
 using UnitySteer.RVO;
+using UnityEngine;
 
 namespace UnitySteer.Behaviors
 {
@@ -146,7 +147,7 @@ namespace UnitySteer.Behaviors
                 float radiusSq = RVOMath.sqr(radius_);
 
                 Vector2 obstacleVector = obstacle2.point_ - obstacle1.point_;
-                float s = (-relativePosition1 * obstacleVector) / RVOMath.absSq(obstacleVector);
+                float s = (Vector2.Dot(-relativePosition1 , obstacleVector)) / RVOMath.absSq(obstacleVector);
                 float distSqLine = RVOMath.absSq(-relativePosition1 - s * obstacleVector);
 
                 Line line;
@@ -291,9 +292,9 @@ namespace UnitySteer.Behaviors
                 /* Project current velocity on velocity obstacle. */
 
                 /* Check if current velocity is projected on cutoff circles. */
-                float t = obstacle1 == obstacle2 ? 0.5f : ((velocity_ - leftCutOff) * cutOffVector) / RVOMath.absSq(cutOffVector);
-                float tLeft = (velocity_ - leftCutOff) * leftLegDirection;
-                float tRight = (velocity_ - rightCutOff) * rightLegDirection;
+                float t = obstacle1 == obstacle2 ? 0.5f : (Vector2.Dot((velocity_ - leftCutOff) , cutOffVector)) / RVOMath.absSq(cutOffVector);
+                float tLeft = Vector2.Dot((velocity_ - leftCutOff) , leftLegDirection);
+                float tRight = Vector2.Dot((velocity_ - rightCutOff) , rightLegDirection);
 
                 if ((t < 0.0f && tLeft < 0.0f) || (obstacle1 == obstacle2 && tLeft < 0.0f && tRight < 0.0f))
                 {
@@ -387,7 +388,7 @@ namespace UnitySteer.Behaviors
 
                     /* Vector from cutoff center to relative velocity. */
                     float wLengthSq = RVOMath.absSq(w);
-                    float dotProduct1 = w * relativePosition;
+                    float dotProduct1 = Vector2.Dot(w , relativePosition);
 
                     if (dotProduct1 < 0.0f && RVOMath.sqr(dotProduct1) > combinedRadiusSq * wLengthSq)
                     {
@@ -414,7 +415,7 @@ namespace UnitySteer.Behaviors
                             line.direction = -new Vector2(relativePosition.x * leg + relativePosition.y * combinedRadius, -relativePosition.x * combinedRadius + relativePosition.y * leg) / distSq;
                         }
 
-                        float dotProduct2 = relativeVelocity * line.direction;
+                        float dotProduct2 = Vector2.Dot(relativeVelocity , line.direction);
                         u = dotProduct2 * line.direction - relativeVelocity;
                     }
                 }
@@ -540,7 +541,7 @@ namespace UnitySteer.Behaviors
          */
         private bool linearProgram1(IList<Line> lines, int lineNo, float radius, Vector2 optVelocity, bool directionOpt, ref Vector2 result)
         {
-            float dotProduct = lines[lineNo].point * lines[lineNo].direction;
+            float dotProduct = Vector2.Dot(lines[lineNo].point , lines[lineNo].direction);
             float discriminant = RVOMath.sqr(dotProduct) + RVOMath.sqr(radius) - RVOMath.absSq(lines[lineNo].point);
 
             if (discriminant < 0.0f)
@@ -591,7 +592,7 @@ namespace UnitySteer.Behaviors
             if (directionOpt)
             {
                 /* Optimize direction. */
-                if (optVelocity * lines[lineNo].direction > 0.0f)
+                if (Vector2.Dot(optVelocity , lines[lineNo].direction) > 0.0f)
                 {
                     /* Take right extreme. */
                     result = lines[lineNo].point + tRight * lines[lineNo].direction;
@@ -605,7 +606,7 @@ namespace UnitySteer.Behaviors
             else
             {
                 /* Optimize closest point. */
-                float t = lines[lineNo].direction * (optVelocity - lines[lineNo].point);
+                float t = Vector2.Dot(lines[lineNo].direction , (optVelocity - lines[lineNo].point));
 
                 if (t < tLeft)
                 {
@@ -714,7 +715,7 @@ namespace UnitySteer.Behaviors
                         if (RVOMath.fabs(determinant) <= RVOMath.RVO_EPSILON)
                         {
                             /* Line i and line j are parallel. */
-                            if (lines[i].direction * lines[j].direction > 0.0f)
+                            if (Vector2.Dot(lines[i].direction , lines[j].direction) > 0.0f)
                             {
                                 /* Line i and line j point in the same direction. */
                                 continue;
