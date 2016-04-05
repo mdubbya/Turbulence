@@ -57,6 +57,7 @@ using System;
 using System.Collections.Generic;
 using UnitySteer.RVO;
 using UnityEngine;
+using System.Linq;
 
 namespace UnitySteer.Behaviors
 {
@@ -65,8 +66,8 @@ namespace UnitySteer.Behaviors
      */
     public class RVOVehicle : AutonomousVehicle
     {
-        internal IList<KeyValuePair<float, RVOVehicle>> agentNeighbors_ = new List<KeyValuePair<float, RVOVehicle>>();
-        internal IList<KeyValuePair<float, Obstacle>> obstacleNeighbors_ = new List<KeyValuePair<float, Obstacle>>();
+        internal List<RVOVehicle> agentNeighbors_ = new List<RVOVehicle>();
+        internal List<Obstacle> obstacleNeighbors_ = new List<Obstacle>();
         internal IList<Line> orcaLines_ = new List<Line>();
         internal Vector2 position_;
         internal Vector2 prefVelocity_;
@@ -78,6 +79,7 @@ namespace UnitySteer.Behaviors
         internal float radius_ = 0.0f;
         internal float timeHorizon_ = 0.0f;
         internal float timeHorizonObst_ = 0.0f;
+        
 
         private Vector2 newVelocity_;
 
@@ -87,20 +89,78 @@ namespace UnitySteer.Behaviors
          */
         internal void computeNeighbors()
         {
-            //obstacleNeighbors_.Clear();
-            //float rangeSq = Mathf.Pow((timeHorizonObst_ * maxSpeed_ + radius_),2);
+            obstacleNeighbors_.Clear();
+            float rangeSq = Mathf.Pow((timeHorizonObst_ * maxSpeed_ + radius_),2);
+            
+
+            Vector2 obs1point_ = new Vector2(10, 10);
+            Vector2 obs2point_ = new Vector2(-10, 10);
+            Vector2 obs3point_ = new Vector2(-10, 0);
+            Vector2 obs4point_ = new Vector2(10, 0);
+
+            AddRVOObstacle(new List<Vector2>() { obs1point_, obs2point_, obs3point_, obs4point_ });
 
             //RVOController.Instance.KDTree.computeObstacleNeighbors(this, rangeSq);
-            
+
             agentNeighbors_.Clear();
             foreach(Vehicle vehicle in Radar.Vehicles)
             {
                 RVOVehicle vehicleAsRVOVehicle = vehicle as RVOVehicle;
                 if (vehicleAsRVOVehicle != null)
                 {
-                    agentNeighbors_.Add(new KeyValuePair<float, RVOVehicle>(Mathf.Pow((neighborDist_), 2), vehicleAsRVOVehicle));
+                    agentNeighbors_.Add(vehicleAsRVOVehicle);
                 }
             }
+        }
+
+        public int AddRVOObstacle(List<Vector2> vertices)
+        {
+            List<RVO.Obstacle> obstacles_ = new List<Obstacle>();
+            if (vertices.Count < 2)
+            {
+                return -1;
+            }
+
+            int obstacleNo = obstacles_.Count;
+
+            for (int i = 0; i < vertices.Count; ++i)
+            {
+                Obstacle obstacle = new Obstacle();
+                obstacle.point_ = vertices[i];
+
+                if (i != 0)
+                {
+                    obstacle.previous_ = obstacles_[obstacles_.Count - 1];
+                    obstacle.previous_.next_ = obstacle;
+                }
+
+                if (i == vertices.Count - 1)
+                {
+                    obstacle.next_ = obstacles_[obstacleNo];
+                    obstacle.next_.previous_ = obstacle;
+                }
+
+                obstacle.direction_ = (vertices[(i == vertices.Count - 1 ? 0 : i + 1)] - vertices[i]).normalized;
+
+                if (vertices.Count == 2)
+                {
+                    obstacle.convex_ = true;
+                }
+                else
+                {
+                    obstacle.convex_ = (RVOMath.leftOf(vertices[(i == 0 ? vertices.Count - 1 : i - 1)], vertices[i], vertices[(i == vertices.Count - 1 ? 0 : i + 1)]) >= 0.0f);
+                }
+
+                obstacle.id_ = obstacles_.Count;
+                obstacles_.Add(obstacle);
+                obstacleNeighbors_.Add(obstacle);
+            }
+
+
+
+            return obstacleNo;
+
+
         }
 
         /**
@@ -116,7 +176,7 @@ namespace UnitySteer.Behaviors
             for (int i = 0; i < obstacleNeighbors_.Count; ++i)
             {
 
-                Obstacle obstacle1 = obstacleNeighbors_[i].Value;
+                Obstacle obstacle1 = obstacleNeighbors_[i];
                 Obstacle obstacle2 = obstacle1.next_;
 
                 Vector2 relativePosition1 = obstacle1.point_ - position_;
@@ -373,7 +433,7 @@ namespace UnitySteer.Behaviors
             /* Create agent ORCA lines. */
             for (int i = 0; i < agentNeighbors_.Count; ++i)
             {
-                RVOVehicle other = agentNeighbors_[i].Value;
+                RVOVehicle other = agentNeighbors_[i];
                 if(other==null)
                 {
                     var stuff = true;
@@ -452,73 +512,7 @@ namespace UnitySteer.Behaviors
                 linearProgram3(orcaLines_, numObstLines, lineFail, maxSpeed_, ref newVelocity_);
             }
         }
-
-        /**
-         * <summary>Inserts an agent neighbor into the set of neighbors of this
-         * agent.</summary>
-         *
-         * <param name="agent">A pointer to the agent to be inserted.</param>
-         * <param name="rangeSq">The squared range around this agent.</param>
-         */
-        internal void insertAgentNeighbor(RVOVehicle agent, ref float rangeSq)
-        {
-            if (this != agent)
-            {
-                float distSq = (position_ - agent.position_).sqrMagnitude;
-
-                if (distSq < rangeSq)
-                {
-                    if (agentNeighbors_.Count < maxNeighbors_)
-                    {
-                        agentNeighbors_.Add(new KeyValuePair<float, RVOVehicle>(distSq, agent));
-                    }
-
-                    int i = agentNeighbors_.Count - 1;
-
-                    while (i != 0 && distSq < agentNeighbors_[i - 1].Key)
-                    {
-                        agentNeighbors_[i] = agentNeighbors_[i - 1];
-                        --i;
-                    }
-
-                    agentNeighbors_[i] = new KeyValuePair<float, RVOVehicle>(distSq, agent);
-
-                    if (agentNeighbors_.Count == maxNeighbors_)
-                    {
-                        rangeSq = agentNeighbors_[agentNeighbors_.Count - 1].Key;
-                    }
-                }
-            }
-        }
-
-        /**
-         * <summary>Inserts a static obstacle neighbor into the set of neighbors
-         * of this agent.</summary>
-         *
-         * <param name="obstacle">The number of the static obstacle to be
-         * inserted.</param>
-         * <param name="rangeSq">The squared range around this agent.</param>
-         */
-        internal void insertObstacleNeighbor(Obstacle obstacle, float rangeSq)
-        {
-            Obstacle nextObstacle = obstacle.next_;
-
-            float distSq = RVOMath.distSqPointLineSegment(obstacle.point_, nextObstacle.point_, position_);
-
-            if (distSq < rangeSq)
-            {
-                obstacleNeighbors_.Add(new KeyValuePair<float, Obstacle>(distSq, obstacle));
-
-                int i = obstacleNeighbors_.Count - 1;
-
-                while (i != 0 && distSq < obstacleNeighbors_[i - 1].Key)
-                {
-                    obstacleNeighbors_[i] = obstacleNeighbors_[i - 1];
-                    --i;
-                }
-                obstacleNeighbors_[i] = new KeyValuePair<float, Obstacle>(distSq, obstacle);
-            }
-        }
+                
 
         /**
          * <summary>Updates the two-dimensional position and two-dimensional
@@ -759,15 +753,9 @@ namespace UnitySteer.Behaviors
             }
         }
 
-        protected override void Awake()
-        {
-            base.Awake();
-            RVOController.Instance.AddRVOAgent(this);
-        }
 
         protected UnityEngine.Vector3 CalculateForce(UnityEngine.Vector3 oldVector)
         {
-            
             maxNeighbors_ = RVOController.Instance.defaultAgent.maxNeighbors_;
             maxSpeed_ = RVOController.Instance.defaultAgent.maxSpeed_;
             neighborDist_ = RVOController.Instance.defaultAgent.neighborDist_;
@@ -778,11 +766,9 @@ namespace UnitySteer.Behaviors
             velocity_ = new Vector2(this.Velocity.x, this.Velocity.z);
             prefVelocity_ = ((new Vector2(oldVector.x, oldVector.z) - position_)).normalized;
             UnityEngine.Debug.DrawRay(new UnityEngine.Vector3(position_.x, 0, position_.y), new UnityEngine.Vector3(newVelocity_.x, 0, newVelocity_.y), UnityEngine.Color.magenta, 0.2f);
-            RVOController.Instance.RebuildKDTree();
             computeNeighbors();
             computeNewVelocity();
             return new UnityEngine.Vector3(newVelocity_.x, 0, newVelocity_.y);
-            
         }
 
         /// <summary>

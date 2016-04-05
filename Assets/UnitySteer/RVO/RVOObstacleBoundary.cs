@@ -20,7 +20,7 @@ namespace UnitySteer.RVO
                 List<Vector2> vertices = (from p in points select new Vector2(p.transform.position.x, p.transform.position.y)).ToList();
                 if (vertices != null)
                 {
-                    id = RVOController.Instance.AddRVOObstacle(vertices);
+                    
                 }
             }
         }
