@@ -61,9 +61,7 @@ using System.Linq;
 
 namespace UnitySteer.Behaviors
 {
-    /**
-     * <summary>Defines an agent in the simulation.</summary>
-     */
+
     public class RVOVehicle : AutonomousVehicle
     {
         internal List<RVOVehicle> agentNeighbors_ = new List<RVOVehicle>();
@@ -72,13 +70,13 @@ namespace UnitySteer.Behaviors
         internal Vector2 position_;
         internal Vector2 prefVelocity_;
         internal Vector2 velocity_;
-        internal int id_ = 0;
-        internal int maxNeighbors_ = 0;
-        internal float maxSpeed_ = 0.0f;
-        internal float neighborDist_ = 0.0f;
-        internal float radius_ = 0.0f;
-        internal float timeHorizon_ = 0.0f;
-        internal float timeHorizonObst_ = 0.0f;
+
+        public int maxNeighbors = 0;
+        public float maxSpeed = 0.0f;
+        public float neighborDist = 0.0f;
+        public float radius = 0.0f;
+        public float timeHorizon = 0.0f;
+        public float timeHorizonObst = 0.0f;
         
 
         private Vector2 newVelocity_;
@@ -90,8 +88,8 @@ namespace UnitySteer.Behaviors
         internal void computeNeighbors()
         {
             obstacleNeighbors_.Clear();
-            float rangeSq = Mathf.Pow((timeHorizonObst_ * maxSpeed_ + radius_),2);
-            
+            float rangeSq = Mathf.Pow((timeHorizonObst * maxSpeed + radius),2);
+
 
             Vector2 obs1point_ = new Vector2(10, 10);
             Vector2 obs2point_ = new Vector2(-10, 10);
@@ -99,8 +97,6 @@ namespace UnitySteer.Behaviors
             Vector2 obs4point_ = new Vector2(10, 0);
 
             AddRVOObstacle(new List<Vector2>() { obs1point_, obs2point_, obs3point_, obs4point_ });
-
-            //RVOController.Instance.KDTree.computeObstacleNeighbors(this, rangeSq);
 
             agentNeighbors_.Clear();
             foreach(Vehicle vehicle in Radar.Vehicles)
@@ -170,7 +166,7 @@ namespace UnitySteer.Behaviors
         {
             orcaLines_.Clear();
 
-            float invTimeHorizonObst = 1.0f / timeHorizonObst_;
+            float invTimeHorizonObst = 1.0f / timeHorizonObst;
 
             /* Create obstacle ORCA lines. */
             for (int i = 0; i < obstacleNeighbors_.Count; ++i)
@@ -190,7 +186,7 @@ namespace UnitySteer.Behaviors
 
                 for (int j = 0; j < orcaLines_.Count; ++j)
                 {
-                    if (RVOMath.det(invTimeHorizonObst * relativePosition1 - orcaLines_[j].point, orcaLines_[j].direction) - invTimeHorizonObst * radius_ >= -Single.Epsilon && RVOMath.det(invTimeHorizonObst * relativePosition2 - orcaLines_[j].point, orcaLines_[j].direction) - invTimeHorizonObst * radius_ >= -Single.Epsilon)
+                    if (RVOMath.det(invTimeHorizonObst * relativePosition1 - orcaLines_[j].point, orcaLines_[j].direction) - invTimeHorizonObst * radius >= -Single.Epsilon && RVOMath.det(invTimeHorizonObst * relativePosition2 - orcaLines_[j].point, orcaLines_[j].direction) - invTimeHorizonObst * radius >= -Single.Epsilon)
                     {
                         alreadyCovered = true;
 
@@ -207,7 +203,7 @@ namespace UnitySteer.Behaviors
                 float distSq1 = (relativePosition1).sqrMagnitude;
                 float distSq2 = (relativePosition2).sqrMagnitude;
 
-                float radiusSq = Mathf.Pow((radius_), 2);
+                float radiusSq = Mathf.Pow((radius), 2);
 
                 Vector2 obstacleVector = obstacle2.point_ - obstacle1.point_;
                 float s = (Vector2.Dot(-relativePosition1 , obstacleVector)) / (obstacleVector).sqrMagnitude;
@@ -275,8 +271,8 @@ namespace UnitySteer.Behaviors
                     obstacle2 = obstacle1;
                     
                     float leg1 = Mathf.Sqrt(distSq1 - radiusSq);
-                    leftLegDirection = new Vector2(relativePosition1.x * leg1 - relativePosition1.y * radius_, relativePosition1.x * radius_ + relativePosition1.y * leg1) / distSq1;
-                    rightLegDirection = new Vector2(relativePosition1.x * leg1 + relativePosition1.y * radius_, -relativePosition1.x * radius_ + relativePosition1.y * leg1) / distSq1;
+                    leftLegDirection = new Vector2(relativePosition1.x * leg1 - relativePosition1.y * radius, relativePosition1.x * radius + relativePosition1.y * leg1) / distSq1;
+                    rightLegDirection = new Vector2(relativePosition1.x * leg1 + relativePosition1.y * radius, -relativePosition1.x * radius + relativePosition1.y * leg1) / distSq1;
                 }
                 else if (s > 1.0f && distSqLine <= radiusSq)
                 {
@@ -293,8 +289,8 @@ namespace UnitySteer.Behaviors
                     obstacle1 = obstacle2;
 
                     float leg2 = Mathf.Sqrt(distSq2 - radiusSq);
-                    leftLegDirection = new Vector2(relativePosition2.x * leg2 - relativePosition2.y * radius_, relativePosition2.x * radius_ + relativePosition2.y * leg2) / distSq2;
-                    rightLegDirection = new Vector2(relativePosition2.x * leg2 + relativePosition2.y * radius_, -relativePosition2.x * radius_ + relativePosition2.y * leg2) / distSq2;
+                    leftLegDirection = new Vector2(relativePosition2.x * leg2 - relativePosition2.y * radius, relativePosition2.x * radius + relativePosition2.y * leg2) / distSq2;
+                    rightLegDirection = new Vector2(relativePosition2.x * leg2 + relativePosition2.y * radius, -relativePosition2.x * radius + relativePosition2.y * leg2) / distSq2;
                 }
                 else
                 {
@@ -302,7 +298,7 @@ namespace UnitySteer.Behaviors
                     if (obstacle1.convex_)
                     {
                         float leg1 = Mathf.Sqrt(distSq1 - radiusSq);
-                        leftLegDirection = new Vector2(relativePosition1.x * leg1 - relativePosition1.y * radius_, relativePosition1.x * radius_ + relativePosition1.y * leg1) / distSq1;
+                        leftLegDirection = new Vector2(relativePosition1.x * leg1 - relativePosition1.y * radius, relativePosition1.x * radius + relativePosition1.y * leg1) / distSq1;
                     }
                     else
                     {
@@ -313,7 +309,7 @@ namespace UnitySteer.Behaviors
                     if (obstacle2.convex_)
                     {
                         float leg2 = Mathf.Sqrt(distSq2 - radiusSq);
-                        rightLegDirection = new Vector2(relativePosition2.x * leg2 + relativePosition2.y * radius_, -relativePosition2.x * radius_ + relativePosition2.y * leg2) / distSq2;
+                        rightLegDirection = new Vector2(relativePosition2.x * leg2 + relativePosition2.y * radius, -relativePosition2.x * radius + relativePosition2.y * leg2) / distSq2;
                     }
                     else
                     {
@@ -365,7 +361,7 @@ namespace UnitySteer.Behaviors
                     Vector2 unitW = (velocity_ - leftCutOff).normalized;
 
                     line.direction = new Vector2(unitW.y, -unitW.x);
-                    line.point = leftCutOff + radius_ * invTimeHorizonObst * unitW;
+                    line.point = leftCutOff + radius * invTimeHorizonObst * unitW;
                     orcaLines_.Add(line);
 
                     continue;
@@ -376,7 +372,7 @@ namespace UnitySteer.Behaviors
                     Vector2 unitW = (velocity_ - rightCutOff).normalized;
 
                     line.direction = new Vector2(unitW.y, -unitW.x);
-                    line.point = rightCutOff + radius_ * invTimeHorizonObst * unitW;
+                    line.point = rightCutOff + radius * invTimeHorizonObst * unitW;
                     orcaLines_.Add(line);
 
                     continue;
@@ -394,7 +390,7 @@ namespace UnitySteer.Behaviors
                 {
                     /* Project on cut-off line. */
                     line.direction = -obstacle1.direction_;
-                    line.point = leftCutOff + radius_ * invTimeHorizonObst * new Vector2(-line.direction.y, line.direction.x);
+                    line.point = leftCutOff + radius * invTimeHorizonObst * new Vector2(-line.direction.y, line.direction.x);
                     orcaLines_.Add(line);
 
                     continue;
@@ -409,7 +405,7 @@ namespace UnitySteer.Behaviors
                     }
 
                     line.direction = leftLegDirection;
-                    line.point = leftCutOff + radius_ * invTimeHorizonObst * new Vector2(-line.direction.y, line.direction.x);
+                    line.point = leftCutOff + radius * invTimeHorizonObst * new Vector2(-line.direction.y, line.direction.x);
                     orcaLines_.Add(line);
 
                     continue;
@@ -422,13 +418,13 @@ namespace UnitySteer.Behaviors
                 }
 
                 line.direction = -rightLegDirection;
-                line.point = rightCutOff + radius_ * invTimeHorizonObst * new Vector2(-line.direction.y, line.direction.x);
+                line.point = rightCutOff + radius * invTimeHorizonObst * new Vector2(-line.direction.y, line.direction.x);
                 orcaLines_.Add(line);
             }
 
             int numObstLines = orcaLines_.Count;
 
-            float invTimeHorizon = 1.0f / timeHorizon_;
+            float invTimeHorizon = 1.0f / timeHorizon;
 
             /* Create agent ORCA lines. */
             for (int i = 0; i < agentNeighbors_.Count; ++i)
@@ -442,7 +438,7 @@ namespace UnitySteer.Behaviors
                 Vector2 relativePosition = other.position_ - position_;
                 Vector2 relativeVelocity = velocity_ - other.velocity_;
                 float distSq = (relativePosition).sqrMagnitude;
-                float combinedRadius = radius_ + other.radius_;
+                float combinedRadius = radius + other.radius;
                 float combinedRadiusSq = Mathf.Pow((combinedRadius), 2);
 
                 Line line;
@@ -505,11 +501,11 @@ namespace UnitySteer.Behaviors
                 orcaLines_.Add(line);
             }
 
-            int lineFail = linearProgram2(orcaLines_, maxSpeed_, prefVelocity_, false, ref newVelocity_);
+            int lineFail = linearProgram2(orcaLines_, maxSpeed, prefVelocity_, false, ref newVelocity_);
 
             if (lineFail < orcaLines_.Count)
             {
-                linearProgram3(orcaLines_, numObstLines, lineFail, maxSpeed_, ref newVelocity_);
+                linearProgram3(orcaLines_, numObstLines, lineFail, maxSpeed, ref newVelocity_);
             }
         }
                 
@@ -756,13 +752,7 @@ namespace UnitySteer.Behaviors
 
         protected UnityEngine.Vector3 CalculateForce(UnityEngine.Vector3 oldVector)
         {
-            maxNeighbors_ = RVOController.Instance.defaultAgent.maxNeighbors_;
-            maxSpeed_ = RVOController.Instance.defaultAgent.maxSpeed_;
-            neighborDist_ = RVOController.Instance.defaultAgent.neighborDist_;
             position_ = new Vector2(this.Position.x, this.Position.z);
-            radius_ = RVOController.Instance.defaultAgent.radius_;
-            timeHorizon_ = RVOController.Instance.defaultAgent.timeHorizon_;
-            timeHorizonObst_ = RVOController.Instance.defaultAgent.timeHorizonObst_;
             velocity_ = new Vector2(this.Velocity.x, this.Velocity.z);
             prefVelocity_ = ((new Vector2(oldVector.x, oldVector.z) - position_)).normalized;
             UnityEngine.Debug.DrawRay(new UnityEngine.Vector3(position_.x, 0, position_.y), new UnityEngine.Vector3(newVelocity_.x, 0, newVelocity_.y), UnityEngine.Color.magenta, 0.2f);
