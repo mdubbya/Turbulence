@@ -19,6 +19,7 @@ public class InteractiveAsteroidSpawner : Singleton<InteractiveAsteroidSpawner>
 
 	void Start ()
 	{
+        AudioListener.volume = .1f;
 		//possibly in future create simple struct with x,y instead of using Vector2, decrease overhead
 		List<Vector2> possibleCoordinates = new List<Vector2>();
 		float i = asteroidSpawnArea.xMin;

@@ -11,7 +11,6 @@ namespace UnitySteer.RVO
     {
         [SerializeField]
         public List<GameObject> points;
-        private int id = -1;
 
         public void Awake()
         {
@@ -23,56 +22,6 @@ namespace UnitySteer.RVO
                     
                 }
             }
-        }
-
-        public void AddPoint(Vector3 point)
-        {
-            if(points== null)
-            {
-                points = new List<GameObject>();
-            }
-            GameObject newPoint = new GameObject();
-            newPoint.transform.position = point;
-            newPoint.transform.parent = transform;
-            points.Add( newPoint);      
-        }
-
-        public void RemovePoint(GameObject point)
-        {
-            if(points==null)
-            {
-                points = new List<GameObject>();
-            }
-            points.Remove(point);
-        }
-
-        public void ClearPoints()
-        {
-
-            if (points == null)
-            {
-                points = new List<GameObject>();
-            }
-            if (Application.isEditor)
-            {
-                foreach (var p in points)
-                {
-                    DestroyImmediate(p);
-                }
-            }
-            else
-            {
-                foreach(var p in points)
-                {
-                    Destroy(p);
-                }
-            }
-            points.Clear();
-        }
-
-        public void OnDestroy()
-        {
-            //RVOController.Instance.RemoveRVOObstacle(id);
         }
     }
 }
