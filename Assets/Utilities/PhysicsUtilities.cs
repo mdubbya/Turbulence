@@ -18,8 +18,8 @@ namespace Utilities
             //we will shoot vectors in [direction] until we detect a hit, or we've run out of vectors to shoot.
             while((currentDistanceFromStart < width/2) && !hitDetected)
             {
-                //Debug.DrawRay(currentLeftVector, direction * length, Color.blue, 0.1f);
-                //Debug.DrawRay(currentRightVector, direction * length, Color.blue, 0.1f);
+                Debug.DrawRay(currentLeftVector, direction * length, Color.blue, 0.1f);
+                Debug.DrawRay(currentRightVector, direction * length, Color.blue, 0.1f);
                 if (Physics.Raycast(currentLeftVector, direction, out rayCastHitInfo, length))
                 {
                     hitDetected = true;
