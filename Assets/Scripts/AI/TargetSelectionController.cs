@@ -6,37 +6,30 @@ namespace AI
     class TargetSelectionController : MonoBehaviour
     {
         private TargetSelectorBase[] targetSelectors;
-        private TargetModifierBase[] targetModifiers;
-        public Transform navTarget;
+        private TargetModifierBase[] targetModifiers;       
 
         public void Start()
         {
             targetSelectors = GetComponents<TargetSelectorBase>();
+            targetModifiers = GetComponents<TargetModifierBase>();
         }
 
-        public void FixedUpdate()
+        private Vector3 _targetPosition;
+        public Vector3 targetPosition
         {
-            Vector3 currentPosition = transform.position;
+            get { return _targetPosition; }
+        }
 
-            Vector3 targetPosition = new Vector3(); 
 
+        public void FixedUpdate()
+        {            
             if (targetSelectors != null)
             {
                 foreach (TargetSelectorBase sel in targetSelectors)
                 {
-                    targetPosition = sel.GetNewTargetPosition(targetPosition);
+                    _targetPosition = sel.GetNewTargetPosition(targetPosition);
                 }
-
-                if (targetModifiers != null)
-                {
-                    foreach (TargetModifierBase mod in targetModifiers)
-                    {
-                        //targetPosition = mod.GetNewTargetPosition(targetPosition,)
-                    }
-                }
-            }
-
-            navTarget.position = targetPosition;
+            }            
         }
     }
 }
