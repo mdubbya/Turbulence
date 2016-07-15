@@ -40,45 +40,33 @@ namespace RVO
     /**
      * <summary>Defines an agent in the simulation.</summary>
      */
-    public class Agent : MonoBehaviour
+    public class RVOAgent : RVOObject
     {
-        public SingleUnityLayer layer;
-        public List<Agent> agentNeighbors = new List< Agent>();
+        public List<RVOObject> agentNeighbors = new List<RVOObject>();
         public List<Line> orcaLines = new List<Line>();
         public Transform target;
         public float maxSpeed = 0.0f;
         public float neighborDist = 0.0f;
-        public float radius = 0.0f;
         public float timeHorizon = 0.0f;
         public float thrust = 0.0f;
         public float turnTime;
 
-        private Vector2 newVelocity_;
-        private Rigidbody rigidBody;
-        private Vector2 position;
+        private float _spud;
+
         private Vector2 prefVelocity;
-        private Vector2 velocity;
-
-        public void Start()
-        {
-            position = new Vector2(transform.position.x, transform.position.z);
-            rigidBody = GetComponent<Rigidbody>();
-        }
-
-
+        
         /**
          * <summary>Applies rotation and force to this agent.</summary>
          */
-        public void FixedUpdate()
+        public override void FixedUpdate()
         {
-            position = new Vector2(transform.position.x, transform.position.z);
+            base.FixedUpdate();
+            
             var intermediatePrefVelocity = target.position - transform.position;
             prefVelocity = new Vector2(intermediatePrefVelocity.x, intermediatePrefVelocity.z);
             computeNeighbors();
-            computeNewVelocity();
-            velocity = newVelocity_;
-
-            Vector3 targetVector3d = new Vector3(velocity.x, 0, velocity.y);
+            Vector2 newVelocity = computeNewVelocity();
+            Vector3 targetVector3d = new Vector3(newVelocity.x, 0, newVelocity.y);
             Vector3 targetForce = targetVector3d * thrust;
                         
             transform.rotation = Quaternion.Lerp(transform.rotation,
@@ -94,23 +82,23 @@ namespace RVO
          */
         public void computeNeighbors()
         {
-                var neighbors = Physics.OverlapSphere(transform.position, neighborDist, layer.Mask);
-                agentNeighbors= (from p in neighbors where p.GetComponent<Agent>()!=null select p.GetComponent<Agent>()).ToList();
+                var neighbors = Physics.OverlapSphere(transform.position, neighborDist);
+                agentNeighbors= (from p in neighbors where p.GetComponent<RVOObject>()!=null select p.GetComponent<RVOObject>()).ToList();
         }
 
         /**
          * <summary>Computes the new velocity of this agent.</summary>
          */
-        public void computeNewVelocity()
+        public Vector2 computeNewVelocity()
         {
-            orcaLines.Clear();                                
-            
+            orcaLines.Clear();
+            Vector2 newVelocity = new Vector2();
             float invTimeHorizon = 1.0f / timeHorizon;
 
             /* Create agent ORCA lines. */
             for (int i = 0; i < agentNeighbors.Count; ++i)
             {
-                Agent other = agentNeighbors[i];
+                RVOObject other = agentNeighbors[i];
 
                 Vector2 relativePosition = other.position - position;
                 Vector2 relativeVelocity = velocity - other.velocity;
@@ -178,12 +166,13 @@ namespace RVO
                 orcaLines.Add(line);
             }
 
-            int lineFail = linearProgram2(orcaLines, maxSpeed, prefVelocity, false, ref newVelocity_);
+            int lineFail = linearProgram2(orcaLines, maxSpeed, prefVelocity, false, ref newVelocity);
 
             if (lineFail < orcaLines.Count)
             {
-                linearProgram3(orcaLines, lineFail, maxSpeed, ref newVelocity_);
+                linearProgram3(orcaLines, lineFail, maxSpeed, ref newVelocity);
             }
+            return newVelocity;
         }
                 
 
