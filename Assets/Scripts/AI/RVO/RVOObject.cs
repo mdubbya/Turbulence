@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace RVO
+namespace AI.RVO
 {
     public class RVOObject : MonoBehaviour
     {

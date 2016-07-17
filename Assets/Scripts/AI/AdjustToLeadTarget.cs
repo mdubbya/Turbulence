@@ -3,21 +3,21 @@ using UnityEngine;
 
 namespace AI
 {
-    public class AdjustToLeadTarget : TargetModifierBase
+    public class AdjustToLeadTarget : MonoBehaviour
     {
         private InterceptionCalculator interceptionCalculator;
 
-        public void Awake()
+        public void Start()
         {
             interceptionCalculator = new InterceptionCalculator();
         }
-
-        public override Vector3 GetNewTargetPosition(Vector3 previousTargetPosition, Vector3 previousTargetVelocity)
+        
+        public Vector3 GetNewTargetPosition(Rigidbody objectToIntercept)
         {
-            Vector3 currentPosition = GetComponent<WeaponController>().projectileSpawnLocation.position;
-            float projectileSpeed = GetComponent<WeaponController>().projectilePrefab.GetComponent<ProjectileController>().projectileSpeed;
+            Vector3 currentPosition = GetComponent<ProjectileWeaponController>().spawnLocation.position;
+            float projectileSpeed = GetComponent<ProjectileWeaponController>().projectilePrefab.GetComponent<ProjectileController>().projectileSpeed;
 
-            Vector3? newPosition = interceptionCalculator.GetResult(currentPosition, projectileSpeed, previousTargetPosition, previousTargetVelocity);
+            Vector3? newPosition = interceptionCalculator.GetResult(currentPosition, projectileSpeed, objectToIntercept.position, objectToIntercept.velocity);
 
             if (newPosition != null)
             {
@@ -25,7 +25,7 @@ namespace AI
             }
             else
             {
-                return previousTargetPosition;
+                return objectToIntercept.position;
             }
         }
     }

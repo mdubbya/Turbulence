@@ -1,18 +1,19 @@
 ﻿using UnityEngine;
+using System.Linq;
 using System.Collections.Generic;
 
 namespace AI
 {
-    class TargetSelectionController : MonoBehaviour
+    public class TargetSelectionController : MonoBehaviour
     {
-        private TargetSelectorBase[] targetSelectors;
-        private TargetModifierBase[] targetModifiers;       
+        private List<ITargetModifier> targetModifiers;       
 
         public void Start()
         {
-            targetSelectors = GetComponents<TargetSelectorBase>();
-            targetModifiers = GetComponents<TargetModifierBase>();
+            targetModifiers = GetComponents<ITargetModifier>().ToList();
+            targetModifiers = targetModifiers.OrderByDescending(p => p.priority).ToList();
         }
+
 
         private Vector3 _targetPosition;
         public Vector3 targetPosition
@@ -22,14 +23,16 @@ namespace AI
 
 
         public void FixedUpdate()
-        {            
-            if (targetSelectors != null)
+        {
+            AITargetInfo targetInfo = new AITargetInfo(new Vector3(), false, null);
+            if (targetModifiers != null)
             {
-                foreach (TargetSelectorBase sel in targetSelectors)
+                foreach (ITargetModifier sel in targetModifiers)
                 {
-                    _targetPosition = sel.GetNewTargetPosition(targetPosition);
+                    targetInfo = sel.GetNewTargetInfo(targetInfo);
                 }
-            }            
+            }    
         }
+
     }
 }

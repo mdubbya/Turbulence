@@ -29,11 +29,10 @@
  *
  * <http://gamma.cs.unc.edu/RVO2/>
  */
-
-using System;
+ 
 using UnityEngine;
 
-namespace RVO
+namespace AI.RVO
 {
     /**
      * <summary>Contains functions and constants used in multiple classes.

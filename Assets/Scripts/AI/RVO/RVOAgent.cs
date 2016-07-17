@@ -35,45 +35,49 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
-namespace RVO
+namespace AI.RVO
 {
     /**
      * <summary>Defines an agent in the simulation.</summary>
      */
-    public class RVOAgent : RVOObject
+    [RequireComponent(typeof(TargetSelectionController))]
+    [RequireComponent(typeof(ShipMovementController))]
+    public class RVOAgent : RVOObject, ITargetModifier
     {
-        public List<RVOObject> agentNeighbors = new List<RVOObject>();
-        public List<Line> orcaLines = new List<Line>();
-        public Transform target;
-        public float maxSpeed = 0.0f;
         public float neighborDist = 0.0f;
         public float timeHorizon = 0.0f;
-        public float thrust = 0.0f;
-        public float turnTime;
 
-        private float _spud;
-
+        private List<Line> orcaLines = new List<Line>();
+        private List<RVOObject> agentNeighbors = new List<RVOObject>();
         private Vector2 prefVelocity;
-        
-        /**
-         * <summary>Applies rotation and force to this agent.</summary>
-         */
-        public override void FixedUpdate()
+        private Vector3 targetPosition;
+        private ShipMovementController shipMovementController;
+
+        [SerializeField]
+        private int _priority;
+        public int priority
         {
-            base.FixedUpdate();
-            
-            var intermediatePrefVelocity = target.position - transform.position;
+            get { return _priority; }
+            set { _priority = value; }
+        }
+
+        public override void Start()
+        {
+            base.Start();
+
+            shipMovementController = GetComponent<ShipMovementController>();
+        }
+
+
+        public AITargetInfo GetNewTargetInfo(AITargetInfo targetInfo)
+        {
+            Vector3 intermediatePrefVelocity = targetInfo.position - transform.position;
             prefVelocity = new Vector2(intermediatePrefVelocity.x, intermediatePrefVelocity.z);
             computeNeighbors();
             Vector2 newVelocity = computeNewVelocity();
-            Vector3 targetVector3d = new Vector3(newVelocity.x, 0, newVelocity.y);
-            Vector3 targetForce = targetVector3d * thrust;
-                        
-            transform.rotation = Quaternion.Lerp(transform.rotation,
-                                                Quaternion.LookRotation(targetVector3d), Time.deltaTime * 1 / turnTime);
-            
-            rigidBody.AddForce(transform.forward * thrust);
-            rigidBody.velocity = Vector3.ClampMagnitude(rigidBody.velocity, maxSpeed);
+            targetPosition = transform.position + new Vector3(newVelocity.x, 0, newVelocity.y);
+
+            return new AITargetInfo(position, targetInfo.isTargetEnemy, targetInfo.rigidBody);
         }
 
 
@@ -166,11 +170,11 @@ namespace RVO
                 orcaLines.Add(line);
             }
 
-            int lineFail = linearProgram2(orcaLines, maxSpeed, prefVelocity, false, ref newVelocity);
+            int lineFail = linearProgram2(orcaLines, shipMovementController.maxSpeed, prefVelocity, false, ref newVelocity);
 
             if (lineFail < orcaLines.Count)
             {
-                linearProgram3(orcaLines, lineFail, maxSpeed, ref newVelocity);
+                linearProgram3(orcaLines, lineFail, shipMovementController.maxSpeed, ref newVelocity);
             }
             return newVelocity;
         }

@@ -1,14 +1,21 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
-public class ProjectileWeaponController : MonoBehaviour 
+public class ProjectileWeaponController : MonoBehaviour, IWeaponController 
 {
 	public GameObject projectilePrefab;
-	public Transform projectileSpawnLocation;
 	public float maxProjectilesPerSecond;
 	private float lastProjectileSpawned=0;
 
-	public void Fire()
+    private Transform _spawnLocation;
+    public Transform spawnLocation
+    {
+        get { return _spawnLocation; }
+        set { _spawnLocation = value; }
+    }
+
+    public void Fire()
 	{
 		float projectileSpawnTimeSpacing = 1 / maxProjectilesPerSecond;
 		if(Time.time-lastProjectileSpawned > projectileSpawnTimeSpacing)
@@ -20,7 +27,7 @@ public class ProjectileWeaponController : MonoBehaviour
 
 	private void CreateAndLaunchProjectile()
 	{
-		GameObject projectile = Instantiate (projectilePrefab, projectileSpawnLocation.position, projectileSpawnLocation.rotation) as GameObject;
+		GameObject projectile = Instantiate (projectilePrefab, spawnLocation.position, spawnLocation.rotation) as GameObject;
 		projectile.GetComponent<ProjectileController> ().LaunchProjectile (GetComponentInParent<Rigidbody> ().velocity);
 	}
 	

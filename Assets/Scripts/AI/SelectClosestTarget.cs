@@ -3,20 +3,23 @@ using UnityEngine;
 
 namespace AI
 {
-    public class SelectClosestTarget : TargetSelectorBase
+    [RequireComponent(typeof(TargetSelectionController))]
+    public class SelectClosestTarget : MonoBehaviour, ITargetModifier
     {
         public float detectionRadius;
         public List<SingleUnityLayer> layers;
-
+        
+        [SerializeField]
         int _priority;
-        public override int priority
+        public int priority
         {
             get{ return _priority; }
 
             set { _priority = value; }
         }
+        
 
-        public override Vector3 GetNewTargetPosition(Vector3 previousTargetPosition)
+        public AITargetInfo GetNewTargetInfo(AITargetInfo targetInfo)
         {
             Vector3 currentPosition = transform.position;
             
@@ -25,7 +28,7 @@ namespace AI
             {
                 layerMask = layerMask | layer.Mask;
             }
-            Collider[] nearbyColliders = Physics.OverlapSphere(currentPosition, detectionRadius, layerMask);
+            Collider[] nearbyColliders = Physics.OverlapSphere(currentPosition, detectionRadius);
             
             //find the closest collider in the deteciton radius
             Collider closest = new Collider();
@@ -55,12 +58,12 @@ namespace AI
             if (colliderFound)
             {
                 DebugExtension.DebugPoint(closest.transform.position, Color.green, 2, Time.fixedDeltaTime * 4);
-                return closest.transform.position;
+                return new AITargetInfo(closest.transform.position,targetInfo.isTargetEnemy,targetInfo.rigidBody);
                 
             }
             else
             {
-                return previousTargetPosition;
+                return targetInfo;
             }
         }
 
