@@ -11,6 +11,7 @@ namespace AI
         public float targetingDistance;
         private float lastProjectileSpawned = 0;
 
+        [SerializeField]
         private Transform _spawnLocation;
         public Transform spawnLocation
         {
@@ -19,7 +20,7 @@ namespace AI
         }
 
 
-        public void Fire(AITargetInfo targetInfo)
+        public void AttackIfTargetValid(AITargetInfo targetInfo)
         {
             if (targetInfo.isTargetEnemy && targetInfo.rigidBody != null)
             {

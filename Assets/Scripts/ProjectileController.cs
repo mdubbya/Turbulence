@@ -3,10 +3,16 @@ using System.Collections;
 
 public class ProjectileController : MonoBehaviour
 {
-	public float projectileSpeed;
+	public float projectileForce;
 	public float projectileDamage;
 	public GameObject destructionAnimation;
 	public GameObject destructionSound;
+    
+    public float projectileSpeed
+    {
+        get { return (projectileForce / GetComponent<Rigidbody>().mass) * Time.fixedDeltaTime; }
+    }
+
     
 
 	public void LaunchProjectile(Vector3 startVelocity)
@@ -17,7 +23,7 @@ public class ProjectileController : MonoBehaviour
 		{
 			rigidBody.velocity = startVelocity;
 		}
-		rigidBody.AddForce (transform.forward * projectileSpeed);
+		rigidBody.AddForce (transform.forward * projectileForce);
 	}
 
 	public void OnTriggerEnter(Collider other)

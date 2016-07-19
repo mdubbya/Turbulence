@@ -6,6 +6,7 @@ namespace AI
     {
         Transform spawnLocation { get; set; }
 
-        void Fire(AITargetInfo targetInfo);
+        
+        void AttackIfTargetValid(AITargetInfo targetInfo);
     }
 }

@@ -5,8 +5,6 @@ namespace AI
 {
     public class AdjustToLeadTarget : MonoBehaviour , ITargetModifier
     {
-        private InterceptionCalculator interceptionCalculator;
-
         [SerializeField]
         private int _priority;
         public int priority
@@ -15,18 +13,26 @@ namespace AI
             set { _priority = value; }
         }
 
+        private Rigidbody rigidBody;
+
+
         public void Start()
         {
-            interceptionCalculator = new InterceptionCalculator();
+            rigidBody = GetComponent<Rigidbody>();
         }
+
         
         public Vector3 GetNewTargetPosition(Rigidbody objectToIntercept)
         {
-            Vector3 currentPosition = GetComponent<AIProjectileWeaponController>().spawnLocation.position;
             float projectileSpeed = GetComponent<AIProjectileWeaponController>().projectilePrefab.GetComponent<ProjectileController>().projectileSpeed;
 
-            Vector3? newPosition = interceptionCalculator.GetResult(currentPosition, projectileSpeed, objectToIntercept.position, objectToIntercept.velocity);
-
+            Vector3? newPosition = InterceptionCalculator.FirstOrderIntercept(transform.position, 
+                                                                              rigidBody.velocity, 
+                                                                              projectileSpeed, 
+                                                                              objectToIntercept.position, 
+                                                                              objectToIntercept.velocity);
+            
+            
             if (newPosition != null)
             {
                 return newPosition.Value;
@@ -39,7 +45,15 @@ namespace AI
 
         public AITargetInfo GetNewTargetInfo(AITargetInfo targetInfo)
         {
-            throw new NotImplementedException();
+            if (targetInfo.isTargetEnemy && targetInfo.rigidBody != null)
+            {
+                Vector3 updatedPosition = GetNewTargetPosition(targetInfo.rigidBody);
+                return new AITargetInfo(updatedPosition, true, targetInfo.rigidBody);
+            }
+            else
+            {
+                return targetInfo;
+            }
         }
     }
 }

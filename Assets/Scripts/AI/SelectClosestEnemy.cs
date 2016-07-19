@@ -4,7 +4,7 @@ using UnityEngine;
 namespace AI
 {
     [RequireComponent(typeof(TargetSelectionController))]
-    public class SelectClosestTarget : MonoBehaviour, ITargetModifier
+    public class SelectClosestEnemy : MonoBehaviour, ITargetModifier
     {
         public float detectionRadius;
         
@@ -16,7 +16,14 @@ namespace AI
 
             set { _priority = value; }
         }
-        
+
+        private TeamInfoController teamInfoController;
+
+        public void Start()
+        {
+            teamInfoController = GetComponent<TeamInfoController>();
+        }
+
 
         public AITargetInfo GetNewTargetInfo(AITargetInfo targetInfo)
         {
@@ -32,13 +39,18 @@ namespace AI
             {
                 foreach (Collider col in nearbyColliders)
                 {
-                    if (col != transform.GetComponentInChildren<Collider>())
+                    TeamInfoController otherTeamInfo = col.gameObject.transform.GetComponent<TeamInfoController>();
+                    if (otherTeamInfo != null)
                     {
-                        float newDistance = (col.transform.position - currentPosition).magnitude;
-                        if (newDistance < distance)
+                        if (col != transform.GetComponentInChildren<Collider>() &&
+                            teamInfoController.EnemyTeams.Contains(otherTeamInfo.OwningTeam))
                         {
-                            closest = col;
-                            colliderFound = true;
+                            float newDistance = (col.transform.position - currentPosition).magnitude;
+                            if (newDistance < distance)
+                            {
+                                closest = col;
+                                colliderFound = true;
+                            }
                         }
                     }
                 }
@@ -52,7 +64,7 @@ namespace AI
             if (colliderFound)
             {
                 DebugExtension.DebugPoint(closest.transform.position, Color.green, 2, Time.fixedDeltaTime * 4);
-                return new AITargetInfo(closest.transform.position,targetInfo.isTargetEnemy,targetInfo.rigidBody);
+                return new AITargetInfo(closest.transform.position,true,closest.attachedRigidbody);
                 
             }
             else
