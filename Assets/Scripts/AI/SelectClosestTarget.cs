@@ -7,7 +7,6 @@ namespace AI
     public class SelectClosestTarget : MonoBehaviour, ITargetModifier
     {
         public float detectionRadius;
-        public List<SingleUnityLayer> layers;
         
         [SerializeField]
         int _priority;
@@ -23,11 +22,6 @@ namespace AI
         {
             Vector3 currentPosition = transform.position;
             
-            int layerMask = 0;
-            foreach(SingleUnityLayer layer in layers)
-            {
-                layerMask = layerMask | layer.Mask;
-            }
             Collider[] nearbyColliders = Physics.OverlapSphere(currentPosition, detectionRadius);
             
             //find the closest collider in the deteciton radius
