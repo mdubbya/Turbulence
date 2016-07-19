@@ -41,7 +41,7 @@ namespace AI.RVO
      * <summary>Defines an agent in the simulation.</summary>
      */
     [RequireComponent(typeof(TargetSelectionController))]
-    [RequireComponent(typeof(ShipMovementController))]
+    [RequireComponent(typeof(AIShipMovementController))]
     public class RVOAgent : RVOObject, ITargetModifier
     {
         public float neighborDist = 0.0f;
@@ -51,7 +51,7 @@ namespace AI.RVO
         private List<RVOObject> agentNeighbors = new List<RVOObject>();
         private Vector2 prefVelocity;
         private Vector3 targetPosition;
-        private ShipMovementController shipMovementController;
+        private AIShipMovementController shipMovementController;
 
         [SerializeField]
         private int _priority;
@@ -65,7 +65,7 @@ namespace AI.RVO
         {
             base.Start();
 
-            shipMovementController = GetComponent<ShipMovementController>();
+            shipMovementController = GetComponent<AIShipMovementController>();
         }
 
 
@@ -77,7 +77,7 @@ namespace AI.RVO
             Vector2 newVelocity = computeNewVelocity();
             targetPosition = transform.position + new Vector3(newVelocity.x, 0, newVelocity.y);
 
-            return new AITargetInfo(position, targetInfo.isTargetEnemy, targetInfo.rigidBody);
+            return new AITargetInfo(targetPosition, targetInfo.isTargetEnemy, targetInfo.rigidBody);
         }
 
 

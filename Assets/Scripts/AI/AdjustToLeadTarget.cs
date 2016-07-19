@@ -3,9 +3,17 @@ using UnityEngine;
 
 namespace AI
 {
-    public class AdjustToLeadTarget : MonoBehaviour
+    public class AdjustToLeadTarget : MonoBehaviour , ITargetModifier
     {
         private InterceptionCalculator interceptionCalculator;
+
+        [SerializeField]
+        private int _priority;
+        public int priority
+        {
+            get { return _priority; }
+            set { _priority = value; }
+        }
 
         public void Start()
         {
@@ -14,8 +22,8 @@ namespace AI
         
         public Vector3 GetNewTargetPosition(Rigidbody objectToIntercept)
         {
-            Vector3 currentPosition = GetComponent<ProjectileWeaponController>().spawnLocation.position;
-            float projectileSpeed = GetComponent<ProjectileWeaponController>().projectilePrefab.GetComponent<ProjectileController>().projectileSpeed;
+            Vector3 currentPosition = GetComponent<AIProjectileWeaponController>().spawnLocation.position;
+            float projectileSpeed = GetComponent<AIProjectileWeaponController>().projectilePrefab.GetComponent<ProjectileController>().projectileSpeed;
 
             Vector3? newPosition = interceptionCalculator.GetResult(currentPosition, projectileSpeed, objectToIntercept.position, objectToIntercept.velocity);
 
@@ -27,6 +35,11 @@ namespace AI
             {
                 return objectToIntercept.position;
             }
+        }
+
+        public AITargetInfo GetNewTargetInfo(AITargetInfo targetInfo)
+        {
+            throw new NotImplementedException();
         }
     }
 }

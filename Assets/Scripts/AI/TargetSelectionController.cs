@@ -15,13 +15,6 @@ namespace AI
         }
 
 
-        private Vector3 _targetPosition;
-        public Vector3 targetPosition
-        {
-            get { return _targetPosition; }
-        }
-
-
         public void FixedUpdate()
         {
             AITargetInfo targetInfo = new AITargetInfo(new Vector3(), false, null);
@@ -31,6 +24,11 @@ namespace AI
                 {
                     targetInfo = sel.GetNewTargetInfo(targetInfo);
                 }
+            }
+            IShipMovementController movementController = GetComponent<IShipMovementController>();
+            if(movementController!=null)
+            {
+                movementController.ApplyMovementControl(targetInfo);
             }    
         }
 

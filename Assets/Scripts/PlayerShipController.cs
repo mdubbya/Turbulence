@@ -6,11 +6,11 @@ public class PlayerShipController : MonoBehaviour
 {
 	public ShipMovementController shipMovementController;
 
-    private ProjectileWeaponController[] weaponControllers;
+    private PlayerProjectileWeaponController[] weaponControllers;
 
     public void Start()
     {
-        weaponControllers = GetComponentsInChildren<ProjectileWeaponController>();
+        weaponControllers = GetComponentsInChildren<PlayerProjectileWeaponController>();
     }
 
 
@@ -34,7 +34,7 @@ public class PlayerShipController : MonoBehaviour
         bool fire = Input.GetButton("Fire1");
         if (fire)
         {
-            foreach(ProjectileWeaponController controller in weaponControllers)
+            foreach(PlayerProjectileWeaponController controller in weaponControllers)
             {
                 controller.Fire();
             }

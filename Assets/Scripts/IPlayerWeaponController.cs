@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
-using System.Collections;
 
-public interface IWeaponController 
+
+public interface IWeaponController
 {
     Transform spawnLocation { get; set; }
 

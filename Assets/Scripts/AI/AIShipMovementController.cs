@@ -1,26 +1,26 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace AI
 {
     [RequireComponent(typeof(TargetSelectionController))]
-    public class ShipMovementController : MonoBehaviour
+    public class AIShipMovementController : MonoBehaviour , IShipMovementController
     {
         public float turnTime;
         public float maxSpeed;
         public float thrust;
 
         private Rigidbody rigidBody;
-        private TargetSelectionController targetSelectionController;
 
         public void Start()
         {
             rigidBody = GetComponent<Rigidbody>();
-            targetSelectionController = GetComponent<TargetSelectionController>();
         }
 
-        public void FixedUpdate()
+
+        public void ApplyMovementControl(AITargetInfo targetInfo)
         {
-            var targetVector = targetSelectionController.targetPosition - transform.position;
+            var targetVector = targetInfo.position - transform.position;
 
             transform.rotation = Quaternion.Lerp(transform.rotation,
                                                 Quaternion.LookRotation(targetVector), Time.deltaTime * 1 / turnTime);
