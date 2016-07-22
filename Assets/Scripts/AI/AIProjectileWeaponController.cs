@@ -20,12 +20,15 @@ namespace AI
         }
 
 
-        public void AttackIfTargetValid(AITargetInfo targetInfo)
+        public void AttackIfTargetValid(AITargetInfo targetInfo) 
         {
-            if (targetInfo.isTargetEnemy && targetInfo.rigidBody != null)
+            if (targetInfo.targetAcquired && targetInfo.enemyRigidBody != null)
             {
-                Vector3 checkVector = transform.position + ((targetInfo.position - transform.position).magnitude * transform.forward);
-                if (Vector3.Distance(checkVector, targetInfo.position) < targetZoneWidth)
+                Vector3 checkVector = transform.position + ((targetInfo.attackTarget - transform.position).magnitude * transform.forward);
+                DebugExtension.DebugPoint(checkVector, Color.white, 1, Time.fixedDeltaTime);
+                Debug.DrawLine(transform.position, checkVector, Color.green, Time.fixedDeltaTime);
+                //Debug.DrawLine(checkVector,targetInfo.enemyRigidBody.position,Color)
+                if (Vector3.Distance(checkVector, targetInfo.attackTarget) < targetZoneWidth)
                 {
                     float projectileSpawnTimeSpacing = 1 / maxProjectilesPerSecond;
                     if (Time.time - lastProjectileSpawned > projectileSpawnTimeSpacing)

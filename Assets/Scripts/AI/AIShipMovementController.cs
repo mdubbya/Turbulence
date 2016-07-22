@@ -20,12 +20,23 @@ namespace AI
 
         public void ApplyMovementControl(AITargetInfo targetInfo)
         {
-            var targetVector = targetInfo.position - transform.position;
+            Vector3 moveVector = (targetInfo.moveTarget - transform.position).normalized;
+            Vector3 attackVector = (targetInfo.attackTarget - transform.position);
 
-            transform.rotation = Quaternion.Lerp(transform.rotation,
-                                                Quaternion.LookRotation(targetVector), Time.deltaTime * 1 / turnTime);
+            Vector3 projectedVelocity = Vector3.Project(rigidBody.velocity, moveVector);
+            
+            if (projectedVelocity.magnitude < maxSpeed-1)
+            {
+                transform.rotation = Quaternion.Lerp(transform.rotation,
+                                                    Quaternion.LookRotation(moveVector), Time.deltaTime * 1 / turnTime);
 
-            rigidBody.AddForce(transform.forward * thrust);
+                rigidBody.AddForce(transform.forward * thrust);
+            }
+            else
+            {
+                transform.rotation = Quaternion.Lerp(transform.rotation,
+                                                     Quaternion.LookRotation(attackVector), Time.deltaTime * 1 / turnTime); 
+            }
             rigidBody.velocity = Vector3.ClampMagnitude(rigidBody.velocity, maxSpeed);
         }
     }

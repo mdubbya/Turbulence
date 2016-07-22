@@ -45,10 +45,10 @@ namespace AI
 
         public AITargetInfo GetNewTargetInfo(AITargetInfo targetInfo)
         {
-            if (targetInfo.isTargetEnemy && targetInfo.rigidBody != null)
+            if (targetInfo.targetAcquired && targetInfo.enemyRigidBody != null)
             {
-                Vector3 updatedPosition = GetNewTargetPosition(targetInfo.rigidBody);
-                return new AITargetInfo(updatedPosition, true, targetInfo.rigidBody);
+                Vector3 updatedPosition = GetNewTargetPosition(targetInfo.enemyRigidBody);
+                return new AITargetInfo(targetInfo.moveTarget,true,updatedPosition,targetInfo.enemyRigidBody);
             }
             else
             {

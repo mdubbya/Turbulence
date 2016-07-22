@@ -71,13 +71,13 @@ namespace AI.RVO
 
         public AITargetInfo GetNewTargetInfo(AITargetInfo targetInfo)
         {
-            Vector3 intermediatePrefVelocity = targetInfo.position - transform.position;
+            Vector3 intermediatePrefVelocity = targetInfo.moveTarget - transform.position;
             prefVelocity = new Vector2(intermediatePrefVelocity.x, intermediatePrefVelocity.z);
             computeNeighbors();
             Vector2 newVelocity = computeNewVelocity();
             targetPosition = transform.position + new Vector3(newVelocity.x, 0, newVelocity.y);
 
-            return new AITargetInfo(targetPosition, targetInfo.isTargetEnemy, targetInfo.rigidBody);
+            return new AITargetInfo(targetPosition, targetInfo.targetAcquired, targetInfo.attackTarget, targetInfo.enemyRigidBody);
         }
 
 

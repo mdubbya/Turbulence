@@ -64,7 +64,7 @@ namespace AI
             if (colliderFound)
             {
                 DebugExtension.DebugPoint(closest.transform.position, Color.green, 2, Time.fixedDeltaTime * 4);
-                return new AITargetInfo(closest.transform.position,true,closest.attachedRigidbody);
+                return new AITargetInfo(targetInfo.moveTarget,true,closest.attachedRigidbody.position, closest.attachedRigidbody);
                 
             }
             else

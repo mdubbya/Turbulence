@@ -19,7 +19,7 @@ namespace AI
 
         public void FixedUpdate()
         {
-            AITargetInfo targetInfo = new AITargetInfo(new Vector3(), false, null);
+            AITargetInfo targetInfo = new AITargetInfo(new Vector3(), false, new Vector3(), null);
             if (targetModifiers != null)
             {
                 foreach (ITargetModifier sel in targetModifiers)

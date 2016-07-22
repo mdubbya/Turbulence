@@ -4,15 +4,17 @@ namespace AI
 {
     public class AITargetInfo
     {
-        public Vector3 position;
-        public bool isTargetEnemy;
-        public Rigidbody rigidBody;
+        public Vector3 moveTarget;
+        public bool targetAcquired;
+        public Vector3 attackTarget;
+        public Rigidbody enemyRigidBody;
 
-        public AITargetInfo(Vector3 _position, bool _isTargetEnemy, Rigidbody _rigidBody)
+        public AITargetInfo(Vector3 _moveTarget, bool _targetAcquired, Vector3 _attackTarget, Rigidbody _enemyRigidBody)
         {
-            position = _position;
-            isTargetEnemy = _isTargetEnemy;
-            rigidBody = _rigidBody;
+            moveTarget = _moveTarget;
+            targetAcquired = _targetAcquired;
+            attackTarget = _attackTarget;
+            enemyRigidBody = _enemyRigidBody;
         }
     }
 }
