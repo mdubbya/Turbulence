@@ -3,8 +3,7 @@ using UnityEngine;
 
 namespace AI
 {
-    [RequireComponent(typeof(TargetSelectionController))]
-    public class SelectClosestEnemy : MonoBehaviour, ITargetModifier
+    public class SelectClosestEnemy : MonoBehaviour
     {
         public float detectionRadius;
         
@@ -63,7 +62,6 @@ namespace AI
 
             if (colliderFound)
             {
-                DebugExtension.DebugPoint(closest.transform.position, Color.green, 2, Time.fixedDeltaTime * 4);
                 return new AITargetInfo(targetInfo.moveTarget,true,closest.attachedRigidbody.position, closest.attachedRigidbody);
                 
             }

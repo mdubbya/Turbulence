@@ -40,18 +40,17 @@ namespace AI.RVO
     /**
      * <summary>Defines an agent in the simulation.</summary>
      */
-    [RequireComponent(typeof(TargetSelectionController))]
     [RequireComponent(typeof(AIShipMovementController))]
-    public class RVOAgent : RVOObject, ITargetModifier
+    public class RVOAgent : RVOObject
     {
-        public float neighborDist = 0.0f;
-        public float timeHorizon = 0.0f;
+        private float neighborDist;
+        private float timeHorizon;
 
         private List<Line> orcaLines = new List<Line>();
         private List<RVOObject> agentNeighbors = new List<RVOObject>();
         private Vector2 prefVelocity;
         private Vector3 targetPosition;
-        private AIShipMovementController shipMovementController;
+        private RVOShipMovementProperties shipMovementProperties;
 
         [SerializeField]
         private int _priority;
@@ -65,7 +64,9 @@ namespace AI.RVO
         {
             base.Start();
 
-            shipMovementController = GetComponent<AIShipMovementController>();
+            shipMovementProperties = GetComponent<RVOShipMovementProperties>();
+            neighborDist = shipMovementProperties.neighborDistance;
+            timeHorizon = shipMovementProperties.TimeHorizon;
         }
 
 
@@ -170,11 +171,11 @@ namespace AI.RVO
                 orcaLines.Add(line);
             }
 
-            int lineFail = linearProgram2(orcaLines, shipMovementController.maxSpeed, prefVelocity, false, ref newVelocity);
+            int lineFail = linearProgram2(orcaLines, shipMovementProperties.maxSpeed, prefVelocity, false, ref newVelocity);
 
             if (lineFail < orcaLines.Count)
             {
-                linearProgram3(orcaLines, lineFail, shipMovementController.maxSpeed, ref newVelocity);
+                linearProgram3(orcaLines, lineFail, shipMovementProperties.maxSpeed, ref newVelocity);
             }
             return newVelocity;
         }

@@ -1,11 +1,13 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
-public class PlayerProjectileWeaponController : MonoBehaviour, IWeaponController
+public class ProjectileWeaponController : MonoBehaviour, IWeaponController
 {
-    public GameObject projectilePrefab;
+    public ProjectileController projectilePrefab;
     public float maxProjectilesPerSecond;
     private float lastProjectileSpawned = 0;
 
+    [SerializeField]
     private Transform _spawnLocation;
     public Transform spawnLocation
     {
@@ -13,6 +15,17 @@ public class PlayerProjectileWeaponController : MonoBehaviour, IWeaponController
         set { _spawnLocation = value; }
     }
 
+    private float _weaponOutputSpeed;
+    public float weaponOutputSpeed
+    {
+        get{ return _weaponOutputSpeed; }
+    }
+
+
+    public void Start()
+    {
+        _weaponOutputSpeed = projectilePrefab.projectileSpeed;
+    }
 
     public void Fire()
     {

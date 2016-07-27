@@ -2,7 +2,6 @@
 using AI;
 using System.Collections;
 
-[RequireComponent(typeof(TargetSelectionController))]
 public class NavMeshAgentTest : MonoBehaviour
 {
     public float turnSpeed;
@@ -23,7 +22,6 @@ public class NavMeshAgentTest : MonoBehaviour
         agent.updatePosition = false;
         agent.updateRotation = false;
         NavMesh.avoidancePredictionTime = 4;
-        TargetSelectionController controller = GetComponent<TargetSelectionController>();
     }
 
 

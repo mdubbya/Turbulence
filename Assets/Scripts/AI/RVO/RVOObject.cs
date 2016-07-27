@@ -4,7 +4,6 @@ namespace AI.RVO
 {
     public class RVOObject : MonoBehaviour
     {
-        [SerializeField]
         private float _radius;
         public float radius
         {
@@ -31,6 +30,7 @@ namespace AI.RVO
         {
             rigidBody = GetComponent<Rigidbody>();
             _position = new Vector2(transform.position.x, transform.position.z);
+            _radius = GetComponent<RVOShipMovementProperties>().radius;
         }
 
         public virtual void FixedUpdate()

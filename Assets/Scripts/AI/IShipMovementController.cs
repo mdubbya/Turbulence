@@ -1,6 +1,4 @@
-﻿using AI;
-
-namespace AI
+﻿namespace AI
 {
     public interface IShipMovementController
     {
