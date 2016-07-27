@@ -1,13 +1,11 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace AI
 {
     public class AIController
     {
-
-        public float fleeThreshold;
-        public ArmorController armorController;
         private List<Objective> objectives;
 
         public void Start()
@@ -16,40 +14,34 @@ namespace AI
         }
 
 
-        public void AddPatrol(Patrol patrol, int priority)
+        public void AddObjective(Objective objective)
         {
-
-        }
-        
-
-        public void AddAttackArea(AttackArea attackArea, int priority)
-        {
-
-        }
-
-
-        public void AddAttackObjective(AttackObjective objective, int priority)
-        {
-
-        }
-
-
-        public void AddDefendArea(DefendArea defendArea, int priority)
-        {
-
-        }
-
-
-        public void AddDefendObjective(DefendObjective defendObjective, int priority)
-        {
-
+            objectives.Add(objective);
         }
 
 
         public void FixedUpdate()
         {
+            UpdateObjectivePriorities();
+            UpdateTargetInfo();
+            
+            //After updating target info using basic attributes assigned to AIController, 
+            //running the highest priority objective can cause the target info to be
+            //altered; E.G., if an AttackObjective is higher priority than a DefenArea,
+            //the AI will ignore other targets in favor of attacking the objective
+            Objective highestPriority = objectives.Min();
+        }
+
+
+        private void UpdateTargetInfo()
+        {
 
         }
 
+
+        private void UpdateObjectivePriorities()
+        {
+
+        }
     }
 }
