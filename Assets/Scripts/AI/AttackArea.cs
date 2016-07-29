@@ -8,9 +8,11 @@ namespace AI
         public Vector3 attackAnchor;
         public float anchorDistance;
 
-        public override AITargetInfo GetTargetInfo(AITargetInfo targetInfo)
+
+
+        public override void UpdateTargetInfo(AITargetInfo targetInfo)
         {
-            return new AITargetInfo(attackAnchor, targetInfo.targetAcquired, targetInfo.attackTarget, targetInfo.enemyRigidBody);
+            targetInfo.moveTarget = attackAnchor;
         }
     }
 }

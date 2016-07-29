@@ -1,10 +1,11 @@
-﻿namespace AI
+﻿using UnityEngine;
+namespace AI
 {
-    public abstract class Objective
+    public abstract class Objective : MonoBehaviour
     {
         public bool objectiveComplete;
         public int priority;
 
-        public abstract AITargetInfo GetTargetInfo(AITargetInfo targetInfo);
+        public abstract void UpdateTargetInfo(AITargetInfo targetInfo);
     }
 }

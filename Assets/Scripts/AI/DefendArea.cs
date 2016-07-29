@@ -1,12 +1,18 @@
-﻿using System;
+﻿using UnityEngine;
 
 namespace AI
 {
     public class DefendArea : Objective
     {
-        public override AITargetInfo GetTargetInfo(AITargetInfo targetInfo)
+        public Vector3 position;
+        public float anchorDistance;
+
+        public override void UpdateTargetInfo(AITargetInfo targetInfo)
         {
-            throw new NotImplementedException();
+            if (Vector3.Distance(transform.position, position) > anchorDistance)
+            {
+                targetInfo.moveTarget = position;
+            }
         }
     }
 }

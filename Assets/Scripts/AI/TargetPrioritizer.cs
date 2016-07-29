@@ -1,6 +1,9 @@
-﻿namespace AI
+﻿using UnityEngine;
+
+namespace AI
 {
-    public class TargetPrioritizer
+    public abstract class TargetPrioritizer : MonoBehaviour
     {
+        public abstract void UpdateTargetInfo(AITargetInfo targetInfo);
     }
 }

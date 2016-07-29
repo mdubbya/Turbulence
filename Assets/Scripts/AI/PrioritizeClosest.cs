@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace AI
 {
-    public class SelectClosestEnemy : MonoBehaviour
+    public class PrioritizeClosest : TargetPrioritizer
     {
         public float detectionRadius;
         
@@ -24,7 +24,7 @@ namespace AI
         }
 
 
-        public AITargetInfo GetNewTargetInfo(AITargetInfo targetInfo)
+        public override void UpdateTargetInfo(AITargetInfo targetInfo)
         {
             Vector3 currentPosition = transform.position;
             
@@ -62,19 +62,11 @@ namespace AI
 
             if (colliderFound)
             {
-                return new AITargetInfo(targetInfo.moveTarget,true,closest.attachedRigidbody.position, closest.attachedRigidbody);
+                targetInfo.targetAcquired = true;
+                targetInfo.attackTarget = closest.attachedRigidbody.position;
+                targetInfo.enemyRigidBody = closest.attachedRigidbody;
                 
             }
-            else
-            {
-                return targetInfo;
-            }
-        }
-
-        public void Update()
-        {
-            
-
         }
     }
 

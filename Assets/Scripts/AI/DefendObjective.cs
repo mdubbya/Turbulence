@@ -4,7 +4,7 @@ namespace AI
 {
     public class DefendObjective : Objective
     {
-        public override AITargetInfo GetTargetInfo(AITargetInfo targetInfo)
+        public override void UpdateTargetInfo(AITargetInfo targetInfo)
         {
             throw new NotImplementedException();
         }

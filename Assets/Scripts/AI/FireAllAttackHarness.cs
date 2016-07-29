@@ -62,7 +62,8 @@ namespace AI
             if (targetInfo.targetAcquired && targetInfo.enemyRigidBody != null)
             {
                 Vector3 updatedPosition = GetNewTargetPosition(targetInfo.enemyRigidBody);
-                return new AITargetInfo(targetInfo.moveTarget, true, updatedPosition, targetInfo.enemyRigidBody);
+                //return new AITargetInfo(targetInfo.moveTarget, true, updatedPosition, targetInfo.enemyRigidBody);
+                return null;
             }
             else
             {
