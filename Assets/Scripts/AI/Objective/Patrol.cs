@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace AI
+namespace AI.Objective
 {
     public enum PatrolPattern { Reverse, Loop, Random}
-    public class Patrol : Objective
+    public class Patrol : ObjectiveBase
     {
         public List<Waypoint> waypoints;
         public Waypoint currentTarget;
@@ -14,6 +14,11 @@ namespace AI
         public float anchorDistance;
 
         public override void UpdateTargetInfo(AITargetInfo targetInfo)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void UpdatePriority()
         {
             throw new NotImplementedException();
         }

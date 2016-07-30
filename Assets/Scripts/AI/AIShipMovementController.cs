@@ -3,39 +3,44 @@ using UnityEngine;
 
 namespace AI
 {
-    public class AIShipMovementController : MonoBehaviour , IShipMovementController
+    public class AIShipMovementController : MonoBehaviour 
     {
-        private ShipMovementProperties shipMovementProperties;
-
-        private Rigidbody rigidBody;
+        private ShipMovementProperties _shipMovementProperties;
+        private AITargetInfo _targetInfo;
+        private Rigidbody _rigidBody;
 
         public void Start()
         {
-            rigidBody = GetComponent<Rigidbody>();
-            shipMovementProperties = GetComponent<ShipMovementProperties>();
+            _rigidBody = GetComponent<Rigidbody>();
+            _shipMovementProperties = GetComponent<ShipMovementProperties>();
+        }
+
+        public void FixedUpdate()
+        {
+            ApplyMovementControl(_targetInfo);
         }
 
 
-        public void ApplyMovementControl(AITargetInfo targetInfo)
+        private void ApplyMovementControl(AITargetInfo targetInfo)
         {
             Vector3 moveVector = (targetInfo.moveTarget - transform.position).normalized;
             Vector3 attackVector = (targetInfo.attackTarget - transform.position);
 
-            Vector3 projectedVelocity = Vector3.Project(rigidBody.velocity, moveVector);
+            Vector3 projectedVelocity = Vector3.Project(_rigidBody.velocity, moveVector);
             
-            if (projectedVelocity.magnitude < shipMovementProperties.maxSpeed - 1f)
+            if (projectedVelocity.magnitude < _shipMovementProperties.maxSpeed - 1f)
             {
                 transform.rotation = Quaternion.Lerp(transform.rotation,
-                                                    Quaternion.LookRotation(moveVector), Time.deltaTime * 1 / shipMovementProperties.turnTime);
+                                                    Quaternion.LookRotation(moveVector), Time.deltaTime * 1 / _shipMovementProperties.turnTime);
 
-                rigidBody.AddForce(transform.forward * shipMovementProperties.thrust);
+                _rigidBody.AddForce(transform.forward * _shipMovementProperties.thrust);
             }
             else
             {
                 transform.rotation = Quaternion.Lerp(transform.rotation,
-                                                     Quaternion.LookRotation(attackVector), Time.deltaTime * 1 / shipMovementProperties.turnTime); 
+                                                     Quaternion.LookRotation(attackVector), Time.deltaTime * 1 / _shipMovementProperties.turnTime); 
             }
-            rigidBody.velocity = Vector3.ClampMagnitude(rigidBody.velocity, shipMovementProperties.maxSpeed);
+            _rigidBody.velocity = Vector3.ClampMagnitude(_rigidBody.velocity, _shipMovementProperties.maxSpeed);
         }
     }
 }

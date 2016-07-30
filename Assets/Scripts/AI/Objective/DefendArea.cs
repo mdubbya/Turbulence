@@ -1,8 +1,9 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
-namespace AI
+namespace AI.Objective
 {
-    public class DefendArea : Objective
+    public class DefendArea : ObjectiveBase
     {
         public Vector3 position;
         public float anchorDistance;
@@ -12,7 +13,12 @@ namespace AI
             if (Vector3.Distance(transform.position, position) > anchorDistance)
             {
                 targetInfo.moveTarget = position;
-            }
+            } 
+        }
+
+        public override void UpdatePriority()
+        {
+            throw new NotImplementedException();
         }
     }
 }

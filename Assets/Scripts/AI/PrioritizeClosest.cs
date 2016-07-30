@@ -1,20 +1,13 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using System.Linq;
 
 namespace AI
 {
     public class PrioritizeClosest : TargetPrioritizer
     {
         public float detectionRadius;
-        
-        [SerializeField]
-        int _priority;
-        public int priority
-        {
-            get{ return _priority; }
 
-            set { _priority = value; }
-        }
+        public int priority;
 
         private TeamInfoController teamInfoController;
 
@@ -23,49 +16,15 @@ namespace AI
             teamInfoController = GetComponent<TeamInfoController>();
         }
 
-
         public override void UpdateTargetInfo(AITargetInfo targetInfo)
         {
             Vector3 currentPosition = transform.position;
-            
-            Collider[] nearbyColliders = Physics.OverlapSphere(currentPosition, detectionRadius);
-            
-            //find the closest collider in the deteciton radius
-            Collider closest = new Collider();
-            bool colliderFound = false;
-            float distance = float.MaxValue;
-            if (nearbyColliders.Length > 1)
+                        
+            //find the closest rigidBody in the detection radius
+            if (targetInfo!=null && targetInfo.potentialTargets.Count > 0)
             {
-                foreach (Collider col in nearbyColliders)
-                {
-                    TeamInfoController otherTeamInfo = col.gameObject.transform.GetComponent<TeamInfoController>();
-                    if (otherTeamInfo != null)
-                    {
-                        if (col != transform.GetComponentInChildren<Collider>() &&
-                            teamInfoController.EnemyTeams.Contains(otherTeamInfo.OwningTeam))
-                        {
-                            float newDistance = (col.transform.position - currentPosition).magnitude;
-                            if (newDistance < distance)
-                            {
-                                closest = col;
-                                colliderFound = true;
-                            }
-                        }
-                    }
-                }
-            }
-            else
-            {
-                closest = nearbyColliders[0];
-                colliderFound = true;
-            }
-
-            if (colliderFound)
-            {
+                targetInfo.enemyRigidBody = targetInfo.potentialTargets.OrderBy(p => Vector3.Distance(transform.position, p.position)).First();
                 targetInfo.targetAcquired = true;
-                targetInfo.attackTarget = closest.attachedRigidbody.position;
-                targetInfo.enemyRigidBody = closest.attachedRigidbody;
-                
             }
         }
     }
