@@ -3,12 +3,12 @@ using System.Collections;
 
 public class EngineAnimator : MonoBehaviour 
 {
-	public float maxJetSize;
-    public float jetLightIntensity;
+	//public float maxJetSize;
+ //   public float jetLightIntensity;
     
-    private ParticleSystem[] particleSystems;
-    private AudioSource[] audioSources;
-    private Light[] lightSources;
+    //private ParticleSystem[] particleSystems;
+    //private AudioSource[] audioSources;
+    //private Light[] lightSources;
 
  //   public void Start()
  //   {

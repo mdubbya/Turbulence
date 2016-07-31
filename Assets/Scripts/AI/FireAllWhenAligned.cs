@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace AI
 {
-    public class FireAllAttackHarness : MonoBehaviour
+    public class FireAllWhenAligned : MonoBehaviour
     {
         public float targetZoneWidth;
         private AITargetInfo _targetInfo;
@@ -13,6 +13,7 @@ namespace AI
         public void Start()
         {
             weapons = GetComponentsInChildren<IWeaponController>().ToList();
+            _targetInfo = GetComponent<AITargetInfo>();
         }
 
         public void FixedUpdate()

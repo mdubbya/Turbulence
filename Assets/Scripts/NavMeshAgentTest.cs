@@ -11,31 +11,32 @@ public class NavMeshAgentTest : MonoBehaviour
     public float maxSpeed;
     public float minSpeed;
 
-    private Vector3 target;
+    private AITargetInfo _targetInfo;
     
-    private NavMeshAgent agent;
-    private Rigidbody body;
+    private NavMeshAgent _agent;
+    private Rigidbody _rigidBody;
 	void Start ()
     {
-        agent = GetComponent<NavMeshAgent>();
-        body = GetComponent<Rigidbody>();
-        agent.updatePosition = false;
-        agent.updateRotation = false;
+        _agent = GetComponent<NavMeshAgent>();
+        _rigidBody = GetComponent<Rigidbody>();
+        _targetInfo = GetComponent<AITargetInfo>();
+        _agent.updatePosition = false;
+        _agent.updateRotation = false;
         NavMesh.avoidancePredictionTime = 4;
     }
 
 
     public void Update()
     {
-        if (Vector3.Distance(transform.position, target) > arrivalDistance)
+        if (Vector3.Distance(transform.position, _targetInfo.moveTarget) > arrivalDistance)
         {
             transform.rotation = Quaternion.Lerp(transform.rotation,
-                                                Quaternion.LookRotation(agent.desiredVelocity), Time.deltaTime * turnSpeed);
+                                                Quaternion.LookRotation(_agent.desiredVelocity), Time.deltaTime * turnSpeed);
         }
         else
         {
             transform.rotation = Quaternion.Lerp(transform.rotation,
-                                                 Quaternion.LookRotation(target - transform.position), Time.deltaTime* turnSpeed);
+                                                 Quaternion.LookRotation(_targetInfo.moveTarget - transform.position), Time.deltaTime* turnSpeed);
         }
 
     }
@@ -43,23 +44,20 @@ public class NavMeshAgentTest : MonoBehaviour
 
     void FixedUpdate ()
     {
-        if (target != null)
+        if (_agent.SetDestination(_targetInfo.moveTarget))
         {
-            if (agent.SetDestination(target))
+            if ((Vector3.Dot(_rigidBody.velocity, _agent.desiredVelocity.normalized) < maxSpeed) &&
+                (Vector3.Angle(transform.forward, _agent.desiredVelocity.normalized) < thrustThreshold) &&
+                    Vector3.Distance(transform.position, _targetInfo.moveTarget) > arrivalDistance)
             {
-                if ((Vector3.Dot(body.velocity, agent.desiredVelocity.normalized) < maxSpeed) &&
-                    (Vector3.Angle(transform.forward, agent.desiredVelocity.normalized) < thrustThreshold) &&
-                     Vector3.Distance(transform.position, target) > arrivalDistance)
-                {
-                    body.AddForce(transform.forward * thrust);
-                }
-
-                //body.velocity = agent.desiredVelocity;
-                body.velocity = Vector3.ClampMagnitude(body.velocity, maxSpeed);
-
-                //update navmeshagent position to synchronize path calculations
-                agent.nextPosition = transform.position;
+                _rigidBody.AddForce(transform.forward * thrust);
             }
+
+            //body.velocity = agent.desiredVelocity;
+            _rigidBody.velocity = Vector3.ClampMagnitude(_rigidBody.velocity, maxSpeed);
+
+            //update navmeshagent position to synchronize path calculations
+            _agent.nextPosition = transform.position;
         }
     }
 

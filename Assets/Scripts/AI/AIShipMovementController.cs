@@ -13,6 +13,7 @@ namespace AI
         {
             _rigidBody = GetComponent<Rigidbody>();
             _shipMovementProperties = GetComponent<ShipMovementProperties>();
+            _targetInfo = GetComponent<AITargetInfo>();
         }
 
         public void FixedUpdate()
