@@ -12,13 +12,13 @@ namespace AI.Objective
         public PatrolPattern patrolPattern;
         public float closeEnoughDistance;
         public float anchorDistance;
-
-        public override void UpdateTargetInfo(AITargetInfo targetInfo)
+        
+        public override void UpdatePriority()
         {
             throw new NotImplementedException();
         }
 
-        public override void UpdatePriority()
+        public override void UpdateTargetInfo()
         {
             throw new NotImplementedException();
         }

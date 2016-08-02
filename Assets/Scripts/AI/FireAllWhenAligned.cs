@@ -24,7 +24,7 @@ namespace AI
 
         private void AttackIfTargetValid(AITargetInfo targetInfo) 
         {
-            if (targetInfo.targetAcquired && targetInfo.enemyRigidBody != null)
+            if (targetInfo.targetAcquired && targetInfo.enemy != null)
             {
                 Vector3 checkVector = transform.position + ((targetInfo.attackTarget - transform.position).magnitude * transform.parent.forward);
                 if (Vector3.Distance(checkVector, targetInfo.attackTarget) < targetZoneWidth)

@@ -8,6 +8,6 @@ namespace AI
         public Vector3 moveTarget;
         public bool targetAcquired;
         public Vector3 attackTarget;
-        public Rigidbody enemyRigidBody;
+        public GameObject enemy;
     }
 }

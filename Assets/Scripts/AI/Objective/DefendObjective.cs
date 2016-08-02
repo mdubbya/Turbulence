@@ -9,7 +9,7 @@ namespace AI.Objective
             throw new NotImplementedException();
         }
 
-        public override void UpdateTargetInfo(AITargetInfo targetInfo)
+        public override void UpdateTargetInfo()
         {
             throw new NotImplementedException();
         }

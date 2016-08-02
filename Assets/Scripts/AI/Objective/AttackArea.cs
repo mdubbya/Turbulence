@@ -7,14 +7,13 @@ namespace AI.Objective
     {
         public Vector3 attackAnchor;
         public float anchorDistance;
-
-
-        public override void UpdateTargetInfo(AITargetInfo targetInfo)
+        
+        public override void UpdatePriority()
         {
-            targetInfo.objectiveLocation = attackAnchor;
+            throw new NotImplementedException();
         }
 
-        public override void UpdatePriority()
+        public override void UpdateTargetInfo()
         {
             throw new NotImplementedException();
         }

@@ -7,16 +7,14 @@ namespace AI.Objective
     {
         public Vector3 position;
         public float anchorDistance;
-
-        public override void UpdateTargetInfo(AITargetInfo targetInfo)
-        {
-            if (Vector3.Distance(transform.position, position) > anchorDistance)
-            {
-                targetInfo.moveTarget = position;
-            } 
-        }
+        
 
         public override void UpdatePriority()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void UpdateTargetInfo()
         {
             throw new NotImplementedException();
         }

@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace AI
 {
-    public class PrioritizeClosest : TargetPrioritizer
+    public class PrioritizeTargets : MonoBehaviour
     {
         public float detectionRadius;
         public int priority;
@@ -17,15 +17,14 @@ namespace AI
             _radar = GetComponent<Radar>();
         }
 
-        public override void UpdateTargetInfo()
+        public void Calculate()
         {
             //find the closest rigidBody in the detection radius
-            if (_targetInfo!=null && _radar.enemiesDetected.Count > 0)
+            if (_targetInfo != null && _radar.enemiesDetected.Count > 0)
             {
-                _targetInfo.enemyRigidBody = _radar.enemiesDetected.OrderBy(p => Vector3.Distance(transform.position, p.position)).First();
+                _targetInfo.enemy = _radar.enemiesDetected.OrderBy(p => Vector3.Distance(transform.position, p.position)).First().gameObject;
                 _targetInfo.targetAcquired = true;
             }
         }
     }
-
 }

@@ -6,7 +6,7 @@ namespace AI.Objective
         public bool objectiveValid=true;
         public int priority=0;
 
-        public abstract void UpdateTargetInfo(AITargetInfo targetInfo);
+        public abstract void UpdateTargetInfo();
 
         public abstract void UpdatePriority();
     }

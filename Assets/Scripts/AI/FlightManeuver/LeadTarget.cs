@@ -21,18 +21,22 @@ namespace AI
 
 
         public override void UpdateForManeuver()
-        {           
-            float projectileSpeed = (from p in _weapons select p.weaponOutputSpeed).Average();
-
-            Vector3? newPosition = InterceptionCalculator.FirstOrderIntercept(transform.position,
-                                                                              _rigidBody.velocity,
-                                                                              projectileSpeed,
-                                                                              _targetInfo.enemyRigidBody.position,
-                                                                              _targetInfo.enemyRigidBody.velocity);
-
-            if (newPosition != null)
+        {
+            Rigidbody enemyRigidBody = _targetInfo.enemy != null ? _targetInfo.enemy.GetComponent<Rigidbody>() : null;
+            if (enemyRigidBody != null)
             {
-                _targetInfo.attackTarget = newPosition.Value;
+                float projectileSpeed = (from p in _weapons select p.weaponOutputSpeed).Average();
+
+                Vector3? newPosition = InterceptionCalculator.FirstOrderIntercept(transform.position,
+                                                                                  _rigidBody.velocity,
+                                                                                  projectileSpeed,
+                                                                                  enemyRigidBody.position,
+                                                                                  enemyRigidBody.velocity);
+
+                if (newPosition != null)
+                {
+                    _targetInfo.attackTarget = newPosition.Value;
+                }
             }
         }
     }

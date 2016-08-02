@@ -33,7 +33,7 @@ namespace AI
                 ObjectiveBase highestPriority = _objectives.OrderBy(p=> p.priority).First();
 
 
-                highestPriority.UpdateTargetInfo(_targetInfo);
+                highestPriority.UpdateTargetInfo();
             }
         }
     }

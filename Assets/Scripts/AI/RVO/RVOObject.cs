@@ -30,7 +30,6 @@ namespace AI.RVO
         {
             rigidBody = GetComponent<Rigidbody>();
             _position = new Vector2(transform.position.x, transform.position.z);
-            _radius = GetComponent<RVOShipMovementProperties>().radius;
         }
 
         public virtual void FixedUpdate()
