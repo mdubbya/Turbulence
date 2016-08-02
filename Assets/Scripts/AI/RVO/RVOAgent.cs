@@ -35,8 +35,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
-namespace AI.RVO
+namespace AI
 {
+
+    public struct Line
+    {
+        public Vector2 direction;
+        public Vector2 point;
+    }
     /**
      * <summary>Defines an agent in the simulation.</summary>
      */
@@ -128,7 +134,7 @@ namespace AI.RVO
                         /* Project on legs. */
                         float leg = Mathf.Sqrt(distSq - combinedRadiusSq);
 
-                        if (RVOMath.det(relativePosition, w) > 0.0f)
+                        if (Determinant(relativePosition, w) > 0.0f)
                         {
                             /* Project on left leg. */
                             line.direction = new Vector2(relativePosition.x * leg - relativePosition.y * combinedRadius, relativePosition.x * combinedRadius + relativePosition.y * leg) / distSq;
@@ -205,8 +211,8 @@ namespace AI.RVO
 
             for (int i = 0; i < lineNo; ++i)
             {
-                float denominator = RVOMath.det(lines[lineNo].direction, lines[i].direction);
-                float numerator = RVOMath.det(lines[i].direction, lines[lineNo].point - lines[i].point);
+                float denominator = Determinant(lines[lineNo].direction, lines[i].direction);
+                float numerator = Determinant(lines[i].direction, lines[lineNo].point - lines[i].point);
 
                 if (Mathf.Abs(denominator) <= float.Epsilon)
                 {
@@ -313,7 +319,7 @@ namespace AI.RVO
 
             for (int i = 0; i < lines.Count; ++i)
             {
-                if (RVOMath.det(lines[i].direction, lines[i].point - result) > 0.0f)
+                if (Determinant(lines[i].direction, lines[i].point - result) > 0.0f)
                 {
                     /* Result does not satisfy constraint i. Compute new optimal result. */
                     Vector2 tempResult = result;
@@ -348,7 +354,7 @@ namespace AI.RVO
 
             for (int i = beginLine; i < lines.Count; ++i)
             {
-                if (RVOMath.det(lines[i].direction, lines[i].point - result) > distance)
+                if (Determinant(lines[i].direction, lines[i].point - result) > distance)
                 {
                     /* Result does not satisfy constraint of line i. */
                     IList<Line> projLines = new List<Line>();
@@ -366,9 +372,74 @@ namespace AI.RVO
                         result = tempResult;
                     }
 
-                    distance = RVOMath.det(lines[i].direction, lines[i].point - result);
+                    distance = Determinant(lines[i].direction, lines[i].point - result);
                 }
             }
+        }
+
+        /**
+         * <summary>Computes the determinant of a two-dimensional square matrix
+         * with rows consisting of the specified two-dimensional vectors.
+         * </summary>
+         *
+         * <returns>The determinant of the two-dimensional square matrix.
+         * </returns>
+         *
+         * <param name="vector1">The top row of the two-dimensional square
+         * matrix.</param>
+         * <param name="vector2">The bottom row of the two-dimensional square
+         * matrix.</param>
+         */
+        private static float Determinant(Vector2 vector1, Vector2 vector2)
+        {
+            return vector1.x * vector2.y - vector1.y * vector2.x;
+        }
+
+        /**
+         * <summary>Computes the squared distance from a line segment with the
+         * specified endpoints to a specified point.</summary>
+         *
+         * <returns>The squared distance from the line segment to the point.
+         * </returns>
+         *
+         * <param name="vector1">The first endpoint of the line segment.</param>
+         * <param name="vector2">The second endpoint of the line segment.
+         * </param>
+         * <param name="vector3">The point to which the squared distance is to
+         * be calculated.</param>
+         */
+        private static float DistSqPointLineSegment(Vector2 vector1, Vector2 vector2, Vector2 vector3)
+        {
+            float r = Vector2.Dot((vector3 - vector1), (vector2 - vector1)) / (vector2 - vector1).sqrMagnitude;
+
+            if (r < 0.0f)
+            {
+                return (vector3 - vector1).sqrMagnitude;
+            }
+
+            if (r > 1.0f)
+            {
+                return (vector3 - vector2).sqrMagnitude;
+            }
+
+            return (vector3 - (vector1 + r * (vector2 - vector1))).sqrMagnitude;
+        }
+
+        /**
+        * <summary>Computes the signed distance from a line connecting the
+        * specified points to a specified point.</summary>
+        *
+        * <returns>Positive when the point c lies to the left of the line ab.
+        * </returns>
+        *
+        * <param name="a">The first point on the line.</param>
+        * <param name="b">The second point on the line.</param>
+        * <param name="c">The point to which the signed distance is to be
+        * calculated.</param>
+        */
+        private static float LeftOf(Vector2 a, Vector2 b, Vector2 c)
+        {
+            return Determinant(a - c, b - a);
         }
     }
 }
