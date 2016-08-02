@@ -6,26 +6,26 @@ namespace AI
     public class AIShipMovementController : MonoBehaviour 
     {
         private ShipMovementProperties _shipMovementProperties;
-        private ObjectiveInfo _targetInfo;
+        private ObjectiveInfo _objectiveInfo;
         private Rigidbody _rigidBody;
 
         public void Start()
         {
             _rigidBody = GetComponent<Rigidbody>();
             _shipMovementProperties = GetComponent<ShipMovementProperties>();
-            _targetInfo = GetComponent<ObjectiveInfo>();
+            _objectiveInfo = GetComponent<ObjectiveInfo>();
         }
 
         public void FixedUpdate()
         {
-            ApplyMovementControl(_targetInfo);
+            ApplyMovementControl(_objectiveInfo);
         }
 
 
-        private void ApplyMovementControl(ObjectiveInfo targetInfo)
+        private void ApplyMovementControl(ObjectiveInfo objectiveInfo)
         {
-            Vector3 moveVector = (targetInfo.moveTarget - transform.position).normalized;
-            Vector3 attackVector = (targetInfo.attackTarget - transform.position);
+            Vector3 moveVector = (objectiveInfo.moveTarget - transform.position).normalized;
+            Vector3 attackVector = (objectiveInfo.attackTarget - transform.position);
 
             Vector3 projectedVelocity = Vector3.Project(_rigidBody.velocity, moveVector);
             
