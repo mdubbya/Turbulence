@@ -9,32 +9,38 @@ namespace AI
     {
         private List<ObjectiveBase> _objectives;
         private List<FlightManeuverBase> _flightManeuvers;
-        private AITargetInfo _targetInfo;
+        private ObjectiveInfo _targetInfo;
 
         public void Start()
         {
             _objectives = GetComponents<ObjectiveBase>().ToList();
-            _targetInfo = GetComponent<AITargetInfo>();
+            _targetInfo = GetComponent<ObjectiveInfo>();
             _flightManeuvers = GetComponents<FlightManeuverBase>().ToList();
             if(_targetInfo==null)
             {
-                _targetInfo = gameObject.AddComponent<AITargetInfo>();
+                _targetInfo = gameObject.AddComponent<ObjectiveInfo>();
             }
         }
 
         
         public void FixedUpdate()
         {
+
+
             _objectives = _objectives.Where(p => p.objectiveValid).ToList();
 
             if (_objectives.Count > 0)
             {
                 _objectives.ForEach(p => p.UpdatePriority());
-                ObjectiveBase highestPriority = _objectives.OrderBy(p=> p.priority).First();
+                ObjectiveBase highestPriority = _objectives.OrderByDescending(p=> p.priority).First();
 
-
-                highestPriority.UpdateTargetInfo();
+                _targetInfo.Update( highestPriority);
             }
+
+            
+            
+            _flightManeuvers.ForEach(p => p.UpdateForManeuver());
+
         }
     }
 }

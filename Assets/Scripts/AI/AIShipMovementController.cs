@@ -1,19 +1,19 @@
 ﻿using System;
 using UnityEngine;
-
+using AI.Objective;
 namespace AI
 {
     public class AIShipMovementController : MonoBehaviour 
     {
         private ShipMovementProperties _shipMovementProperties;
-        private AITargetInfo _targetInfo;
+        private ObjectiveInfo _targetInfo;
         private Rigidbody _rigidBody;
 
         public void Start()
         {
             _rigidBody = GetComponent<Rigidbody>();
             _shipMovementProperties = GetComponent<ShipMovementProperties>();
-            _targetInfo = GetComponent<AITargetInfo>();
+            _targetInfo = GetComponent<ObjectiveInfo>();
         }
 
         public void FixedUpdate()
@@ -22,7 +22,7 @@ namespace AI
         }
 
 
-        private void ApplyMovementControl(AITargetInfo targetInfo)
+        private void ApplyMovementControl(ObjectiveInfo targetInfo)
         {
             Vector3 moveVector = (targetInfo.moveTarget - transform.position).normalized;
             Vector3 attackVector = (targetInfo.attackTarget - transform.position);

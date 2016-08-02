@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using AI;
 using System.Collections;
+using AI.Objective;
 
 public class NavMeshAgentTest : MonoBehaviour
 {
@@ -11,7 +12,7 @@ public class NavMeshAgentTest : MonoBehaviour
     public float maxSpeed;
     public float minSpeed;
 
-    private AITargetInfo _targetInfo;
+    private ObjectiveInfo _targetInfo;
     
     private NavMeshAgent _agent;
     private Rigidbody _rigidBody;
@@ -19,7 +20,7 @@ public class NavMeshAgentTest : MonoBehaviour
     {
         _agent = GetComponent<NavMeshAgent>();
         _rigidBody = GetComponent<Rigidbody>();
-        _targetInfo = GetComponent<AITargetInfo>();
+        _targetInfo = GetComponent<ObjectiveInfo>();
         _agent.updatePosition = false;
         _agent.updateRotation = false;
         NavMesh.avoidancePredictionTime = 4;

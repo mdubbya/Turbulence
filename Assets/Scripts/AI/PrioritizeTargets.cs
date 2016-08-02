@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using System.Linq;
+using AI.Objective;
+
 
 namespace AI
 {
@@ -8,12 +10,12 @@ namespace AI
         public float detectionRadius;
         public int priority;
 
-        private AITargetInfo _targetInfo;
+        private ObjectiveInfo _targetInfo;
         private Radar _radar;
 
         public void Start()
         {
-            _targetInfo = GetComponent<AITargetInfo>();
+            _targetInfo = GetComponent<ObjectiveInfo>();
             _radar = GetComponent<Radar>();
         }
 
@@ -22,8 +24,8 @@ namespace AI
             //find the closest rigidBody in the detection radius
             if (_targetInfo != null && _radar.enemiesDetected.Count > 0)
             {
-                _targetInfo.enemy = _radar.enemiesDetected.OrderBy(p => Vector3.Distance(transform.position, p.position)).First().gameObject;
-                _targetInfo.targetAcquired = true;
+                //_targetInfo.enemy = _radar.enemiesDetected.OrderBy(p => Vector3.Distance(transform.position, p.position)).First().gameObject;
+                //_targetInfo.targetAcquired = true;
             }
         }
     }

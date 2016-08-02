@@ -1,7 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using AI.Objective;
 
 namespace AI
 {
@@ -10,19 +10,19 @@ namespace AI
 
         private Rigidbody _rigidBody;
         private List<IWeaponController> _weapons;
-        private AITargetInfo _targetInfo;
+        private ObjectiveInfo _targetInfo;
 
         public void Start()
         {
             _rigidBody = GetComponent<Rigidbody>();
             _weapons = GetComponentsInChildren<IWeaponController>().ToList();
-            _targetInfo = GetComponent<AITargetInfo>();
+            _targetInfo = GetComponent<ObjectiveInfo>();
         }
 
 
-        public override void UpdateForManeuver()
+        public override Vector3 UpdateForManeuver()
         {
-            Rigidbody enemyRigidBody = _targetInfo.enemy != null ? _targetInfo.enemy.GetComponent<Rigidbody>() : null;
+            Rigidbody enemyRigidBody = _targetInfo.targetedEnemy != null ? _targetInfo.targetedEnemy.GetComponent<Rigidbody>() : null;
             if (enemyRigidBody != null)
             {
                 float projectileSpeed = (from p in _weapons select p.weaponOutputSpeed).Average();
@@ -35,8 +35,16 @@ namespace AI
 
                 if (newPosition != null)
                 {
-                    _targetInfo.attackTarget = newPosition.Value;
+                    return newPosition.Value;
                 }
+                else
+                {
+                    return new Vector3();
+                }
+            }
+            else
+            {
+                return new Vector3();
             }
         }
     }

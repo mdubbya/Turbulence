@@ -61,7 +61,7 @@ namespace AI.RVO
         }
 
 
-        public Vector3 UpdateForRVO(Vector3 currentMoveTarget)
+        public Vector3 GetRVOPosition(Vector3 currentMoveTarget)
         {
             Vector3 intermediatePrefVelocity = currentMoveTarget - transform.position;
             prefVelocity = new Vector2(intermediatePrefVelocity.x, intermediatePrefVelocity.z);
