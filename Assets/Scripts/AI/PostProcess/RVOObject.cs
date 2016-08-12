@@ -1,9 +1,10 @@
 ﻿using UnityEngine;
 
-namespace AI
+namespace AI.PostProcess
 {
-    public class RVOObject : MonoBehaviour
+    public abstract class RVOObject : MonoBehaviour
     {
+        [SerializeField]
         private float _radius;
         public float radius
         {
@@ -23,10 +24,10 @@ namespace AI
         {
             get { return _position; }
         }
-
+         
         protected Rigidbody rigidBody;
 
-        public virtual void Start()
+        public virtual void Start() 
         {
             rigidBody = GetComponent<Rigidbody>();
             _position = new Vector2(transform.position.x, transform.position.z);

@@ -34,8 +34,9 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using AI.Objective;
 
-namespace AI
+namespace AI.PostProcess
 {
 
     public struct Line
@@ -47,7 +48,7 @@ namespace AI
      * <summary>Defines an agent in the simulation.</summary>
      */
     [RequireComponent(typeof(AIShipMovementController))]
-    public class RVOAgent : RVOObject
+    public class RVOAgent : RVOObject, IPostProcessor
     {
         public float neighborDist;
         public float timeHorizon;
@@ -56,7 +57,7 @@ namespace AI
         private List<Line> orcaLines = new List<Line>();
         private List<RVOObject> agentNeighbors = new List<RVOObject>();
         private Vector2 prefVelocity;
-        private Vector3 targetPosition;
+        private ObjectiveInfo _objectiveInfo;
 
         [SerializeField]
         private int _priority;
@@ -67,15 +68,23 @@ namespace AI
         }
 
 
-        public Vector3 GetRVOPosition(Vector3 currentMoveTarget)
+        public override void Start()
         {
-            Vector3 intermediatePrefVelocity = currentMoveTarget - transform.position;
-            prefVelocity = new Vector2(intermediatePrefVelocity.x, intermediatePrefVelocity.z);
-            computeNeighbors();
-            Vector2 newVelocity = computeNewVelocity();
-            targetPosition = transform.position + new Vector3(newVelocity.x, 0, newVelocity.y);
+            base.Start();
+            _objectiveInfo = GetComponent<ObjectiveInfo>();
+        }
 
-            return targetPosition;
+
+        public void UpdateObjectiveInfo()
+        {
+            if (_objectiveInfo != null)
+            {
+                Vector3 intermediatePrefVelocity = _objectiveInfo.moveTarget - transform.position;
+                prefVelocity = new Vector2(intermediatePrefVelocity.x, intermediatePrefVelocity.z);
+                computeNeighbors();
+                Vector2 newVelocity = computeNewVelocity();
+                _objectiveInfo.UpdateMoveTarget(transform.position + new Vector3(newVelocity.x, 0, newVelocity.y));
+            }
         }
 
 

@@ -32,14 +32,30 @@ namespace AI.Objective
         {
             get { return _targetedEnemy; }
         }
-
-        public void Update(IObjectiveInfoModifier infoModifier)
+        
+        public void UpdateObjectiveLocation(Vector3 newObjectiveLocation)
         {
-            _objectiveLocation = infoModifier.GetUpdatedObjectiveLocation(_objectiveLocation);
-            _moveTarget = infoModifier.GetUpdatedMoveTarget(_moveTarget);
-            _targetAcquired = infoModifier.GetUpdatedTargetAcquired(_targetAcquired);
-            _attackTarget = infoModifier.GetUpdatedAttackTarget(_attackTarget);
-            _targetedEnemy = infoModifier.GetUpdatedTargetedEnemy(_targetedEnemy);
+            _objectiveLocation = newObjectiveLocation;
+        }
+
+        public void UpdateMoveTarget(Vector3 newMoveTarget)
+        {
+            _moveTarget = newMoveTarget;
+        }
+
+        public void UpdateTargetAcquiredFlag(bool newTargetAcquiredFlag)
+        {
+            _targetAcquired = newTargetAcquiredFlag;
+        }
+
+        public void UpdateAttackTarget(Vector3 newAttackTarget)
+        {
+            _attackTarget = newAttackTarget;
+        }
+
+        public void UpdateTargetedEnemy(GameObject newTargetedEnemy)
+        {
+            _targetedEnemy = newTargetedEnemy;
         }
     }
 }

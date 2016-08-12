@@ -7,8 +7,7 @@ namespace AI
     {
         public void Start()
         {
-            DefendArea defendArea = gameObject.AddComponent<DefendArea>();
-            defendArea.position = new Vector3(0, 0, 0);
+            AttackArea attackArea = gameObject.AddComponent<AttackArea>();
         }
     }
 }

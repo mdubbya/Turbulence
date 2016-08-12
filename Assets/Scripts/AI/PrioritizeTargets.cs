@@ -21,11 +21,11 @@ namespace AI
 
         public void Calculate()
         {
-            //find the closest rigidBody in the detection radius
+            //find the closest enemy in the detection radius
             if (_objectiveInfo != null && _radar.enemiesDetected.Count > 0)
             {
-                //_targetInfo.enemy = _radar.enemiesDetected.OrderBy(p => Vector3.Distance(transform.position, p.position)).First().gameObject;
-                //_targetInfo.targetAcquired = true;
+                _objectiveInfo.UpdateTargetedEnemy(_radar.enemiesDetected.OrderBy(p => Vector3.Distance(transform.position, p.position)).First().gameObject);
+                _objectiveInfo.UpdateTargetAcquiredFlag(true);
             }
         }
     }
