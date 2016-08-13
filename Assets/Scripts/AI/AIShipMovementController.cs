@@ -1,28 +1,29 @@
 ﻿using System;
 using UnityEngine;
-using AI.Objective;
+using AI.Process;
 namespace AI
 {
+    [RequireComponent(typeof(ShipMovementProperties))]
     public class AIShipMovementController : MonoBehaviour 
     {
-        private ShipMovementProperties _shipMovementProperties;
-        private ObjectiveInfo _objectiveInfo;
+        private CommandInfo _commandInfo;
         private Rigidbody _rigidBody;
+        private ShipMovementProperties _shipMovementProperties;
 
         public void Start()
         {
             _rigidBody = GetComponent<Rigidbody>();
+            _commandInfo = GetComponent<CommandInfo>();
             _shipMovementProperties = GetComponent<ShipMovementProperties>();
-            _objectiveInfo = GetComponent<ObjectiveInfo>();
         }
 
 
         private void FixedUpdate()
         {
-            if (_objectiveInfo != null)
+            if (_commandInfo != null)
             {
-                Vector3 moveVector = (_objectiveInfo.moveTarget - transform.position).normalized;
-                Vector3 attackVector = (_objectiveInfo.attackTarget - transform.position);
+                Vector3 moveVector = (_commandInfo.moveTarget - transform.position).normalized;
+                Vector3 attackVector = (_commandInfo.attackTarget - transform.position);
 
                 Vector3 projectedVelocity = Vector3.Project(_rigidBody.velocity, moveVector);
 

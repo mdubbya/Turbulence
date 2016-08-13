@@ -34,7 +34,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
-using AI.Objective;
+using AI.Process;
 
 namespace AI.PostProcess
 {
@@ -47,17 +47,17 @@ namespace AI.PostProcess
     /**
      * <summary>Defines an agent in the simulation.</summary>
      */
-    [RequireComponent(typeof(AIShipMovementController))]
+    [RequireComponent(typeof(ShipMovementProperties))]
     public class RVOAgent : RVOObject, IPostProcessor
-    {
+    { 
         public float neighborDist;
         public float timeHorizon;
-        public float maxSpeed;
 
         private List<Line> orcaLines = new List<Line>();
         private List<RVOObject> agentNeighbors = new List<RVOObject>();
         private Vector2 prefVelocity;
-        private ObjectiveInfo _objectiveInfo;
+        private CommandInfo _commandInfo;
+        private ShipMovementProperties _shipMovementProperties;
 
         [SerializeField]
         private int _priority;
@@ -71,19 +71,20 @@ namespace AI.PostProcess
         public override void Start()
         {
             base.Start();
-            _objectiveInfo = GetComponent<ObjectiveInfo>();
+            _commandInfo = GetComponent<CommandInfo>();
+            _shipMovementProperties = GetComponent<ShipMovementProperties>();
         }
 
 
         public void UpdateObjectiveInfo()
         {
-            if (_objectiveInfo != null)
+            if (_commandInfo != null)
             {
-                Vector3 intermediatePrefVelocity = _objectiveInfo.moveTarget - transform.position;
+                Vector3 intermediatePrefVelocity = _commandInfo.moveTarget - transform.position;
                 prefVelocity = new Vector2(intermediatePrefVelocity.x, intermediatePrefVelocity.z);
                 computeNeighbors();
                 Vector2 newVelocity = computeNewVelocity();
-                _objectiveInfo.UpdateMoveTarget(transform.position + new Vector3(newVelocity.x, 0, newVelocity.y));
+                _commandInfo.UpdateMoveTarget(transform.position + new Vector3(newVelocity.x, 0, newVelocity.y));
             }
         }
 
@@ -93,8 +94,9 @@ namespace AI.PostProcess
          */
         public void computeNeighbors()
         {
-                var neighbors = Physics.OverlapSphere(transform.position, neighborDist);
-                agentNeighbors= (from p in neighbors where p.GetComponent<RVOObject>()!=null select p.GetComponent<RVOObject>()).ToList();
+            var neighbors = Physics.OverlapSphere(transform.position, neighborDist);
+                
+            agentNeighbors= (from p in neighbors where p.GetComponent<RVOObject>()!=null select p.GetComponent<RVOObject>()).ToList();
         }
 
         /**
@@ -177,11 +179,11 @@ namespace AI.PostProcess
                 orcaLines.Add(line);
             }
 
-            int lineFail = linearProgram2(orcaLines, maxSpeed, prefVelocity, false, ref newVelocity);
+            int lineFail = linearProgram2(orcaLines, _shipMovementProperties.maxSpeed, prefVelocity, false, ref newVelocity);
 
             if (lineFail < orcaLines.Count)
             {
-                linearProgram3(orcaLines, lineFail, maxSpeed, ref newVelocity);
+                linearProgram3(orcaLines, lineFail, _shipMovementProperties.maxSpeed, ref newVelocity);
             }
             return newVelocity;
         }

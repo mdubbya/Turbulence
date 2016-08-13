@@ -1,38 +1,36 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
-using AI.Objective;
+using AI.Process;
 
 namespace AI
 {
     public class FireAllWhenAligned : MonoBehaviour
     {
         public float targetZoneWidth;
-        private ObjectiveInfo _objectiveInfo;
+        private CommandInfo _commandInfo;
         private List<IWeaponController> weapons;
 
         public void Start()
         {
             weapons = GetComponentsInChildren<IWeaponController>().ToList();
-            _objectiveInfo = GetComponent<ObjectiveInfo>();
-        }
-
-        public void FixedUpdate()
-        {
-            AttackIfTargetValid(_objectiveInfo);
+            _commandInfo = GetComponent<CommandInfo>();
         }
 
 
-        private void AttackIfTargetValid(ObjectiveInfo objectiveInfo) 
+        private void FixedUpdate() 
         {
-            if (objectiveInfo.targetAcquired && objectiveInfo.targetedEnemy != null)
+            if (_commandInfo != null)
             {
-                Vector3 checkVector = transform.position + ((objectiveInfo.attackTarget - transform.position).magnitude * transform.parent.forward);
-                if (Vector3.Distance(checkVector, objectiveInfo.attackTarget) < targetZoneWidth)
+                if (_commandInfo.targetAcquired && _commandInfo.targetedEnemy != null)
                 {
-                    foreach(IWeaponController weapon in weapons)
+                    Vector3 checkVector = transform.position + ((_commandInfo.attackTarget - transform.position).magnitude * transform.parent.forward);
+                    if (Vector3.Distance(checkVector, _commandInfo.attackTarget) < targetZoneWidth)
                     {
-                        weapon.Fire();
+                        foreach (IWeaponController weapon in weapons)
+                        {
+                            weapon.Fire();
+                        }
                     }
                 }
             }

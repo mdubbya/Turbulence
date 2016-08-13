@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
-namespace AI.Objective
+namespace AI.Process
 {
-    public class ObjectiveInfo : MonoBehaviour
+    public class CommandInfo : MonoBehaviour
     {
         private Vector3 _objectiveLocation;
         public Vector3 objectiveLocation

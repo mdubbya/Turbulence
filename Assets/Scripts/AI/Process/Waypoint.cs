@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace AI.Objective
+namespace AI.Process
 {
     public struct Waypoint
     {

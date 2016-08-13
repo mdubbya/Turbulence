@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using AI;
 using System.Collections;
-using AI.Objective;
+using AI.Process;
 
 public class NavMeshAgentTest : MonoBehaviour
 {
@@ -12,7 +12,7 @@ public class NavMeshAgentTest : MonoBehaviour
     public float maxSpeed;
     public float minSpeed;
 
-    private ObjectiveInfo _objectiveInfo;
+    private CommandInfo _commandInfo;
     
     private NavMeshAgent _agent;
     private Rigidbody _rigidBody;
@@ -20,7 +20,7 @@ public class NavMeshAgentTest : MonoBehaviour
     {
         _agent = GetComponent<NavMeshAgent>();
         _rigidBody = GetComponent<Rigidbody>();
-        _objectiveInfo = GetComponent<ObjectiveInfo>();
+        _commandInfo = GetComponent<CommandInfo>();
         _agent.updatePosition = false;
         _agent.updateRotation = false;
         NavMesh.avoidancePredictionTime = 4;
@@ -29,7 +29,7 @@ public class NavMeshAgentTest : MonoBehaviour
 
     public void Update()
     {
-        if (Vector3.Distance(transform.position, _objectiveInfo.moveTarget) > arrivalDistance)
+        if (Vector3.Distance(transform.position, _commandInfo.moveTarget) > arrivalDistance)
         {
             transform.rotation = Quaternion.Lerp(transform.rotation,
                                                 Quaternion.LookRotation(_agent.desiredVelocity), Time.deltaTime * turnSpeed);
@@ -37,7 +37,7 @@ public class NavMeshAgentTest : MonoBehaviour
         else
         {
             transform.rotation = Quaternion.Lerp(transform.rotation,
-                                                 Quaternion.LookRotation(_objectiveInfo.moveTarget - transform.position), Time.deltaTime* turnSpeed);
+                                                 Quaternion.LookRotation(_commandInfo.moveTarget - transform.position), Time.deltaTime* turnSpeed);
         }
 
     }
@@ -45,11 +45,11 @@ public class NavMeshAgentTest : MonoBehaviour
 
     void FixedUpdate ()
     {
-        if (_agent.SetDestination(_objectiveInfo.moveTarget))
+        if (_agent.SetDestination(_commandInfo.moveTarget))
         {
             if ((Vector3.Dot(_rigidBody.velocity, _agent.desiredVelocity.normalized) < maxSpeed) &&
                 (Vector3.Angle(transform.forward, _agent.desiredVelocity.normalized) < thrustThreshold) &&
-                    Vector3.Distance(transform.position, _objectiveInfo.moveTarget) > arrivalDistance)
+                    Vector3.Distance(transform.position, _commandInfo.moveTarget) > arrivalDistance)
             {
                 _rigidBody.AddForce(transform.forward * thrust);
             }

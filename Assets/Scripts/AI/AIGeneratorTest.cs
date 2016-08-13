@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using AI.Objective;
+using AI.Process;
 
 namespace AI
 {
@@ -8,6 +8,7 @@ namespace AI
         public void Start()
         {
             AttackArea attackArea = gameObject.AddComponent<AttackArea>();
+            attackArea.basePriority = 1;
         }
     }
 }

@@ -5,12 +5,9 @@ using System.Linq;
 
 public class PlayerShipMovementController : MonoBehaviour 
 {
-    private ShipMovementProperties shipMovementProperties;
-
-    public void Start()
-    {
-        shipMovementProperties = GetComponent<ShipMovementProperties>();
-    }
+    public float maxSpeed;
+    public float turnTime;
+    public float thrust;
 
 	public void ApplyShipMovement(float thrustPercentage, float angularThrust)
 	{
@@ -20,13 +17,13 @@ public class PlayerShipMovementController : MonoBehaviour
 		
 		if (thrustPercentage >= 0)
 		{
-			acceleration = shipMovementProperties.thrust;
+			acceleration = thrust;
 		}
 
 		body.AddForce(body.transform.forward*acceleration*thrustPercentage);
-        body.velocity = Vector3.ClampMagnitude(body.velocity, shipMovementProperties.maxSpeed);
+        body.velocity = Vector3.ClampMagnitude(body.velocity, maxSpeed);
 
-        float turnSpeed = 1 / shipMovementProperties.turnTime;
+        float turnSpeed = 1 / turnTime;
         body.angularVelocity = new Vector3 (0, turnSpeed * angularThrust, 0);
 	}
 
