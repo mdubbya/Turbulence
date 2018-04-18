@@ -40,4 +40,6 @@ Assets/AI.meta
 Assets/AI/
 Assets/RAIN.meta
 Assets/RAIN
-
+*.png
+*.tga
+*.fbx

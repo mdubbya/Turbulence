@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Utilities
+namespace AI.PathCalculation
 { 
     public static class PhysicsUtilities
     {
