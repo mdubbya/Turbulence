@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class ObjectLifeTimeController : MonoBehaviour {
+public class DestroyAfterTimeLimit : MonoBehaviour {
 
 	public float objectLifeTime;
 	private float objectSpawnTime;

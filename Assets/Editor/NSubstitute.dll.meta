@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: d5bd8b6ed533c384d981ba4c7e89b372
-timeCreated: 1524021224
+timeCreated: 1524102152
 licenseType: Free
 PluginImporter:
   serializedVersion: 1
@@ -17,7 +17,7 @@ PluginImporter:
       enabled: 1
       settings:
         Exclude Android: 1
-        Exclude Editor: 1
+        Exclude Editor: 0
         Exclude Linux: 1
         Exclude Linux64: 1
         Exclude LinuxUniversal: 1
@@ -27,7 +27,7 @@ PluginImporter:
         Exclude Win: 1
         Exclude Win64: 1
     Editor:
-      enabled: 0
+      enabled: 1
       settings:
         CPU: AnyCPU
         DefaultValueInitialized: true

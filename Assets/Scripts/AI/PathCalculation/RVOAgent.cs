@@ -47,47 +47,22 @@ namespace AI.PathCalculation
     /**
      * <summary>Defines an agent in the simulation.</summary>
      */
-    [RequireComponent(typeof(ShipMovementProperties))]
     public class RVOAgent : RVOObject
     {
         public float neighborDist;
         public float timeHorizon;
-        public Vector3 moveTarget;
-        private Vector3 _resultVector;
-        public Vector3 resultVector
-        {
-            get { return _resultVector; }
-        }
-
-
+        
         private List<Line> orcaLines = new List<Line>();
         private List<RVOObject> agentNeighbors = new List<RVOObject>();
-        private Vector2 prefVelocity;
-        private ShipMovementProperties _shipMovementProperties;
+        private Vector2 _preferredVelocity;
 
-        [SerializeField]
-        private int _priority;
-        public int priority
+        public Vector3 GetAdjustedTargetPosition(Vector3 moveTarget, float maxSpeed)
         {
-            get { return _priority; }
-            set { _priority = value; }
-        }
-
-
-        public override void Start()
-        {
-            base.Start();
-            _shipMovementProperties = GetComponent<ShipMovementProperties>();
-        }
-
-
-        public void UpdateObjectiveInfo()
-        {
-            Vector3 intermediatePrefVelocity = moveTarget - transform.position;
-            prefVelocity = new Vector2(intermediatePrefVelocity.x, intermediatePrefVelocity.z);
+            Vector3 preferredVelocityAsVector3 = moveTarget - transform.position;
+            _preferredVelocity = new Vector2(preferredVelocityAsVector3.x, preferredVelocityAsVector3.z);
             computeNeighbors();
-            Vector2 newVelocity = computeNewVelocity();
-            _resultVector = (transform.position + new Vector3(newVelocity.x, 0, newVelocity.y));
+            Vector2 newVelocity = computeNewVelocity(maxSpeed);
+            return (transform.position + new Vector3(newVelocity.x, 0, newVelocity.y));
         }
 
 
@@ -104,7 +79,7 @@ namespace AI.PathCalculation
         /**
          * <summary>Computes the new velocity of this agent.</summary>
          */
-        public Vector2 computeNewVelocity()
+        public Vector2 computeNewVelocity(float maxSpeed)
         {
             orcaLines.Clear();
             Vector2 newVelocity = new Vector2();
@@ -181,11 +156,11 @@ namespace AI.PathCalculation
                 orcaLines.Add(line);
             }
 
-            int lineFail = linearProgram2(orcaLines, _shipMovementProperties.maxSpeed, prefVelocity, false, ref newVelocity);
+            int lineFail = linearProgram2(orcaLines, maxSpeed, _preferredVelocity, false, ref newVelocity);
 
             if (lineFail < orcaLines.Count)
             {
-                linearProgram3(orcaLines, lineFail, _shipMovementProperties.maxSpeed, ref newVelocity);
+                linearProgram3(orcaLines, lineFail, maxSpeed, ref newVelocity);
             }
             return newVelocity;
         }
