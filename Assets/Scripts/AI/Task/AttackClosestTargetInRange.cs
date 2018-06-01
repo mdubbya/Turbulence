@@ -10,6 +10,7 @@ namespace AI.Task
     public class AttackClosestTargetInRange : MonoBehaviour, IAIAttackTargetTask, IAIMoveTargetTask
     {
         public int relativePriority;
+        public float followDistance;
 
         private IRadar _radar;
 
@@ -25,7 +26,7 @@ namespace AI.Task
             if(enemies != null && enemies.Count>0)
             {
                 float minDistance = _radar.GetDetectedEnemies().Min(p=> Vector3.Distance(p.transform.position,transform.position));
-                return minDistance * relativePriority;
+                return relativePriority/minDistance;
             }
             else
             {
@@ -35,23 +36,16 @@ namespace AI.Task
 
         public Vector3 GetAttackTarget()
         {
-            List<GameObject> enemies = _radar.GetDetectedEnemies();
-            if(enemies != null && enemies.Count>0)
-            {
-                return _radar.GetDetectedEnemies().Aggregate(
-                    (minItem,NextItem) => 
-                    (Vector3.Distance(minItem.transform.position,transform.position) < 
-                    Vector3.Distance(NextItem.transform.position,transform.position)) ? minItem : NextItem).transform.position;
-            }
-            else
-            {
-                return gameObject.transform.position;
-            }
+            GameObject closestEnemy = _radar.GetClosestDetectedEnemy();
+            return closestEnemy == null ? transform.position : closestEnemy.transform.position;
         }
 
         public Vector3 GetNavigationTarget()
         {
-            return GetAttackTarget();
+            Vector3 navTarget = GetAttackTarget();
+            navTarget = ((transform.position-navTarget).normalized * followDistance) + navTarget;
+            
+            return navTarget;
         }
     }
 }

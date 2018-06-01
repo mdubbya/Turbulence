@@ -25,10 +25,10 @@ public class AttackClosestTargetInRangeTests
         _attackClosestTargetInRange.Inject(_radar);
     }
     
-    [TestCase(1, 0, 4, 4)]
-    [TestCase(2, 0, 4, 8)]
-    [TestCase(1, 6, 8, 10)] 
-    [TestCase(2, 6, 8, 20)]
+    [TestCase(1, 0, 4, 0.25f)]
+    [TestCase(2, 0, 4, 0.5f)]
+    [TestCase(1, 6, 8, 0.1f)] 
+    [TestCase(2, 6, 8, 0.2f)]
     public void GetPriorityTest(int relativePriority, float x, float y, float expectedResult) 
     {   
         GameObject enemyTestObject = new GameObject();
@@ -49,20 +49,7 @@ public class AttackClosestTargetInRangeTests
         enemyTestObject1.transform.position = new Vector3(0,0,4);
         enemyTestObject2.transform.position = new Vector3(6,0,8);
         _radar.GetDetectedEnemies().Returns(new List<GameObject>(){enemyTestObject2,enemyTestObject1});
-        Assert.AreEqual(4,_attackClosestTargetInRange.GetPriority());
-    }
-
-    [Test]
-    public void GetNavigationTargetTest()
-    {
-        GameObject enemyTestObject1 = new GameObject();
-        GameObject enemyTestObject2 = new GameObject();
-
-        _attackClosestTargetInRange.relativePriority = 1;
-        enemyTestObject1.transform.position = new Vector3(0,0,4);
-        enemyTestObject2.transform.position = new Vector3(6,0,8);
-        _radar.GetDetectedEnemies().Returns(new List<GameObject>(){enemyTestObject2,enemyTestObject1});
-        Assert.AreEqual(new Vector3(0,0,4),_attackClosestTargetInRange.GetAttackTarget());
+        Assert.AreEqual(0.25,_attackClosestTargetInRange.GetPriority());
     }
 
     [Test]

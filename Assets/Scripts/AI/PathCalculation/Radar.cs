@@ -11,13 +11,57 @@ namespace AI.PathCalculation
         public float detectionRadius;
         [Inject]
         TeamInfo _teamInfo;
-        public List<GameObject> GetDetectedEnemies()
+
+        private List<GameObject> _detectedEntities =new List<GameObject>();
+
+
+        private void FixedUpdate()
         {
             Collider[] nearbyColliders = Physics.OverlapSphere(transform.position, detectionRadius);
-            return (from p in nearbyColliders
+            _detectedEntities = (from p in nearbyColliders select p.gameObject).ToList();
+        }
+
+        public List<GameObject> GetAllDetected()
+        {
+            return _detectedEntities;
+        }
+
+        public GameObject GetClosestDetected()
+        {
+            return GetClosest(_detectedEntities);
+        }
+
+        public GameObject GetClosestDetectedEnemy()
+        {
+            return GetClosest(GetDetectedEnemies());
+        }
+
+        public List<GameObject> GetDetectedEnemies()
+        {
+            List<GameObject> detectedEnemies = (from p in _detectedEntities
                           where
             _teamInfo.enemyTeams.Contains(p.GetComponent<TeamInfo>().owningTeam)
                           select p.gameObject).ToList();
+            if(detectedEnemies.Count==0)
+            {
+                detectedEnemies= null;
+            }
+            return detectedEnemies;
+        }
+
+        private GameObject GetClosest(List<GameObject> entities)
+        {
+            if(entities!=null && entities.Count>0)
+            {
+                return entities.Aggregate(
+                        (minItem,NextItem) => 
+                        (Vector3.Distance(minItem.transform.position,transform.position) < 
+                        Vector3.Distance(NextItem.transform.position,transform.position)) ? minItem : NextItem);
+            }
+            else
+            {
+                return null;
+            }
         }
     }
 }
