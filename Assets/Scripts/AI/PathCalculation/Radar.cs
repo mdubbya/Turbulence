@@ -18,7 +18,7 @@ namespace AI.PathCalculation
         private void FixedUpdate()
         {
             Collider[] nearbyColliders = Physics.OverlapSphere(transform.position, detectionRadius);
-            _detectedEntities = (from p in nearbyColliders select p.gameObject).ToList();
+            _detectedEntities = (from p in nearbyColliders where p.gameObject.transform.position!=transform.position select p.gameObject).ToList();
         }
 
         public List<GameObject> GetAllDetected()
@@ -63,5 +63,6 @@ namespace AI.PathCalculation
                 return null;
             }
         }
+
     }
 }

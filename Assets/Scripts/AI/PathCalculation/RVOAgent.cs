@@ -39,16 +39,17 @@ using AI.Process;
 namespace AI.PathCalculation
 {
 
-    public struct Line
-    {
-        public Vector2 direction;
-        public Vector2 point;
-    }
+    
     /**
      * <summary>Defines an agent in the simulation.</summary>
      */
     public class RVOAgent : RVOObject
     {
+        private struct Line
+    {
+        public Vector2 direction;
+        public Vector2 point;
+    }
         public float neighborDist;
         public float timeHorizon;
         

@@ -11,6 +11,7 @@ namespace AI
    [RequireComponent(typeof(ShipMovementProperties))]
    public class AIShipController : MonoBehaviour 
    {
+       public float moveTargetDeadZone;
 
        private Rigidbody _rigidBody;
 
@@ -26,6 +27,9 @@ namespace AI
 
        private float _integralTerm=0;
        private float _previousError=0;
+
+       private Vector3 _target;
+       private float _angularThrust;
 
        [Inject]
        public void Inject(
@@ -48,36 +52,43 @@ namespace AI
            _angularThrustPidController.derivativeGain = _shipMovementProperties.angularThrustDerivativeGain;
        }
 
-
-       private void FixedUpdate()
+       void Update()
        {
-            Vector3 movePostion = _taskPrioritizer.GetCurrentMovementPriority();
-            Vector3 moveVector = _rvoAgent.GetAdjustedTargetPosition(movePostion,_shipMovementProperties.maxSpeed);
-            moveVector = (moveVector - transform.position).normalized;
+           Vector3 movePostion = _taskPrioritizer.GetCurrentMovementPriority();
+            movePostion = _rvoAgent.GetAdjustedTargetPosition(movePostion,_shipMovementProperties.maxSpeed);
             Vector3 attackPosition =_taskPrioritizer.GetCurrentAttackPriority(); 
-            Vector3 attackVector = (attackPosition - transform.position).normalized;
-
-            Vector3 projectedVelocity = Vector3.Project(_rigidBody.velocity, moveVector);
 
             GameObject closest = _radar.GetClosestDetected();
             Vector3 closestVector = closest==null ? movePostion : closest.transform.position;
 
-            Vector3 targetVector = Vector3.Distance(closestVector,transform.position) < 10 ? moveVector : attackVector;
-            Vector3 targetPosition = Vector3.Distance(closestVector,transform.position) < 10 ? movePostion : attackPosition;
+            Vector3 targetPosition = Vector3.Distance(closestVector,transform.position) < moveTargetDeadZone ? movePostion : attackPosition;
 
-            float error = Vector3.Angle(targetVector,transform.forward);
-            int sign = Vector3.Cross(targetVector,transform.forward).y>=0?-1:1;
+            float error = Vector3.Angle(targetPosition - transform.position,transform.forward);
+            int sign = Vector3.Cross(targetPosition - transform.position,transform.forward).y>=0?-1:1;
             error *= sign;
 
-            float angularThrust = _angularThrustPidController.GetUpdatedOutput(error,Time.fixedDeltaTime);
-            angularThrust = Mathf.Clamp(angularThrust,-_shipMovementProperties.maxAngularThrust,_shipMovementProperties.maxAngularThrust);
-            _rigidBody.AddTorque(transform.up * angularThrust);
+            _angularThrust = _angularThrustPidController.GetUpdatedOutput(error,Time.fixedDeltaTime);
+            _angularThrust = Mathf.Clamp(_angularThrust,-_shipMovementProperties.maxAngularThrust,_shipMovementProperties.maxAngularThrust);
+            _target = targetPosition;
+       }
+
+
+       private void FixedUpdate()
+       {
+            
+            _rigidBody.AddTorque(transform.up * _angularThrust);
             
             //forwardThrust = error > 10 ? 0 : forwardThrust;
             _rigidBody.AddForce(transform.forward * _shipMovementProperties.thrust);
 
 
             _rigidBody.velocity = Vector3.ClampMagnitude(_rigidBody.velocity, _shipMovementProperties.maxSpeed);
+            
        }
+
+       void OnDrawGizmosSelected()
+        {
+            DebugExtension.DrawPoint(_target,Color.red,3);
+        }
    }
 }

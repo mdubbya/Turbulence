@@ -7,6 +7,7 @@ using Zenject;
 
 namespace AI.Task
 {
+    //TODO: needs optimization
     public class AttackClosestTargetInRange : MonoBehaviour, IAIAttackTargetTask, IAIMoveTargetTask
     {
         public int relativePriority;
@@ -22,11 +23,10 @@ namespace AI.Task
 
         public float GetPriority()
         {
-            List<GameObject> enemies = _radar.GetDetectedEnemies();
-            if(enemies != null && enemies.Count>0)
+            GameObject target = _radar.GetClosestDetectedEnemy();
+            if(target != null)
             {
-                float minDistance = _radar.GetDetectedEnemies().Min(p=> Vector3.Distance(p.transform.position,transform.position));
-                return relativePriority/minDistance;
+                return relativePriority / Vector3.Distance(target.transform.position,transform.position);
             }
             else
             {
