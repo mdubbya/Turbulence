@@ -3,6 +3,7 @@ using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
+using UnityEngine.Profiling;
 
 namespace AI.Task
 {
@@ -43,7 +44,8 @@ namespace AI.Task
         {
             if(_moveTargetTasks != null && _moveTargetTasks.Count>0)
             {
-                return ((IAIMoveTargetTask)GetHighestPriority(_moveTargetTasks.Select(p => (IAITask)p).ToList())).GetNavigationTarget();
+                IAIMoveTargetTask task = _moveTargetTasks.Aggregate((current,next) => current.GetPriority() >= next.GetPriority() ? current : next);
+                return task.GetNavigationTarget();
             }
             else
             {
@@ -55,7 +57,8 @@ namespace AI.Task
         {
             if(_attackTargetTasks != null && _attackTargetTasks.Count>0)
             {
-                return ((IAIAttackTargetTask)GetHighestPriority(_attackTargetTasks.Select(p => (IAITask)p).ToList())).GetAttackTarget();
+                IAIAttackTargetTask task = _attackTargetTasks.Aggregate((current,next) => current.GetPriority() >= next.GetPriority() ? current : next);
+                return task.GetAttackTarget();
             }
             else
             {
@@ -63,23 +66,6 @@ namespace AI.Task
             }
         }
 
-        private IAITask GetHighestPriority(List<IAITask> tasks)
-        {
-            IAITask priority = null;
-            var sortedPriorities = tasks.OrderByDescending(p => p.GetPriority()).ToList();
-            sortedPriorities = sortedPriorities.Where(p => p.GetPriority() == sortedPriorities.First().GetPriority()).ToList();
-
-            if (sortedPriorities.Count() > 1)
-            {
-                priority = sortedPriorities.OrderByDescending(p => tasks.IndexOf(p)).Last();
-            }
-            else
-            {
-                priority = sortedPriorities.First();
-            }
-            
-            return priority;
-        }
 
 
      
