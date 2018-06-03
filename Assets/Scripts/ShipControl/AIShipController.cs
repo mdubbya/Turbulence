@@ -56,10 +56,6 @@ namespace AI
 
         private void Update()
         {
-            _angularThrustPidController.proportionalGain = _shipMovementProperties.angularThrustProportionalGain;
-            _angularThrustPidController.integralGain = _shipMovementProperties.angularThrustIntegralGain;
-            _angularThrustPidController.derivativeGain = _shipMovementProperties.angularThrustDerivativeGain;
-
             _elapsedTime += Time.deltaTime;
             if(_elapsedTime >= targetUpdateRate)
             {
