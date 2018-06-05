@@ -12,7 +12,7 @@ namespace AI
    [RequireComponent(typeof(ShipMovementProperties))]
    public class AIShipController : MonoBehaviour 
    {
-        public float targetDeadZone;
+        
         public float targetUpdateRate;
 
         private Rigidbody _rigidBody;
@@ -21,7 +21,7 @@ namespace AI
 
         TaskPrioritizer _taskPrioritizer;
 
-        private RVOAgent _rvoAgent;
+        
 
         private IRadar _radar;
 
@@ -39,14 +39,13 @@ namespace AI
         Rigidbody rigidBody, 
         ShipMovementProperties shipMovementProperties, 
         TaskPrioritizer taskPrioritizer,
-        RVOAgent rvoAgent,
         IRadar radar,
         PIDController angularThrustPidController)
         {
             _rigidBody = rigidBody;
             _shipMovementProperties = shipMovementProperties;
             _taskPrioritizer = taskPrioritizer;
-            _rvoAgent = rvoAgent;
+            
             _radar = radar;
             _angularThrustPidController = angularThrustPidController;
             _angularThrustPidController.proportionalGain = _shipMovementProperties.angularThrustProportionalGain;
@@ -60,12 +59,7 @@ namespace AI
             if(_elapsedTime >= targetUpdateRate)
             {
                 _elapsedTime=0;
-                Vector3 movePostion = _taskPrioritizer.GetCurrentMovementPriority();
-                movePostion = _rvoAgent.GetAdjustedTargetPosition(movePostion,_shipMovementProperties.maxSpeed);
-                Vector3 attackPosition =_taskPrioritizer.GetCurrentAttackPriority(); 
-                GameObject closest = _radar.GetClosestDetected();
-                Vector3 closestVector = closest==null ? movePostion : closest.transform.position;
-                _target = Vector3.Distance(closestVector,transform.position) < targetDeadZone ? movePostion : attackPosition;
+                _target = _taskPrioritizer.GetCurrentPriority();
             }
         }
 
@@ -86,7 +80,7 @@ namespace AI
 
         void OnDrawGizmosSelected()
         {
-            DebugExtension.DrawPoint(_target,Color.red,3);
+            Debug.DrawLine(transform.position,_target,Color.red,0f);
         }
     }
 }

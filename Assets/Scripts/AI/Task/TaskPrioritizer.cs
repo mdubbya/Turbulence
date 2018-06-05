@@ -10,55 +10,30 @@ namespace AI.Task
     public class TaskPrioritizer : MonoBehaviour
     {
 
-        private List<IAIMoveTargetTask> _moveTargetTasks;
-        private List<IAIAttackTargetTask> _attackTargetTasks;
+        private List<IAITask> _tasks;
 
         [Inject]
-        public void Inject(IAIMoveTargetTask[] moveTargets, IAIAttackTargetTask[] attackTargets)
+        public void Inject(IAITask[] tasks)
         {
-            _moveTargetTasks = new List<IAIMoveTargetTask>(moveTargets);
-            _attackTargetTasks = new List<IAIAttackTargetTask>(attackTargets);
+            _tasks = new List<IAITask>(tasks);
         }
 
-        public void AddMoveTargetTask(IAIMoveTargetTask target)
+        public void AddTask(IAITask target)
         {
-            _moveTargetTasks.Add(target); 
+            _tasks.Add(target); 
         }
 
-           public void RemoveMoveTargetTask(IAIMoveTargetTask target)
+        public void RemoveTask(IAITask target)
         {
-            _moveTargetTasks.Remove(target);
+            _tasks.Remove(target);
         }
 
-        public void AddAttackTargetTask(IAIMoveTargetTask target)
+        public Vector3 GetCurrentPriority()
         {
-            _moveTargetTasks.Add(target);
-        }
-
-           public void RemoveAttackTargetTask(IAIAttackTargetTask target)
-        {
-            _attackTargetTasks.Remove(target);
-        }
-
-        public Vector3 GetCurrentMovementPriority()
-        {
-            if(_moveTargetTasks != null && _moveTargetTasks.Count>0)
+            if(_tasks != null && _tasks.Count>0)
             {
-                IAIMoveTargetTask task = _moveTargetTasks.Aggregate((current,next) => current.GetPriority() >= next.GetPriority() ? current : next);
-                return task.GetNavigationTarget();
-            }
-            else
-            {
-                return gameObject.transform.position;
-            }
-        }
-
-        public Vector3 GetCurrentAttackPriority()
-        {
-            if(_attackTargetTasks != null && _attackTargetTasks.Count>0)
-            {
-                IAIAttackTargetTask task = _attackTargetTasks.Aggregate((current,next) => current.GetPriority() >= next.GetPriority() ? current : next);
-                return task.GetAttackTarget();
+                IAITask task = _tasks.Aggregate((current,next) => current.GetPriority() >= next.GetPriority() ? current : next);
+                return task.GetTarget();
             }
             else
             {

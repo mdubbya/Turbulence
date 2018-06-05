@@ -8,17 +8,22 @@ using Zenject;
 namespace AI.Task
 {
     //TODO: needs optimization
-    public class AttackClosestTargetInRange : MonoBehaviour, IAIAttackTargetTask, IAIMoveTargetTask
+    public class AttackClosestTargetInRange : MonoBehaviour, IAITask
     {
-        public int relativePriority;
+        public float relativePriority;
         public float followDistance;
+        public float targetDeadZone;
 
         private IRadar _radar;
+        private RVOAgent _rvoAgent;
+        private ShipMovementProperties _shipMovementProperties;
 
         [Inject]
-        public void Inject(IRadar radar)
+        public void Inject(IRadar radar, RVOAgent rvoAgent, ShipMovementProperties shipMovementProperties)
         {
             _radar = radar;
+            _rvoAgent = rvoAgent;
+            _shipMovementProperties = shipMovementProperties;
         }
 
         public float GetPriority()
@@ -34,18 +39,21 @@ namespace AI.Task
             }
         }
 
-        public Vector3 GetAttackTarget()
+        public Vector3 GetTarget()
         {
-            GameObject closestEnemy = _radar.GetClosestDetectedEnemy();
-            return closestEnemy == null ? transform.position : closestEnemy.transform.position;
-        }
+            GameObject enemy = _radar.GetClosestDetectedEnemy();
+            Vector3 target = Vector3.zero;
+            if(enemy != null)
+            {
+                target = enemy.transform.position;
+                GameObject closest = _radar.GetClosestDetected();
 
-        public Vector3 GetNavigationTarget()
-        {
-            Vector3 navTarget = GetAttackTarget();
-            navTarget = ((transform.position-navTarget).normalized * followDistance) + navTarget;
-            
-            return navTarget;
+                Vector3 closestVector = closest==null ? target : closest.transform.position;
+
+                target = Vector3.Distance(closestVector,transform.position) < targetDeadZone ? 
+                _rvoAgent.GetAdjustedTargetPosition(((transform.position-target).normalized * followDistance) + target,_shipMovementProperties.maxSpeed) : target;
+            }
+            return target;
         }
     }
 }

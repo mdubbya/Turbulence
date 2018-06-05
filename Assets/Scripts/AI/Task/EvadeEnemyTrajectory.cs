@@ -7,34 +7,22 @@ using Zenject;
 namespace AI.Task
 {
     //TODO: needs optimization
-    public class EvadeEnemyTrajectory : MonoBehaviour, IAIMoveTargetTask
+    public class EvadeEnemyTrajectory : MonoBehaviour, IAITask
     {
-        public int relativePriority;
+        public float relativePriority;
         public float enemyTrajectoryLength;
 
         public float evadeDistance;
         private IRadar _radar;
+        private RVOAgent _rvoAgent;
+        private ShipMovementProperties _shipMovementProperties;
 
         [Inject]
-        public void Inject(IRadar radar)
+        public void Inject(IRadar radar, RVOAgent rvoAgent, ShipMovementProperties shipMovementProperties)
         {
+            _rvoAgent = rvoAgent;
             _radar = radar;
-        }
-
-        public Vector3 GetNavigationTarget()
-        {
-            GameObject enemy = GetEnemyToAvoid();            
-            if(enemy!=null)
-            {
-                Vector3 evadeTarget = PathCalculationUtilities.ClosestPointOnLine(
-                    enemy.transform.position,enemy.transform.position +(enemy.transform.forward*enemyTrajectoryLength),transform.position);
-                
-                return (((transform.position - evadeTarget).normalized) + transform.position) * evadeDistance;
-            }
-            else
-            {
-                return transform.position;
-            }
+            _shipMovementProperties = shipMovementProperties;
         }
 
         private GameObject GetEnemyToAvoid()
@@ -61,7 +49,7 @@ namespace AI.Task
 
         public float GetPriority()
         {
-            Vector3 target = GetNavigationTarget();
+            Vector3 target = GetTarget();
             if(target != transform.position)
             {
                 return (relativePriority / Vector3.Distance(target,transform.position));
@@ -69,6 +57,23 @@ namespace AI.Task
             else
             {
                 return 0;
+            }
+        }
+
+        public Vector3 GetTarget()
+        {
+            GameObject enemy = GetEnemyToAvoid();            
+            if(enemy!=null)
+            {
+                Vector3 evadeTarget = PathCalculationUtilities.ClosestPointOnLine(
+                    enemy.transform.position,enemy.transform.position +(enemy.transform.forward*enemyTrajectoryLength),transform.position);
+                
+                evadeTarget = (((transform.position - evadeTarget).normalized) + transform.position) * evadeDistance;
+                return _rvoAgent.GetAdjustedTargetPosition(evadeTarget,_shipMovementProperties.maxSpeed);
+            }
+            else
+            {
+                return transform.position;
             }
         }
 

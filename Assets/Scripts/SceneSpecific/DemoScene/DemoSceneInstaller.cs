@@ -16,8 +16,7 @@ public class DemoSceneInstaller : MonoInstaller<DemoSceneInstaller>
         Container.Bind<TaskPrioritizer>().FromNewComponentSibling();
         Container.Bind<IRadar>().FromComponentSibling();
         Container.Bind<ShipMovementProperties>().FromComponentSibling();
-        Container.Bind<IAIAttackTargetTask[]>().FromMethod(injectContext=> ((MonoBehaviour)injectContext.ObjectInstance).GetComponents<IAIAttackTargetTask>());
-        Container.Bind<IAIMoveTargetTask[]>().FromMethod(injectContext=> ((MonoBehaviour)injectContext.ObjectInstance).GetComponents<IAIMoveTargetTask>());
+        Container.Bind<IAITask[]>().FromMethod(injectContext=> ((MonoBehaviour)injectContext.ObjectInstance).GetComponents<IAITask>());
         Container.Bind<RVOAgent>().FromComponentSibling();
         Container.Bind<PIDController>().FromMethod(context => new PIDController());
     }
