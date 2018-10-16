@@ -6,6 +6,7 @@ using UnityEngine;
 using Zenject;
 using System.Linq;
 using Common;
+using ShipComponent;
 
 public class DemoSceneInstaller : MonoInstaller<DemoSceneInstaller>
 {
@@ -19,5 +20,6 @@ public class DemoSceneInstaller : MonoInstaller<DemoSceneInstaller>
         Container.Bind<IAITask[]>().FromMethod(injectContext=> ((MonoBehaviour)injectContext.ObjectInstance).GetComponents<IAITask>());
         Container.Bind<RVOAgent>().FromComponentSibling();
         Container.Bind<PIDController>().FromMethod(context => new PIDController());
+        Container.Bind<IWeapon>().FromComponentInChildren(); 
     }
 }

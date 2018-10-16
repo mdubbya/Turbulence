@@ -6,13 +6,6 @@ public class PlayerShipController : MonoBehaviour
 {
 	public PlayerShipMovementController shipMovementController;
 
-    private ProjectileWeaponController[] weaponControllers;
-
-    public void Start()
-    {
-        weaponControllers = GetComponentsInChildren<ProjectileWeaponController>();
-    }
-
 
 	void FixedUpdate()
 	{
@@ -23,10 +16,6 @@ public class PlayerShipController : MonoBehaviour
         bool fire = Input.GetButton("Fire1");
         if (fire)
         {
-            foreach(ProjectileWeaponController controller in weaponControllers)
-            {
-                controller.Fire();
-            }
         }
         
         shipMovementController.ApplyShipMovement(thrust,rotate);
