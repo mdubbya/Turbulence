@@ -1,5 +1,5 @@
 using UnityEngine;
-using Zenject;
+
 using AI.PathCalculation;
 
 namespace AI.Task
@@ -12,13 +12,13 @@ namespace AI.Task
 
         private RVOAgent _rvoAgent;
         private ShipMovementProperties _shipMovementProperties;
-
-        [Inject]
-        public void Inject(RVOAgent rvoAgent, ShipMovementProperties shipMovementProperties)
+       
+        public void Start()
         {
-            _rvoAgent = rvoAgent;
-            _shipMovementProperties = shipMovementProperties;
+            _rvoAgent = GetComponent<RVOAgent>();
+            _shipMovementProperties = GetComponent<ShipMovementProperties>();
         }
+
         public Vector3 GetTarget()
         {
             return _rvoAgent.GetAdjustedTargetPosition(holdPoint,_shipMovementProperties.maxSpeed);

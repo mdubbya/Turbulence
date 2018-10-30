@@ -2,15 +2,16 @@
 using System.Linq;
 using UnityEngine;
 using GameControl;
-using Zenject;
+
 
 namespace AI.PathCalculation
 {
+    [RequireComponent(typeof(TeamInfo))]
     public class Radar : MonoBehaviour, IRadar 
     {
         public float detectionRadius;
         public float scanRate;
-        [Inject]
+       
         TeamInfo _teamInfo;
 
         private List<GameObject> _detectedEntities =new List<GameObject>();
@@ -20,6 +21,11 @@ namespace AI.PathCalculation
         GameObject _closestEnemy;
         
         float _timeSinceLastScan=0;
+
+        void Start()
+        {
+            _teamInfo = gameObject.GetComponent<TeamInfo>();
+        }
 
         private void Update()
         {

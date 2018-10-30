@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 using AI.Process;
-using Zenject;
+
 using AI.Task;
 using AI.PathCalculation;
 using Common;
@@ -10,6 +10,7 @@ using UnityEngine.Profiling;
 namespace AI
 {
    [RequireComponent(typeof(ShipMovementProperties))]
+   [RequireComponent(typeof(TaskPrioritizer))]
    public class AIShipController : MonoBehaviour 
    {
         
@@ -34,23 +35,17 @@ namespace AI
         
         private float _elapsedTime=0;
 
-        [Inject]
-        public void Inject(
-        Rigidbody rigidBody, 
-        ShipMovementProperties shipMovementProperties, 
-        TaskPrioritizer taskPrioritizer,
-        IRadar radar,
-        PIDController angularThrustPidController)
+       
+        public void Start()
         {
-            _rigidBody = rigidBody;
-            _shipMovementProperties = shipMovementProperties;
-            _taskPrioritizer = taskPrioritizer;
+            _rigidBody = GetComponent<Rigidbody>();
+            _shipMovementProperties = GetComponent<ShipMovementProperties>();
+            _taskPrioritizer = GetComponent<TaskPrioritizer>();
             
-            _radar = radar;
-            _angularThrustPidController = angularThrustPidController;
-            _angularThrustPidController.proportionalGain = _shipMovementProperties.angularThrustProportionalGain;
-            _angularThrustPidController.integralGain = _shipMovementProperties.angularThrustIntegralGain;
-            _angularThrustPidController.derivativeGain = _shipMovementProperties.angularThrustDerivativeGain;
+            _radar = GetComponent<Radar>();
+            _angularThrustPidController = new PIDController(_shipMovementProperties.angularThrustProportionalGain,
+                                                            _shipMovementProperties.angularThrustIntegralGain,
+                                                            _shipMovementProperties.angularThrustDerivativeGain);
         }
 
         private void Update()

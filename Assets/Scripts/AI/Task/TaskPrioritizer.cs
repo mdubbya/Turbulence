@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
-using Zenject;
+
 using UnityEngine.Profiling;
 
 namespace AI.Task
@@ -12,12 +12,11 @@ namespace AI.Task
 
         private List<IAITask> _tasks;
 
-        [Inject]
-        public void Inject(IAITask[] tasks)
+        void Start()
         {
-            _tasks = new List<IAITask>(tasks);
+            _tasks = new List<IAITask>(gameObject.GetComponents<IAITask>());
         }
-
+       
         public void AddTask(IAITask target)
         {
             _tasks.Add(target); 

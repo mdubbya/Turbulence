@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using AI.PathCalculation;
 using UnityEngine;
-using Zenject;
+
 
 namespace AI.Task
 {
@@ -17,12 +17,12 @@ namespace AI.Task
         private RVOAgent _rvoAgent;
         private ShipMovementProperties _shipMovementProperties;
 
-        [Inject]
-        public void Inject(IRadar radar, RVOAgent rvoAgent, ShipMovementProperties shipMovementProperties)
+       
+        public void Start()
         {
-            _rvoAgent = rvoAgent;
-            _radar = radar;
-            _shipMovementProperties = shipMovementProperties;
+            _radar = gameObject.GetComponent<IRadar>();
+            _rvoAgent = GetComponent<RVOAgent>();
+            _shipMovementProperties = GetComponent<ShipMovementProperties>();
         }
 
         private GameObject GetEnemyToAvoid()

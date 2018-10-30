@@ -1,5 +1,5 @@
 using System;
-using Zenject;
+
 
 namespace Common
 {
@@ -28,6 +28,13 @@ namespace Common
             set { _derivativeGain = value;}
         }
         private float _derivativeGain=0;
+
+        public PIDController(float pGain =0, float iGain =0, float dGain=0)
+        {
+            _proportionalGain = pGain;
+            _integralGain = iGain;
+            _derivativeGain = dGain;
+        }
 
         public float GetUpdatedOutput(float processVariable, float setPoint, float deltaTime)
         {

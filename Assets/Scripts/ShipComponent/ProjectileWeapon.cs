@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using AI.PathCalculation;
-using Zenject;
+
 
 namespace ShipComponent
 {
@@ -13,19 +13,12 @@ namespace ShipComponent
         public float shotsPerSecond;
         private ProjectileType projectileType;
 
-        private Factory<Projectile> _projectileFactory;
-
         private Rigidbody _rigidBody;
         
         private float _timeSinceLastShot;
 
-        [Inject]
-        public void Inject(Rigidbody rigidbody, Factory<Projectile>  projectileFactory)
-        {
-            _rigidBody = rigidbody;
-            _projectileFactory = projectileFactory;
-        }
-
+        private GameObject _projectilePrefab;
+       
         public void Update()
         {
             _timeSinceLastShot += Time.deltaTime;
@@ -35,7 +28,7 @@ namespace ShipComponent
         {
             if(_timeSinceLastShot >= 1/shotsPerSecond)
             {
-                Projectile projectile = _projectileFactory.Create();
+                Projectile projectile = Instantiate(_projectilePrefab).GetComponent<Projectile>();
                 projectile.transform.position = projectileSpawnPosition;
                 Rigidbody projectileRigidBody = projectile.GetComponent<Rigidbody>();
 
