@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace ShipComponent
+namespace Component
 {
     public enum ProjectileType
     {
@@ -10,13 +10,13 @@ namespace ShipComponent
     public class Projectile : MonoBehaviour
     {
         
-        private float _projectileSpeed;
+        private float _projectileSpeed=0;
         public float projectileSpeed
         {
             get { return _projectileSpeed;}
         }
 
-        private float _projectileDamage;
+        private float _projectileDamage=0;
         public float projectileDamage
         {
             get { return _projectileDamage;}
