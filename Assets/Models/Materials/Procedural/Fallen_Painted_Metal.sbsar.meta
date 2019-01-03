@@ -1,337 +1,95 @@
 fileFormatVersion: 2
 guid: a2e8065fa960bcb43b998931ecd6af38
-timeCreated: 1478142566
-licenseType: Free
-SubstanceImporter:
-  serializedVersion: 5
-  materialInstances:
-  - serializedVersion: 16
-    name: Fallen_Painted_Metal
-    prototypeName: Fallen_Painted_Metal
-    shaderName: 
-    shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
-    shaderKeywords: 
-    renderQueue: -1
-    lightmapFlags: 5
-    inputs:
-    - name: Paint_Hue
-      value:
-        scalar[0]: 0.63
-        scalar[1]: 0
-        scalar[2]: 0
-        scalar[3]: 0
-        texture: {instanceID: 0}
-    - name: $outputsize
-      value:
-        scalar[0]: 8
-        scalar[1]: 8
-        scalar[2]: 0
-        scalar[3]: 0
-        texture: {instanceID: 0}
-    - name: $randomseed
-      value:
-        scalar[0]: 182
-        scalar[1]: 0
-        scalar[2]: 0
-        scalar[3]: 0
-        texture: {instanceID: 0}
-    - name: Low_Pass_Panels
-      value:
-        scalar[0]: 0.042
-        scalar[1]: 0
-        scalar[2]: 0
-        scalar[3]: 0
-        texture: {instanceID: 0}
-    - name: Low_Pass_Metal
-      value:
-        scalar[0]: 0.5
-        scalar[1]: 0
-        scalar[2]: 0
-        scalar[3]: 0
-        texture: {instanceID: 0}
-    - name: Low_Pass_Paint
-      value:
-        scalar[0]: 0.5
-        scalar[1]: 0
-        scalar[2]: 0
-        scalar[3]: 0
-        texture: {instanceID: 0}
-    - name: Paint_Saturation
-      value:
-        scalar[0]: 2.5
-        scalar[1]: 0
-        scalar[2]: 0
-        scalar[3]: 0
-        texture: {instanceID: 0}
-    - name: Paint_Lightness
-      value:
-        scalar[0]: 0.86
-        scalar[1]: 0
-        scalar[2]: 0
-        scalar[3]: 0
-        texture: {instanceID: 0}
-    - name: Paint_Wear_Level
-      value:
-        scalar[0]: 0.985
-        scalar[1]: 0
-        scalar[2]: 0
-        scalar[3]: 0
-        texture: {instanceID: 0}
-    - name: Paint_Wear_Contrast
-      value:
-        scalar[0]: 0.5
-        scalar[1]: 0
-        scalar[2]: 0
-        scalar[3]: 0
-        texture: {instanceID: 0}
-    - name: Paint_Wear_Radius
-      value:
-        scalar[0]: 1
-        scalar[1]: 0
-        scalar[2]: 0
-        scalar[3]: 0
-        texture: {instanceID: 0}
-    - name: Paint_Wear_Variation
-      value:
-        scalar[0]: 0.5
-        scalar[1]: 0
-        scalar[2]: 0
-        scalar[3]: 0
-        texture: {instanceID: 0}
-    - name: Edge_Damage_Level
-      value:
-        scalar[0]: 0.75
-        scalar[1]: 0
-        scalar[2]: 0
-        scalar[3]: 0
-        texture: {instanceID: 0}
-    - name: Edge_Damage_Contrast
-      value:
-        scalar[0]: 0.5
-        scalar[1]: 0
-        scalar[2]: 0
-        scalar[3]: 0
-        texture: {instanceID: 0}
-    - name: Edge_Damage_Damages_Intensity
-      value:
-        scalar[0]: 0.25
-        scalar[1]: 0
-        scalar[2]: 0
-        scalar[3]: 0
-        texture: {instanceID: 0}
-    - name: Metal_Edge_Wear_Wear_Level
-      value:
-        scalar[0]: 0.535
-        scalar[1]: 0
-        scalar[2]: 0
-        scalar[3]: 0
-        texture: {instanceID: 0}
-    - name: Metal_Edge_Wear_Wear_Contrast
-      value:
-        scalar[0]: 0.5
-        scalar[1]: 0
-        scalar[2]: 0
-        scalar[3]: 0
-        texture: {instanceID: 0}
-    - name: Metal_Edge_Wear_Grunge_Amount
-      value:
-        scalar[0]: 0.55
-        scalar[1]: 0
-        scalar[2]: 0
-        scalar[3]: 0
-        texture: {instanceID: 0}
-    - name: Metal_Edge_Wear_Curvature_Weight
-      value:
-        scalar[0]: 0.758
-        scalar[1]: 0
-        scalar[2]: 0
-        scalar[3]: 0
-        texture: {instanceID: 0}
-    - name: Dirt_Dirt_Level
-      value:
-        scalar[0]: 0.483
-        scalar[1]: 0
-        scalar[2]: 0
-        scalar[3]: 0
-        texture: {instanceID: 0}
-    - name: Dirt_Dirt_Contrast
-      value:
-        scalar[0]: 0.3333
-        scalar[1]: 0
-        scalar[2]: 0
-        scalar[3]: 0
-        texture: {instanceID: 0}
-    - name: Dirt_Grunge_Amount
-      value:
-        scalar[0]: 0.3333
-        scalar[1]: 0
-        scalar[2]: 0
-        scalar[3]: 0
-        texture: {instanceID: 0}
-    - name: Dirt_Edges_Masking
-      value:
-        scalar[0]: 0.433
-        scalar[1]: 0
-        scalar[2]: 0
-        scalar[3]: 0
-        texture: {instanceID: 0}
-    materialInformation:
-      serializedVersion: 5
-      offset: {x: 0, y: 0}
-      scale: {x: 5, y: 5}
-      generateMipmaps: 1
-      generateAllOutputs: 0
-      animationUpdateRate: 0
-    materialProperties:
-      serializedVersion: 2
-      texEnvs:
-      - first:
-          name: _BumpMap
-        second:
-          texture: {instanceID: 0}
-          scale: {x: 1, y: 1}
-          offset: {x: 0, y: 0}
-      - first:
-          name: _DetailAlbedoMap
-        second:
-          texture: {instanceID: 0}
-          scale: {x: 1, y: 1}
-          offset: {x: 0, y: 0}
-      - first:
-          name: _DetailMask
-        second:
-          texture: {instanceID: 0}
-          scale: {x: 1, y: 1}
-          offset: {x: 0, y: 0}
-      - first:
-          name: _DetailNormalMap
-        second:
-          texture: {instanceID: 0}
-          scale: {x: 1, y: 1}
-          offset: {x: 0, y: 0}
-      - first:
-          name: _EmissionMap
-        second:
-          texture: {instanceID: 0}
-          scale: {x: 1, y: 1}
-          offset: {x: 0, y: 0}
-      - first:
-          name: _MainTex
-        second:
-          texture: {instanceID: 0}
-          scale: {x: 1, y: 1}
-          offset: {x: 0, y: 0}
-      - first:
-          name: _MetallicGlossMap
-        second:
-          texture: {instanceID: 0}
-          scale: {x: 1, y: 1}
-          offset: {x: 0, y: 0}
-      - first:
-          name: _OcclusionMap
-        second:
-          texture: {instanceID: 0}
-          scale: {x: 1, y: 1}
-          offset: {x: 0, y: 0}
-      - first:
-          name: _ParallaxMap
-        second:
-          texture: {instanceID: 0}
-          scale: {x: 1, y: 1}
-          offset: {x: 0, y: 0}
-      floats:
-      - first:
-          name: _BumpScale
-        second: 1
-      - first:
-          name: _Cutoff
-        second: 0.5
-      - first:
-          name: _DetailNormalMapScale
-        second: 1
-      - first:
-          name: _DstBlend
-        second: 0
-      - first:
-          name: _GlossMapScale
-        second: 1
-      - first:
-          name: _Glossiness
-        second: 0.5
-      - first:
-          name: _GlossyReflections
-        second: 1
-      - first:
-          name: _Metallic
-        second: 0
-      - first:
-          name: _Mode
-        second: 0
-      - first:
-          name: _OcclusionStrength
-        second: 1
-      - first:
-          name: _Parallax
-        second: 0.02
-      - first:
-          name: _SmoothnessTextureChannel
-        second: 0
-      - first:
-          name: _SpecularHighlights
-        second: 1
-      - first:
-          name: _SrcBlend
-        second: 1
-      - first:
-          name: _UVSec
-        second: 0
-      - first:
-          name: _ZWrite
-        second: 1
-      colors:
-      - first:
-          name: _Color
-        second: {r: 1, g: 1, b: 1, a: 1}
-      - first:
-          name: _EmissionColor
-        second: {r: 0, g: 0, b: 0, a: 1}
-    textureParameters:
-    - name: Fallen_Painted_Metal_basecolor
-      alphaSource: 6
-      filterMode: 1
-      aniso: 1
-      wrapMode: 0
-    - name: Fallen_Painted_Metal_normal
-      alphaSource: 0
-      filterMode: 1
-      aniso: 1
-      wrapMode: 0
-    - name: Fallen_Painted_Metal_metallic
-      alphaSource: 7
-      filterMode: 1
-      aniso: 1
-      wrapMode: 0
-    textureAssignments:
-    - shaderProp:
-        name: _MainTex
-      material: {instanceID: 0}
-      baseUID: 1072260763
-    - shaderProp:
-        name: _BumpMap
-      material: {instanceID: 0}
-      baseUID: 1072260761
-    - shaderProp:
-        name: _MetallicGlossMap
-      material: {instanceID: 0}
-      baseUID: 1072260765
-    buildTargetSettings:
-    - serializedVersion: 2
-      buildTarget: 
-      textureWidth: 512
-      textureHeight: 512
-      textureFormat: 0
-      loadingBehavior: 1
-  deletedPrototypes: []
+ScriptedImporter:
+  fileIDToRecycleName:
+    100000: Fallen_Painted_Metal/Fallen_Painted_Metal
+    400000: Fallen_Painted_Metal/Fallen_Painted_Metal/Transform
+    2100000: mat.Fallen_Painted_Metal
+    2300000: Fallen_Painted_Metal/Fallen_Painted_Metal/MeshRenderer
+    2800000: Fallen_Painted_Metal_baseColor
+    2800002: Fallen_Painted_Metal_normal
+    2800004: Fallen_Painted_Metal_metallic
+    2800006: Fallen_Painted_Metal_normal
+    3300000: Fallen_Painted_Metal/Fallen_Painted_Metal/MeshFilter
+    11400000: sbsar
+    11400002: graph0
+    13500000: Fallen_Painted_Metal/Fallen_Painted_Metal/SphereCollider
+    100100000: Fallen_Painted_Metal
+    2186277476908879412: ImportLogs
+  externalObjects: {}
   userData: 
   assetBundleName: 
   assetBundleVariant: 
+  script: {fileID: 232528478, guid: 43a8bbf65be290d44ba52b94476242b9, type: 3}
+  version: 13
+  mGraphInstanceData:
+  - graphLabel: Fallen_Painted_Metal
+    prototypeName: Fallen_Painted_Metal
+    graphDescIndex: 0
+    generateAllOutputs: 0
+    generateMipMaps: 1
+    preset: " <sbspreset pkgurl=\"pkg://Fallen_Painted_Metal\" label=\"\" >\n  <presetinput
+      identifier=\"$outputsize\" uid=\"1299177642\" type=\"8\" value=\"9,9\" />\n
+      \ <presetinput identifier=\"$randomseed\" uid=\"438171384\" type=\"4\" value=\"182\"
+      />\n  <presetinput identifier=\"Low_Pass_Panels\" uid=\"1054861461\" type=\"0\"
+      value=\"0.042\" />\n  <presetinput identifier=\"Paint_Hue\" uid=\"1054004654\"
+      type=\"0\" value=\"0.63\" />\n  <presetinput identifier=\"Paint_Saturation\"
+      uid=\"1054004652\" type=\"0\" value=\"2.5\" />\n  <presetinput identifier=\"Paint_Lightness\"
+      uid=\"1054004642\" type=\"0\" value=\"0.86\" />\n  <presetinput identifier=\"Metal_Edge_Wear_Wear_Level\"
+      uid=\"1053989713\" type=\"0\" value=\"0.535\" />\n  <presetinput identifier=\"Metal_Edge_Wear_Grunge_Amount\"
+      uid=\"1053989717\" type=\"0\" value=\"0.55\" />\n  <presetinput identifier=\"Metal_Edge_Wear_Curvature_Weight\"
+      uid=\"1053989675\" type=\"0\" value=\"0.758\" />\n  <presetinput identifier=\"Dirt_Dirt_Level\"
+      uid=\"1041797488\" type=\"0\" value=\"0.483\" />\n  <presetinput identifier=\"Dirt_Edges_Masking\"
+      uid=\"1041797450\" type=\"0\" value=\"0.433\" />\n </sbspreset>\n"
+    shaderName: Standard
+    outputNames: baseColor,normal,metallic,normal
+    texturePackingList:
+    - outputName: baseColor
+      alphaSource: source
+    - outputName: normal
+      alphaSource: source
+    - outputName: roughness
+      alphaSource: roughness
+    - outputName: metallic
+      alphaSource: smoothness
+    - outputName: normal
+      alphaSource: normal
+    textureParameters:
+    - textureName: Fallen_Painted_Metal_baseColor
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    - textureName: Fallen_Painted_Metal_normal
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    - textureName: Fallen_Painted_Metal_metallic
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    - textureName: Fallen_Painted_Metal_roughness
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    colorSpaceList:
+    - outputName: baseColor
+      bLinear: 0
+    - outputName: normal
+      bLinear: 1
+    - outputName: roughness
+      bLinear: 1
+    - outputName: metallic
+      bLinear: 1
+    - outputName: normal
+      bLinear: 1
+    inputTextureMap: []
+    targetSettingList:
+    - label: Default
+      bLockRatio: 1
+      bHighQuality: 0
+      textureWidth: 512
+      textureHeight: 512
+      textureFormat: 0
+      bGenerateOnLoad: 0
+    material: {fileID: 2100000, guid: a2e8065fa960bcb43b998931ecd6af38, type: 3}
+    generatedTextures: []

@@ -16,8 +16,7 @@ namespace AI.Task
         private IRadar _radar;
         private RVOAgent _rvoAgent;
         private ShipMovementProperties _shipMovementProperties;
-
-       
+        public AITaskType taskType { get { return AITaskType.Move; } }
         public void Start()
         {
             _radar = gameObject.GetComponent<IRadar>();

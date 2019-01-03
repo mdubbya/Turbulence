@@ -1,583 +1,159 @@
 fileFormatVersion: 2
 guid: 7e918f461e282ab4686a37be667572b2
-timeCreated: 1478355123
-licenseType: Free
-SubstanceImporter:
-  serializedVersion: 5
-  materialInstances:
-  - serializedVersion: 16
-    name: CarbonFiber
-    prototypeName: CarbonFiber
-    shaderName: 
-    shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
-    shaderKeywords: 
-    renderQueue: -1
-    lightmapFlags: 5
-    inputs:
-    - name: $outputsize
-      value:
-        scalar[0]: 8
-        scalar[1]: 8
-        scalar[2]: 0
-        scalar[3]: 0
-        texture: {instanceID: 0}
-    - name: $randomseed
-      value:
-        scalar[0]: 0
-        scalar[1]: 0
-        scalar[2]: 0
-        scalar[3]: 0
-        texture: {instanceID: 0}
-    - name: Pattern_CaborFiberTile_X
-      value:
-        scalar[0]: 50
-        scalar[1]: 0
-        scalar[2]: 0
-        scalar[3]: 0
-        texture: {instanceID: 0}
-    - name: Pattern_CaborFiberTile_Y
-      value:
-        scalar[0]: 50
-        scalar[1]: 0
-        scalar[2]: 0
-        scalar[3]: 0
-        texture: {instanceID: 0}
-    - name: Pattern_CaborFiberWeave
-      value:
-        scalar[0]: 2
-        scalar[1]: 0
-        scalar[2]: 0
-        scalar[3]: 0
-        texture: {instanceID: 0}
-    - name: Pattern_CaborFiberShape
-      value:
-        scalar[0]: 0.21
-        scalar[1]: 0
-        scalar[2]: 0
-        scalar[3]: 0
-        texture: {instanceID: 0}
-    - name: Pattern_CaborFiberGap
-      value:
-        scalar[0]: 0.03
-        scalar[1]: 0.03
-        scalar[2]: 0
-        scalar[3]: 0
-        texture: {instanceID: 0}
-    - name: Color01_DiffuseOutput_Color
-      value:
-        scalar[0]: 0.0980392
-        scalar[1]: 0.0980392
-        scalar[2]: 0.0980392
-        scalar[3]: 1
-        texture: {instanceID: 0}
-    - name: Color02_DiffuseOutput_Color
-      value:
-        scalar[0]: 0
-        scalar[1]: 0
-        scalar[2]: 0
-        scalar[3]: 1
-        texture: {instanceID: 0}
-    - name: Brush_Pattern_BrushPatternOctave
-      value:
-        scalar[0]: 3
-        scalar[1]: 0
-        scalar[2]: 0
-        scalar[3]: 0
-        texture: {instanceID: 0}
-    - name: Globalintensity
-      value:
-        scalar[0]: 0.2
-        scalar[1]: 0
-        scalar[2]: 0
-        scalar[3]: 0
-        texture: {instanceID: 0}
-    - name: Carbon_Fiber_Height_Smoothness
-      value:
-        scalar[0]: 0
-        scalar[1]: 0
-        scalar[2]: 0
-        scalar[3]: 0
-        texture: {instanceID: 0}
-    - name: Carbon_Fiber_MetallicOutput_Color
-      value:
-        scalar[0]: 0
-        scalar[1]: 0
-        scalar[2]: 0
-        scalar[3]: 0
-        texture: {instanceID: 0}
-    - name: Gloss_Layer_Color_VOutput_Color
-      value:
-        scalar[0]: 0.380392
-        scalar[1]: 0
-        scalar[2]: 0
-        scalar[3]: 0
-        texture: {instanceID: 0}
-    - name: Gloss_Layer_Color_UOutput_Color
-      value:
-        scalar[0]: 0.290196
-        scalar[1]: 0
-        scalar[2]: 0
-        scalar[3]: 0
-        texture: {instanceID: 0}
-    - name: Gloss_Layer_GlobalGlossOpacity
-      value:
-        scalar[0]: 0.29
-        scalar[1]: 0
-        scalar[2]: 0
-        scalar[3]: 0
-        texture: {instanceID: 0}
-    materialInformation:
-      serializedVersion: 5
-      offset: {x: 0, y: 0}
-      scale: {x: 1, y: 1}
-      generateMipmaps: 1
-      generateAllOutputs: 0
-      animationUpdateRate: 0
-    materialProperties:
-      serializedVersion: 2
-      texEnvs:
-      - first:
-          name: _BumpMap
-        second:
-          texture: {instanceID: 0}
-          scale: {x: 1, y: 1}
-          offset: {x: 0, y: 0}
-      - first:
-          name: _DetailAlbedoMap
-        second:
-          texture: {instanceID: 0}
-          scale: {x: 1, y: 1}
-          offset: {x: 0, y: 0}
-      - first:
-          name: _DetailMask
-        second:
-          texture: {instanceID: 0}
-          scale: {x: 1, y: 1}
-          offset: {x: 0, y: 0}
-      - first:
-          name: _DetailNormalMap
-        second:
-          texture: {instanceID: 0}
-          scale: {x: 1, y: 1}
-          offset: {x: 0, y: 0}
-      - first:
-          name: _EmissionMap
-        second:
-          texture: {instanceID: 0}
-          scale: {x: 1, y: 1}
-          offset: {x: 0, y: 0}
-      - first:
-          name: _MainTex
-        second:
-          texture: {instanceID: 0}
-          scale: {x: 1, y: 1}
-          offset: {x: 0, y: 0}
-      - first:
-          name: _MetallicGlossMap
-        second:
-          texture: {instanceID: 0}
-          scale: {x: 1, y: 1}
-          offset: {x: 0, y: 0}
-      - first:
-          name: _OcclusionMap
-        second:
-          texture: {instanceID: 0}
-          scale: {x: 1, y: 1}
-          offset: {x: 0, y: 0}
-      - first:
-          name: _ParallaxMap
-        second:
-          texture: {instanceID: 0}
-          scale: {x: 1, y: 1}
-          offset: {x: 0, y: 0}
-      floats:
-      - first:
-          name: _BumpScale
-        second: 1
-      - first:
-          name: _Cutoff
-        second: 0.5
-      - first:
-          name: _DetailNormalMapScale
-        second: 1
-      - first:
-          name: _DstBlend
-        second: 0
-      - first:
-          name: _GlossMapScale
-        second: 1
-      - first:
-          name: _Glossiness
-        second: 0.5
-      - first:
-          name: _GlossyReflections
-        second: 1
-      - first:
-          name: _Metallic
-        second: 0
-      - first:
-          name: _Mode
-        second: 0
-      - first:
-          name: _OcclusionStrength
-        second: 1
-      - first:
-          name: _Parallax
-        second: 0.02
-      - first:
-          name: _SmoothnessTextureChannel
-        second: 0
-      - first:
-          name: _SpecularHighlights
-        second: 1
-      - first:
-          name: _SrcBlend
-        second: 1
-      - first:
-          name: _UVSec
-        second: 0
-      - first:
-          name: _ZWrite
-        second: 1
-      colors:
-      - first:
-          name: _Color
-        second: {r: 1, g: 1, b: 1, a: 1}
-      - first:
-          name: _EmissionColor
-        second: {r: 0, g: 0, b: 0, a: 1}
-    textureParameters:
-    - name: CarbonFiber_basecolor
-      alphaSource: 6
-      filterMode: 1
-      aniso: 1
-      wrapMode: 0
-    - name: CarbonFiber_normal
-      alphaSource: 0
-      filterMode: 1
-      aniso: 1
-      wrapMode: 0
-    - name: CarbonFiber_metallic
-      alphaSource: 7
-      filterMode: 1
-      aniso: 1
-      wrapMode: 0
-    - name: CarbonFiber_height
-      alphaSource: 0
-      filterMode: 1
-      aniso: 1
-      wrapMode: 0
-    textureAssignments:
-    - shaderProp:
-        name: _MainTex
-      material: {instanceID: 0}
-      baseUID: 3602785108
-    - shaderProp:
-        name: _BumpMap
-      material: {instanceID: 0}
-      baseUID: 3602785110
-    - shaderProp:
-        name: _ParallaxMap
-      material: {instanceID: 0}
-      baseUID: 3607924264
-    - shaderProp:
-        name: _MetallicGlossMap
-      material: {instanceID: 0}
-      baseUID: 3602785106
-    buildTargetSettings:
-    - serializedVersion: 2
-      buildTarget: 
-      textureWidth: 512
-      textureHeight: 512
-      textureFormat: 0
-      loadingBehavior: 1
-  - serializedVersion: 16
-    name: StarDevilEngine
-    prototypeName: CarbonFiber
-    shaderName: 
-    shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
-    shaderKeywords: 
-    renderQueue: -1
-    lightmapFlags: 5
-    inputs:
-    - name: $outputsize
-      value:
-        scalar[0]: 8
-        scalar[1]: 8
-        scalar[2]: 0
-        scalar[3]: 0
-        texture: {instanceID: 0}
-    - name: $randomseed
-      value:
-        scalar[0]: 5041
-        scalar[1]: 0
-        scalar[2]: 0
-        scalar[3]: 0
-        texture: {instanceID: 0}
-    - name: Pattern_CaborFiberTile_X
-      value:
-        scalar[0]: 50
-        scalar[1]: 0
-        scalar[2]: 0
-        scalar[3]: 0
-        texture: {instanceID: 0}
-    - name: Pattern_CaborFiberTile_Y
-      value:
-        scalar[0]: 50
-        scalar[1]: 0
-        scalar[2]: 0
-        scalar[3]: 0
-        texture: {instanceID: 0}
-    - name: Pattern_CaborFiberWeave
-      value:
-        scalar[0]: 2
-        scalar[1]: 0
-        scalar[2]: 0
-        scalar[3]: 0
-        texture: {instanceID: 0}
-    - name: Pattern_CaborFiberShape
-      value:
-        scalar[0]: 0.21
-        scalar[1]: 0
-        scalar[2]: 0
-        scalar[3]: 0
-        texture: {instanceID: 0}
-    - name: Pattern_CaborFiberGap
-      value:
-        scalar[0]: 0.03
-        scalar[1]: 0.03
-        scalar[2]: 0
-        scalar[3]: 0
-        texture: {instanceID: 0}
-    - name: Color01_DiffuseOutput_Color
-      value:
-        scalar[0]: 0.0980392
-        scalar[1]: 0.0980392
-        scalar[2]: 0.0980392
-        scalar[3]: 1
-        texture: {instanceID: 0}
-    - name: Color02_DiffuseOutput_Color
-      value:
-        scalar[0]: 0
-        scalar[1]: 0
-        scalar[2]: 0
-        scalar[3]: 1
-        texture: {instanceID: 0}
-    - name: Brush_Pattern_BrushPatternOctave
-      value:
-        scalar[0]: 3
-        scalar[1]: 0
-        scalar[2]: 0
-        scalar[3]: 0
-        texture: {instanceID: 0}
-    - name: Globalintensity
-      value:
-        scalar[0]: 0.2
-        scalar[1]: 0
-        scalar[2]: 0
-        scalar[3]: 0
-        texture: {instanceID: 0}
-    - name: Carbon_Fiber_Height_Smoothness
-      value:
-        scalar[0]: 0
-        scalar[1]: 0
-        scalar[2]: 0
-        scalar[3]: 0
-        texture: {instanceID: 0}
-    - name: Carbon_Fiber_MetallicOutput_Color
-      value:
-        scalar[0]: 0
-        scalar[1]: 0
-        scalar[2]: 0
-        scalar[3]: 0
-        texture: {instanceID: 0}
-    - name: Gloss_Layer_Color_VOutput_Color
-      value:
-        scalar[0]: 0.380392
-        scalar[1]: 0
-        scalar[2]: 0
-        scalar[3]: 0
-        texture: {instanceID: 0}
-    - name: Gloss_Layer_Color_UOutput_Color
-      value:
-        scalar[0]: 0.290196
-        scalar[1]: 0
-        scalar[2]: 0
-        scalar[3]: 0
-        texture: {instanceID: 0}
-    - name: Gloss_Layer_GlobalGlossOpacity
-      value:
-        scalar[0]: 0.29
-        scalar[1]: 0
-        scalar[2]: 0
-        scalar[3]: 0
-        texture: {instanceID: 0}
-    materialInformation:
-      serializedVersion: 5
-      offset: {x: 0, y: 0}
-      scale: {x: 4, y: 4}
-      generateMipmaps: 1
-      generateAllOutputs: 0
-      animationUpdateRate: 0
-    materialProperties:
-      serializedVersion: 2
-      texEnvs:
-      - first:
-          name: _BumpMap
-        second:
-          texture: {instanceID: 0}
-          scale: {x: 1, y: 1}
-          offset: {x: 0, y: 0}
-      - first:
-          name: _DetailAlbedoMap
-        second:
-          texture: {instanceID: 0}
-          scale: {x: 1, y: 1}
-          offset: {x: 0, y: 0}
-      - first:
-          name: _DetailMask
-        second:
-          texture: {instanceID: 0}
-          scale: {x: 1, y: 1}
-          offset: {x: 0, y: 0}
-      - first:
-          name: _DetailNormalMap
-        second:
-          texture: {instanceID: 0}
-          scale: {x: 1, y: 1}
-          offset: {x: 0, y: 0}
-      - first:
-          name: _EmissionMap
-        second:
-          texture: {instanceID: 0}
-          scale: {x: 1, y: 1}
-          offset: {x: 0, y: 0}
-      - first:
-          name: _MainTex
-        second:
-          texture: {instanceID: 0}
-          scale: {x: 1, y: 1}
-          offset: {x: 0, y: 0}
-      - first:
-          name: _MetallicGlossMap
-        second:
-          texture: {instanceID: 0}
-          scale: {x: 1, y: 1}
-          offset: {x: 0, y: 0}
-      - first:
-          name: _OcclusionMap
-        second:
-          texture: {instanceID: 0}
-          scale: {x: 1, y: 1}
-          offset: {x: 0, y: 0}
-      - first:
-          name: _ParallaxMap
-        second:
-          texture: {instanceID: 0}
-          scale: {x: 1, y: 1}
-          offset: {x: 0, y: 0}
-      floats:
-      - first:
-          name: _BumpScale
-        second: 1
-      - first:
-          name: _Cutoff
-        second: 0.5
-      - first:
-          name: _DetailNormalMapScale
-        second: 1
-      - first:
-          name: _DstBlend
-        second: 0
-      - first:
-          name: _GlossMapScale
-        second: 1
-      - first:
-          name: _Glossiness
-        second: 0.5
-      - first:
-          name: _GlossyReflections
-        second: 1
-      - first:
-          name: _Metallic
-        second: 0
-      - first:
-          name: _Mode
-        second: 0
-      - first:
-          name: _OcclusionStrength
-        second: 1
-      - first:
-          name: _Parallax
-        second: 0.02
-      - first:
-          name: _SmoothnessTextureChannel
-        second: 0
-      - first:
-          name: _SpecularHighlights
-        second: 1
-      - first:
-          name: _SrcBlend
-        second: 1
-      - first:
-          name: _UVSec
-        second: 0
-      - first:
-          name: _ZWrite
-        second: 1
-      colors:
-      - first:
-          name: _Color
-        second: {r: 1, g: 1, b: 1, a: 1}
-      - first:
-          name: _EmissionColor
-        second: {r: 0, g: 0, b: 0, a: 1}
-    textureParameters:
-    - name: StarDevilEngine_basecolor
-      alphaSource: 6
-      filterMode: 1
-      aniso: 1
-      wrapMode: 0
-    - name: StarDevilEngine_normal
-      alphaSource: 0
-      filterMode: 1
-      aniso: 1
-      wrapMode: 0
-    - name: StarDevilEngine_metallic
-      alphaSource: 7
-      filterMode: 1
-      aniso: 1
-      wrapMode: 0
-    - name: StarDevilEngine_height
-      alphaSource: 0
-      filterMode: 1
-      aniso: 1
-      wrapMode: 0
-    textureAssignments:
-    - shaderProp:
-        name: _MainTex
-      material: {instanceID: 0}
-      baseUID: 3602785108
-    - shaderProp:
-        name: _BumpMap
-      material: {instanceID: 0}
-      baseUID: 3602785110
-    - shaderProp:
-        name: _ParallaxMap
-      material: {instanceID: 0}
-      baseUID: 3607924264
-    - shaderProp:
-        name: _MetallicGlossMap
-      material: {instanceID: 0}
-      baseUID: 3602785106
-    buildTargetSettings:
-    - serializedVersion: 2
-      buildTarget: 
-      textureWidth: 512
-      textureHeight: 512
-      textureFormat: 0
-      loadingBehavior: 1
-  deletedPrototypes: []
+ScriptedImporter:
+  fileIDToRecycleName:
+    100000: CarbonFiber/CarbonFiber
+    400000: CarbonFiber/CarbonFiber/Transform
+    2100000: mat.CarbonFiber
+    2100002: mat.StarDevilEngine
+    2300000: CarbonFiber/CarbonFiber/MeshRenderer
+    2800000: CarbonFiber_baseColor
+    2800002: CarbonFiber_normal
+    2800004: CarbonFiber_metallic
+    2800006: CarbonFiber_height
+    2800008: StarDevilEngine_baseColor
+    2800010: StarDevilEngine_normal
+    2800012: StarDevilEngine_metallic
+    2800014: StarDevilEngine_height
+    3300000: CarbonFiber/CarbonFiber/MeshFilter
+    11400000: graph1
+    11400002: sbsar
+    11400004: graph0
+    13500000: CarbonFiber/CarbonFiber/SphereCollider
+    100100000: CarbonFiber
+  externalObjects: {}
   userData: 
   assetBundleName: 
   assetBundleVariant: 
+  script: {fileID: 232528478, guid: 43a8bbf65be290d44ba52b94476242b9, type: 3}
+  version: 13
+  mGraphInstanceData:
+  - graphLabel: CarbonFiber
+    prototypeName: Carbon Fiber
+    graphDescIndex: 0
+    generateAllOutputs: 0
+    generateMipMaps: 1
+    preset: " <sbspreset pkgurl=\"pkg://CarbonFiber\" label=\"\" >\n  <presetinput
+      identifier=\"$outputsize\" uid=\"2755175781\" type=\"8\" value=\"9,9\" />\n
+      </sbspreset>\n"
+    shaderName: Standard
+    outputNames: baseColor,normal,metallic,height
+    texturePackingList:
+    - outputName: baseColor
+      alphaSource: source
+    - outputName: normal
+      alphaSource: source
+    - outputName: roughness
+      alphaSource: roughness
+    - outputName: metallic
+      alphaSource: smoothness
+    - outputName: height
+      alphaSource: source
+    textureParameters:
+    - textureName: CarbonFiber_baseColor
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    - textureName: CarbonFiber_normal
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    - textureName: CarbonFiber_metallic
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    - textureName: CarbonFiber_height
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    - textureName: CarbonFiber_roughness
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    colorSpaceList:
+    - outputName: baseColor
+      bLinear: 0
+    - outputName: normal
+      bLinear: 1
+    - outputName: roughness
+      bLinear: 1
+    - outputName: metallic
+      bLinear: 1
+    - outputName: height
+      bLinear: 1
+    inputTextureMap: []
+    targetSettingList:
+    - label: Default
+      bLockRatio: 1
+      bHighQuality: 0
+      textureWidth: 512
+      textureHeight: 512
+      textureFormat: 0
+      bGenerateOnLoad: 0
+    material: {instanceID: 0}
+    generatedTextures: []
+  - graphLabel: StarDevilEngine
+    prototypeName: Carbon Fiber
+    graphDescIndex: 0
+    generateAllOutputs: 0
+    generateMipMaps: 1
+    preset: " <sbspreset pkgurl=\"pkg://CarbonFiber\" label=\"\" >\n  <presetinput
+      identifier=\"$outputsize\" uid=\"2755175781\" type=\"8\" value=\"9,9\" />\n
+      \ <presetinput identifier=\"$randomseed\" uid=\"4081759031\" type=\"4\" value=\"5041\"
+      />\n </sbspreset>\n"
+    shaderName: Standard
+    outputNames: baseColor,normal,metallic,height
+    texturePackingList:
+    - outputName: baseColor
+      alphaSource: source
+    - outputName: normal
+      alphaSource: source
+    - outputName: roughness
+      alphaSource: roughness
+    - outputName: metallic
+      alphaSource: smoothness
+    - outputName: height
+      alphaSource: source
+    textureParameters:
+    - textureName: StarDevilEngine_baseColor
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    - textureName: StarDevilEngine_normal
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    - textureName: StarDevilEngine_metallic
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    - textureName: StarDevilEngine_height
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    - textureName: StarDevilEngine_roughness
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    colorSpaceList:
+    - outputName: baseColor
+      bLinear: 0
+    - outputName: normal
+      bLinear: 1
+    - outputName: roughness
+      bLinear: 1
+    - outputName: metallic
+      bLinear: 1
+    - outputName: height
+      bLinear: 1
+    inputTextureMap: []
+    targetSettingList:
+    - label: Default
+      bLockRatio: 1
+      bHighQuality: 0
+      textureWidth: 512
+      textureHeight: 512
+      textureFormat: 0
+      bGenerateOnLoad: 0
+    material: {instanceID: 0}
+    generatedTextures: []

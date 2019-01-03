@@ -12,7 +12,7 @@ namespace AI.Task
 
         private RVOAgent _rvoAgent;
         private ShipMovementProperties _shipMovementProperties;
-       
+        public AITaskType taskType { get { return AITaskType.Move; } }       
         public void Start()
         {
             _rvoAgent = GetComponent<RVOAgent>();

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using AI.PathCalculation;
-using ShipComponent;
+using Component;
 using UnityEngine;
 
 
@@ -12,33 +12,26 @@ namespace AI.Task
     public class AttackClosestTargetInRange : MonoBehaviour, IAITask
     {
         public float relativePriority;
-        public float followDistance;
-        public float targetDeadZone;
-
-        public float attackRange;
-        public float attackZoneWidth;
 
         private IRadar _radar;
         private RVOAgent _rvoAgent;
-        private ShipMovementProperties _shipMovementProperties;
-        
-        private IWeapon _weapon;
- 
-       
+        private Rigidbody _rigidBody;
+        public AITaskType taskType { get { return AITaskType.Attack; } }
+
         public void Start()
         {
             _radar = gameObject.GetComponent<IRadar>();
             _rvoAgent = GetComponent<RVOAgent>();
-            _shipMovementProperties = GetComponent<ShipMovementProperties>();
+            _rigidBody = GetComponent<Rigidbody>();
         }
 
 
         public float GetPriority()
         {
-            GameObject target = _radar.GetClosestDetectedEnemy();
-            if(target != null && _weapon != null)
+            GameObject enemy = _radar.GetClosestDetectedEnemy();
+            if (enemy != null)
             {
-                return relativePriority / Vector3.Distance(target.transform.position,transform.position);
+                return relativePriority / Vector3.Distance(enemy.transform.position, transform.position);
             }
             else
             {
@@ -48,33 +41,13 @@ namespace AI.Task
 
         public Vector3 GetTarget()
         {
-            GameObject enemy = _radar.GetClosestDetectedEnemy(); 
+            GameObject enemy = _radar.GetClosestDetectedEnemy();
             Vector3 target = Vector3.zero;
-            if(enemy != null && _weapon != null)
+            if (enemy != null)
             {
-                target = _weapon.GetTargetingVector(enemy.transform.position,enemy.GetComponent<Rigidbody>().velocity);
-                
                 GameObject closest = _radar.GetClosestDetected();
-
-                Vector3 closestVector = closest==null ? target : closest.transform.position;
-
-                bool inDeadzone = Vector3.Distance(closestVector,transform.position) < targetDeadZone;
-                target = inDeadzone ? 
-                _rvoAgent.GetAdjustedTargetPosition(((transform.position-target).normalized * followDistance) + target,_shipMovementProperties.maxSpeed) : target;
-
-                if(!inDeadzone)
-                {
-                    if(Vector3.Distance(
-                        PathCalculationUtilities.ClosestPointOnLine(
-                            transform.position,(transform.forward * attackRange)+transform.position,target),target) < attackZoneWidth)
-                    {
-                        _weapon.Fire();
-                    }
-                }
+                target = closest == null ? target : closest.transform.position;
             }
-
-            
-
             return target;
         }
     }

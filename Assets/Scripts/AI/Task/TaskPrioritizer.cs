@@ -27,21 +27,12 @@ namespace AI.Task
             _tasks.Remove(target);
         }
 
-        public Vector3 GetCurrentPriority()
+        public IAITask GetCurrentPriority()
         {
-            if(_tasks != null && _tasks.Count>0)
-            {
-                IAITask task = _tasks.Aggregate((current,next) => current.GetPriority() >= next.GetPriority() ? current : next);
-                return task.GetTarget();
-            }
-            else
-            {
-                return gameObject.transform.position;
-            }
+            //get highest priority task
+            IAITask task = _tasks.Aggregate((current,next) => current.GetPriority() >= next.GetPriority() ? current : next);
+            return task;
         }
-
-
-
      
     }
 }

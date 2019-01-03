@@ -1,86 +1,95 @@
 fileFormatVersion: 2
 guid: 88ae7d9cb2052f349a936f50c4588587
-timeCreated: 1476315589
-licenseType: Free
-SubstanceImporter:
-  serializedVersion: 5
-  materialInstances:
-  - serializedVersion: 16
-    name: RD_Alien_Material
-    prototypeName: RD_Alien_Material
-    shaderName: 
-    shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
-    shaderKeywords: 
-    renderQueue: -1
-    lightmapFlags: 5
-    inputs: []
-    materialInformation:
-      serializedVersion: 5
-      offset: {x: 0, y: 0}
-      scale: {x: 1, y: 1}
-      generateMipmaps: 1
-      generateAllOutputs: 0
-      animationUpdateRate: 0
-    materialProperties:
-      serializedVersion: 2
-      texEnvs: []
-      floats: []
-      colors: []
-    textureParameters:
-    - name: RD_Alien_Material_basecolor
-      alphaSource: 6
-      filterMode: 1
-      aniso: 1
-      wrapMode: 0
-    - name: RD_Alien_Material_normal
-      alphaSource: 0
-      filterMode: 1
-      aniso: 1
-      wrapMode: 0
-    - name: RD_Alien_Material_metallic
-      alphaSource: 7
-      filterMode: 1
-      aniso: 1
-      wrapMode: 0
-    - name: RD_Alien_Material_emissive
-      alphaSource: 0
-      filterMode: 1
-      aniso: 1
-      wrapMode: 0
-    - name: RD_Alien_Material_height
-      alphaSource: 0
-      filterMode: 1
-      aniso: 1
-      wrapMode: 0
-    textureAssignments:
-    - shaderProp:
-        name: _MainTex
-      material: {instanceID: 0}
-      baseUID: 2002280804
-    - shaderProp:
-        name: _BumpMap
-      material: {instanceID: 0}
-      baseUID: 2002280806
-    - shaderProp:
-        name: _ParallaxMap
-      material: {instanceID: 0}
-      baseUID: 2008761639
-    - shaderProp:
-        name: _EmissionMap
-      material: {instanceID: 0}
-      baseUID: 2008610894
-    - shaderProp:
-        name: _MetallicGlossMap
-      material: {instanceID: 0}
-      baseUID: 2002280802
-    buildTargetSettings:
-    - serializedVersion: 2
-      buildTarget: 
-      textureWidth: 512
-      textureHeight: 512
-      textureFormat: 0
-      loadingBehavior: 1
-  deletedPrototypes: []
+ScriptedImporter:
+  fileIDToRecycleName:
+    100000: RD_Alien_Material/RD_Alien_Material
+    400000: RD_Alien_Material/RD_Alien_Material/Transform
+    2100000: mat.RD_Alien_Material
+    2300000: RD_Alien_Material/RD_Alien_Material/MeshRenderer
+    2800000: RD_Alien_Material_baseColor
+    2800002: RD_Alien_Material_normal
+    2800004: RD_Alien_Material_metallic
+    2800006: RD_Alien_Material_emissive
+    2800008: RD_Alien_Material_height
+    3300000: RD_Alien_Material/RD_Alien_Material/MeshFilter
+    11400000: sbsar
+    11400002: graph0
+    13500000: RD_Alien_Material/RD_Alien_Material/SphereCollider
+    100100000: RD_Alien_Material
+  externalObjects: {}
   userData: 
   assetBundleName: 
   assetBundleVariant: 
+  script: {fileID: 232528478, guid: 43a8bbf65be290d44ba52b94476242b9, type: 3}
+  version: 13
+  mGraphInstanceData:
+  - graphLabel: RD_Alien_Material
+    prototypeName: RD_Alien_Material
+    graphDescIndex: 0
+    generateAllOutputs: 0
+    generateMipMaps: 1
+    preset: " <sbspreset pkgurl=\"pkg://RD_Alien_Material\" label=\"\" >\n </sbspreset>\n"
+    shaderName: Standard
+    outputNames: baseColor,normal,metallic,emissive,height
+    texturePackingList:
+    - outputName: baseColor
+      alphaSource: source
+    - outputName: normal
+      alphaSource: source
+    - outputName: roughness
+      alphaSource: roughness
+    - outputName: metallic
+      alphaSource: smoothness
+    - outputName: emissive
+      alphaSource: source
+    - outputName: height
+      alphaSource: source
+    textureParameters:
+    - textureName: RD_Alien_Material_baseColor
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    - textureName: RD_Alien_Material_normal
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    - textureName: RD_Alien_Material_metallic
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    - textureName: RD_Alien_Material_emissive
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    - textureName: RD_Alien_Material_height
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    - textureName: RD_Alien_Material_roughness
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    colorSpaceList:
+    - outputName: baseColor
+      bLinear: 0
+    - outputName: normal
+      bLinear: 1
+    - outputName: roughness
+      bLinear: 1
+    - outputName: metallic
+      bLinear: 1
+    - outputName: emissive
+      bLinear: 0
+    - outputName: height
+      bLinear: 1
+    inputTextureMap: []
+    targetSettingList:
+    - label: Default
+      bLockRatio: 1
+      bHighQuality: 0
+      textureWidth: 512
+      textureHeight: 512
+      textureFormat: 0
+      bGenerateOnLoad: 0
+    material: {instanceID: 0}
+    generatedTextures: []

@@ -1,86 +1,99 @@
 fileFormatVersion: 2
 guid: 37614e39da7285641a581683b882c1be
-timeCreated: 1476315600
-licenseType: Free
-SubstanceImporter:
-  serializedVersion: 5
-  materialInstances:
-  - serializedVersion: 16
-    name: dynamo
-    prototypeName: dynamo
-    shaderName: 
-    shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
-    shaderKeywords: 
-    renderQueue: -1
-    lightmapFlags: 5
-    inputs: []
-    materialInformation:
-      serializedVersion: 5
-      offset: {x: 0, y: 0}
-      scale: {x: 1, y: 1}
-      generateMipmaps: 1
-      generateAllOutputs: 0
-      animationUpdateRate: 0
-    materialProperties:
-      serializedVersion: 2
-      texEnvs: []
-      floats: []
-      colors: []
-    textureParameters:
-    - name: dynamo_basecolor
-      alphaSource: 6
-      filterMode: 1
-      aniso: 1
-      wrapMode: 0
-    - name: dynamo_normal
-      alphaSource: 0
-      filterMode: 1
-      aniso: 1
-      wrapMode: 0
-    - name: dynamo_metallic
-      alphaSource: 7
-      filterMode: 1
-      aniso: 1
-      wrapMode: 0
-    - name: dynamo_output
-      alphaSource: 0
-      filterMode: 1
-      aniso: 1
-      wrapMode: 0
-    - name: dynamo_Height
-      alphaSource: 0
-      filterMode: 1
-      aniso: 1
-      wrapMode: 0
-    textureAssignments:
-    - shaderProp:
-        name: _MainTex
-      material: {instanceID: 0}
-      baseUID: 229212715
-    - shaderProp:
-        name: _BumpMap
-      material: {instanceID: 0}
-      baseUID: 229212713
-    - shaderProp:
-        name: _ParallaxMap
-      material: {instanceID: 0}
-      baseUID: 204297138
-    - shaderProp:
-        name: _EmissionMap
-      material: {instanceID: 0}
-      baseUID: 204033751
-    - shaderProp:
-        name: _MetallicGlossMap
-      material: {instanceID: 0}
-      baseUID: 229212717
-    buildTargetSettings:
-    - serializedVersion: 2
-      buildTarget: 
-      textureWidth: 512
-      textureHeight: 512
-      textureFormat: 0
-      loadingBehavior: 1
-  deletedPrototypes: []
+ScriptedImporter:
+  fileIDToRecycleName:
+    100000: Dynamo/Dynamo
+    400000: Dynamo/Dynamo/Transform
+    2100000: mat.dynamo
+    2300000: Dynamo/Dynamo/MeshRenderer
+    2800000: dynamo_baseColor
+    2800002: dynamo_normal
+    2800004: dynamo_metallic
+    2800006: dynamo_emissive
+    2800008: dynamo_height
+    3300000: Dynamo/Dynamo/MeshFilter
+    11400000: sbsar
+    11400002: graph0
+    13500000: Dynamo/Dynamo/SphereCollider
+    100100000: Dynamo
+  externalObjects: {}
   userData: 
   assetBundleName: 
   assetBundleVariant: 
+  script: {fileID: 232528478, guid: 43a8bbf65be290d44ba52b94476242b9, type: 3}
+  version: 13
+  mGraphInstanceData:
+  - graphLabel: dynamo
+    prototypeName: dynamo
+    graphDescIndex: 0
+    generateAllOutputs: 0
+    generateMipMaps: 1
+    preset: " <sbspreset pkgurl=\"pkg://dynamo\" label=\"\" >\n </sbspreset>\n"
+    shaderName: Standard
+    outputNames: baseColor,normal,metallic,emissive,height
+    texturePackingList:
+    - outputName: baseColor
+      alphaSource: source
+    - outputName: normal
+      alphaSource: source
+    - outputName: roughness
+      alphaSource: roughness
+    - outputName: metallic
+      alphaSource: smoothness
+    - outputName: emissive
+      alphaSource: emissive
+    - outputName: height
+      alphaSource: source
+    textureParameters:
+    - textureName: dynamo_baseColor
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    - textureName: dynamo_normal
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    - textureName: dynamo_metallic
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    - textureName: dynamo_dynamo_output
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    - textureName: dynamo_height
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    - textureName: dynamo_roughness
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    - textureName: dynamo_emissive
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    colorSpaceList:
+    - outputName: baseColor
+      bLinear: 0
+    - outputName: normal
+      bLinear: 1
+    - outputName: roughness
+      bLinear: 1
+    - outputName: metallic
+      bLinear: 1
+    - outputName: emissive
+      bLinear: 0
+    - outputName: height
+      bLinear: 1
+    inputTextureMap: []
+    targetSettingList:
+    - label: Default
+      bLockRatio: 1
+      bHighQuality: 0
+      textureWidth: 512
+      textureHeight: 512
+      textureFormat: 0
+      bGenerateOnLoad: 0
+    material: {instanceID: 0}
+    generatedTextures: []

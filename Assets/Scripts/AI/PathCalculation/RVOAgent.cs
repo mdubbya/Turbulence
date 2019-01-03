@@ -34,7 +34,6 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
-using AI.Process;
 
 namespace AI.PathCalculation
 {

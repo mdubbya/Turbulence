@@ -1,625 +1,179 @@
 fileFormatVersion: 2
 guid: 2eb491fb748b9d947af0a21676914043
-timeCreated: 1478141841
-licenseType: Free
-SubstanceImporter:
-  serializedVersion: 5
-  materialInstances:
-  - serializedVersion: 16
-    name: metal_colony_test
-    prototypeName: Spaceship_Metal_Colony
-    shaderName: 
-    shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
-    shaderKeywords: 
-    renderQueue: -1
-    lightmapFlags: 5
-    inputs:
-    - name: $randomseed
-      value:
-        scalar[0]: 1248
-        scalar[1]: 0
-        scalar[2]: 0
-        scalar[3]: 0
-        texture: {instanceID: 0}
-    - name: Bevel_Shape
-      value:
-        scalar[0]: 0.03
-        scalar[1]: 0
-        scalar[2]: 0
-        scalar[3]: 0
-        texture: {instanceID: 0}
-    - name: TIle_Metal_Color
-      value:
-        scalar[0]: 0.5372549
-        scalar[1]: 0.6039216
-        scalar[2]: 0.69411767
-        scalar[3]: 1
-        texture: {instanceID: 0}
-    - name: Tilling_Pattern_Size_Width
-      value:
-        scalar[0]: 1000
-        scalar[1]: 0
-        scalar[2]: 0
-        scalar[3]: 0
-        texture: {instanceID: 0}
-    - name: Tiling_Pattern_Size_Height
-      value:
-        scalar[0]: 128
-        scalar[1]: 0
-        scalar[2]: 0
-        scalar[3]: 0
-        texture: {instanceID: 0}
-    - name: Plating_Tiling_Amount
-      value:
-        scalar[0]: 0
-        scalar[1]: 0
-        scalar[2]: 0
-        scalar[3]: 0
-        texture: {instanceID: 0}
-    - name: Tiling_Disorder
-      value:
-        scalar[0]: 0
-        scalar[1]: 0
-        scalar[2]: 0
-        scalar[3]: 0
-        texture: {instanceID: 0}
-    - name: Tiling_Size_Variation
-      value:
-        scalar[0]: 58.62
-        scalar[1]: 0
-        scalar[2]: 0
-        scalar[3]: 0
-        texture: {instanceID: 0}
-    - name: Tile_Rotation
-      value:
-        scalar[0]: 0
-        scalar[1]: 0
-        scalar[2]: 0
-        scalar[3]: 0
-        texture: {instanceID: 0}
-    - name: Tiling_Rotation_Variation
-      value:
-        scalar[0]: 0
-        scalar[1]: 0
-        scalar[2]: 0
-        scalar[3]: 0
-        texture: {instanceID: 0}
-    - name: Plating_Roughness
-      value:
-        scalar[0]: 0.447059
-        scalar[1]: 0
-        scalar[2]: 0
-        scalar[3]: 0
-        texture: {instanceID: 0}
-    - name: Color_Dirt
-      value:
-        scalar[0]: 0.372549
-        scalar[1]: 0.254582
-        scalar[2]: 0
-        scalar[3]: 1
-        texture: {instanceID: 0}
-    - name: Dirt_Level
-      value:
-        scalar[0]: 0.974
-        scalar[1]: 0
-        scalar[2]: 0
-        scalar[3]: 0
-        texture: {instanceID: 0}
-    - name: Dirt_Contrast
-      value:
-        scalar[0]: 0
-        scalar[1]: 0
-        scalar[2]: 0
-        scalar[3]: 0
-        texture: {instanceID: 0}
-    - name: Dirt_Variation
-      value:
-        scalar[0]: 0.21
-        scalar[1]: 0
-        scalar[2]: 0
-        scalar[3]: 0
-        texture: {instanceID: 0}
-    - name: Fibre_Texture_Color
-      value:
-        scalar[0]: 1
-        scalar[1]: 1
-        scalar[2]: 1
-        scalar[3]: 1
-        texture: {instanceID: 0}
-    - name: Fibre_Texture_Roughness
-      value:
-        scalar[0]: 1
-        scalar[1]: 0
-        scalar[2]: 0
-        scalar[3]: 0
-        texture: {instanceID: 0}
-    - name: Fibre_Texture_Tiling
-      value:
-        scalar[0]: 11
-        scalar[1]: 0
-        scalar[2]: 0
-        scalar[3]: 0
-        texture: {instanceID: 0}
-    - name: Rotation_Fibre_Texture
-      value:
-        scalar[0]: 90
-        scalar[1]: 0
-        scalar[2]: 0
-        scalar[3]: 0
-        texture: {instanceID: 0}
-    materialInformation:
-      serializedVersion: 5
-      offset: {x: 0, y: 0}
-      scale: {x: 1, y: 1}
-      generateMipmaps: 1
-      generateAllOutputs: 0
-      animationUpdateRate: 0
-    materialProperties:
-      serializedVersion: 2
-      texEnvs:
-      - first:
-          name: _BumpMap
-        second:
-          texture: {instanceID: 0}
-          scale: {x: 1, y: 1}
-          offset: {x: 0, y: 0}
-      - first:
-          name: _DetailAlbedoMap
-        second:
-          texture: {instanceID: 0}
-          scale: {x: 1, y: 1}
-          offset: {x: 0, y: 0}
-      - first:
-          name: _DetailMask
-        second:
-          texture: {instanceID: 0}
-          scale: {x: 1, y: 1}
-          offset: {x: 0, y: 0}
-      - first:
-          name: _DetailNormalMap
-        second:
-          texture: {instanceID: 0}
-          scale: {x: 1, y: 1}
-          offset: {x: 0, y: 0}
-      - first:
-          name: _EmissionMap
-        second:
-          texture: {instanceID: 0}
-          scale: {x: 1, y: 1}
-          offset: {x: 0, y: 0}
-      - first:
-          name: _MainTex
-        second:
-          texture: {instanceID: 0}
-          scale: {x: 1, y: 1}
-          offset: {x: 0, y: 0}
-      - first:
-          name: _MetallicGlossMap
-        second:
-          texture: {instanceID: 0}
-          scale: {x: 1, y: 1}
-          offset: {x: 0, y: 0}
-      - first:
-          name: _OcclusionMap
-        second:
-          texture: {instanceID: 0}
-          scale: {x: 1, y: 1}
-          offset: {x: 0, y: 0}
-      - first:
-          name: _ParallaxMap
-        second:
-          texture: {instanceID: 0}
-          scale: {x: 1, y: 1}
-          offset: {x: 0, y: 0}
-      floats:
-      - first:
-          name: _BumpScale
-        second: 1
-      - first:
-          name: _Cutoff
-        second: 0.5
-      - first:
-          name: _DetailNormalMapScale
-        second: 1
-      - first:
-          name: _DstBlend
-        second: 0
-      - first:
-          name: _GlossMapScale
-        second: 1
-      - first:
-          name: _Glossiness
-        second: 0.5
-      - first:
-          name: _GlossyReflections
-        second: 1
-      - first:
-          name: _Metallic
-        second: 0
-      - first:
-          name: _Mode
-        second: 0
-      - first:
-          name: _OcclusionStrength
-        second: 1
-      - first:
-          name: _Parallax
-        second: 0.02
-      - first:
-          name: _SmoothnessTextureChannel
-        second: 0
-      - first:
-          name: _SpecularHighlights
-        second: 1
-      - first:
-          name: _SrcBlend
-        second: 1
-      - first:
-          name: _UVSec
-        second: 0
-      - first:
-          name: _ZWrite
-        second: 1
-      colors:
-      - first:
-          name: _Color
-        second: {r: 1, g: 1, b: 1, a: 1}
-      - first:
-          name: _EmissionColor
-        second: {r: 0, g: 0, b: 0, a: 1}
-    textureParameters:
-    - name: metal_colony_test_basecolor
-      alphaSource: 6
-      filterMode: 1
-      aniso: 1
-      wrapMode: 0
-    - name: metal_colony_test_normal
-      alphaSource: 0
-      filterMode: 1
-      aniso: 1
-      wrapMode: 0
-    - name: metal_colony_test_metallic
-      alphaSource: 7
-      filterMode: 1
-      aniso: 1
-      wrapMode: 0
-    - name: metal_colony_test_amvient_Occlusion
-      alphaSource: 0
-      filterMode: 1
-      aniso: 1
-      wrapMode: 0
-    textureAssignments:
-    - shaderProp:
-        name: _MainTex
-      material: {instanceID: 0}
-      baseUID: 740536026
-    - shaderProp:
-        name: _BumpMap
-      material: {instanceID: 0}
-      baseUID: 740536024
-    - shaderProp:
-        name: _OcclusionMap
-      material: {instanceID: 0}
-      baseUID: 774523383
-    - shaderProp:
-        name: _MetallicGlossMap
-      material: {instanceID: 0}
-      baseUID: 740536028
-    buildTargetSettings:
-    - serializedVersion: 2
-      buildTarget: 
-      textureWidth: 512
-      textureHeight: 512
-      textureFormat: 0
-      loadingBehavior: 1
-  - serializedVersion: 16
-    name: Spaceship_Metal_Colony
-    prototypeName: Spaceship_Metal_Colony
-    shaderName: 
-    shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
-    shaderKeywords: 
-    renderQueue: -1
-    lightmapFlags: 5
-    inputs:
-    - name: Tilling_Pattern_Size_Width
-      value:
-        scalar[0]: 895
-        scalar[1]: 0
-        scalar[2]: 0
-        scalar[3]: 0
-        texture: {instanceID: 0}
-    - name: Plating_Tiling_Amount
-      value:
-        scalar[0]: 5.32
-        scalar[1]: 0
-        scalar[2]: 0
-        scalar[3]: 0
-        texture: {instanceID: 0}
-    - name: Plating_Roughness
-      value:
-        scalar[0]: 0.513
-        scalar[1]: 0
-        scalar[2]: 0
-        scalar[3]: 0
-        texture: {instanceID: 0}
-    - name: Dirt_Level
-      value:
-        scalar[0]: 0.496
-        scalar[1]: 0
-        scalar[2]: 0
-        scalar[3]: 0
-        texture: {instanceID: 0}
-    - name: Dirt_Variation
-      value:
-        scalar[0]: 0.273
-        scalar[1]: 0
-        scalar[2]: 0
-        scalar[3]: 0
-        texture: {instanceID: 0}
-    - name: Fibre_Texture_Tiling
-      value:
-        scalar[0]: 9.75
-        scalar[1]: 0
-        scalar[2]: 0
-        scalar[3]: 0
-        texture: {instanceID: 0}
-    - name: Bevel_Shape
-      value:
-        scalar[0]: 0.0256
-        scalar[1]: 0
-        scalar[2]: 0
-        scalar[3]: 0
-        texture: {instanceID: 0}
-    - name: Tiling_Pattern_Size_Height
-      value:
-        scalar[0]: 882
-        scalar[1]: 0
-        scalar[2]: 0
-        scalar[3]: 0
-        texture: {instanceID: 0}
-    - name: $randomseed
-      value:
-        scalar[0]: 0
-        scalar[1]: 0
-        scalar[2]: 0
-        scalar[3]: 0
-        texture: {instanceID: 0}
-    - name: TIle_Metal_Color
-      value:
-        scalar[0]: 1
-        scalar[1]: 1
-        scalar[2]: 1
-        scalar[3]: 1
-        texture: {instanceID: 0}
-    - name: Tiling_Disorder
-      value:
-        scalar[0]: 0.2
-        scalar[1]: 0
-        scalar[2]: 0
-        scalar[3]: 0
-        texture: {instanceID: 0}
-    - name: Tiling_Size_Variation
-      value:
-        scalar[0]: 58.62
-        scalar[1]: 0
-        scalar[2]: 0
-        scalar[3]: 0
-        texture: {instanceID: 0}
-    - name: Tile_Rotation
-      value:
-        scalar[0]: 0
-        scalar[1]: 0
-        scalar[2]: 0
-        scalar[3]: 0
-        texture: {instanceID: 0}
-    - name: Tiling_Rotation_Variation
-      value:
-        scalar[0]: 0
-        scalar[1]: 0
-        scalar[2]: 0
-        scalar[3]: 0
-        texture: {instanceID: 0}
-    - name: Color_Dirt
-      value:
-        scalar[0]: 0.372549
-        scalar[1]: 0.254582
-        scalar[2]: 0
-        scalar[3]: 1
-        texture: {instanceID: 0}
-    - name: Dirt_Contrast
-      value:
-        scalar[0]: 0
-        scalar[1]: 0
-        scalar[2]: 0
-        scalar[3]: 0
-        texture: {instanceID: 0}
-    - name: Fibre_Texture_Color
-      value:
-        scalar[0]: 1
-        scalar[1]: 1
-        scalar[2]: 1
-        scalar[3]: 1
-        texture: {instanceID: 0}
-    - name: Fibre_Texture_Roughness
-      value:
-        scalar[0]: 1
-        scalar[1]: 0
-        scalar[2]: 0
-        scalar[3]: 0
-        texture: {instanceID: 0}
-    - name: Rotation_Fibre_Texture
-      value:
-        scalar[0]: 90
-        scalar[1]: 0
-        scalar[2]: 0
-        scalar[3]: 0
-        texture: {instanceID: 0}
-    materialInformation:
-      serializedVersion: 5
-      offset: {x: 0, y: 0}
-      scale: {x: 1, y: 1}
-      generateMipmaps: 1
-      generateAllOutputs: 0
-      animationUpdateRate: 0
-    materialProperties:
-      serializedVersion: 2
-      texEnvs:
-      - first:
-          name: _BumpMap
-        second:
-          texture: {instanceID: 0}
-          scale: {x: 1, y: 1}
-          offset: {x: 0, y: 0}
-      - first:
-          name: _DetailAlbedoMap
-        second:
-          texture: {instanceID: 0}
-          scale: {x: 1, y: 1}
-          offset: {x: 0, y: 0}
-      - first:
-          name: _DetailMask
-        second:
-          texture: {instanceID: 0}
-          scale: {x: 1, y: 1}
-          offset: {x: 0, y: 0}
-      - first:
-          name: _DetailNormalMap
-        second:
-          texture: {instanceID: 0}
-          scale: {x: 1, y: 1}
-          offset: {x: 0, y: 0}
-      - first:
-          name: _EmissionMap
-        second:
-          texture: {instanceID: 0}
-          scale: {x: 1, y: 1}
-          offset: {x: 0, y: 0}
-      - first:
-          name: _MainTex
-        second:
-          texture: {instanceID: 0}
-          scale: {x: 1, y: 1}
-          offset: {x: 0, y: 0}
-      - first:
-          name: _MetallicGlossMap
-        second:
-          texture: {instanceID: 0}
-          scale: {x: 1, y: 1}
-          offset: {x: 0, y: 0}
-      - first:
-          name: _OcclusionMap
-        second:
-          texture: {instanceID: 0}
-          scale: {x: 1, y: 1}
-          offset: {x: 0, y: 0}
-      - first:
-          name: _ParallaxMap
-        second:
-          texture: {instanceID: 0}
-          scale: {x: 1, y: 1}
-          offset: {x: 0, y: 0}
-      floats:
-      - first:
-          name: _BumpScale
-        second: 1
-      - first:
-          name: _Cutoff
-        second: 0.5
-      - first:
-          name: _DetailNormalMapScale
-        second: 1
-      - first:
-          name: _DstBlend
-        second: 0
-      - first:
-          name: _GlossMapScale
-        second: 1
-      - first:
-          name: _Glossiness
-        second: 0.5
-      - first:
-          name: _GlossyReflections
-        second: 1
-      - first:
-          name: _Metallic
-        second: 0
-      - first:
-          name: _Mode
-        second: 0
-      - first:
-          name: _OcclusionStrength
-        second: 1
-      - first:
-          name: _Parallax
-        second: 0.02
-      - first:
-          name: _SmoothnessTextureChannel
-        second: 0
-      - first:
-          name: _SpecularHighlights
-        second: 1
-      - first:
-          name: _SrcBlend
-        second: 1
-      - first:
-          name: _UVSec
-        second: 0
-      - first:
-          name: _ZWrite
-        second: 1
-      colors:
-      - first:
-          name: _Color
-        second: {r: 1, g: 1, b: 1, a: 1}
-      - first:
-          name: _EmissionColor
-        second: {r: 0, g: 0, b: 0, a: 1}
-    textureParameters:
-    - name: Spaceship_Metal_Colony_basecolor
-      alphaSource: 6
-      filterMode: 1
-      aniso: 1
-      wrapMode: 0
-    - name: Spaceship_Metal_Colony_normal
-      alphaSource: 0
-      filterMode: 1
-      aniso: 1
-      wrapMode: 0
-    - name: Spaceship_Metal_Colony_metallic
-      alphaSource: 7
-      filterMode: 1
-      aniso: 1
-      wrapMode: 0
-    - name: Spaceship_Metal_Colony_amvient_Occlusion
-      alphaSource: 0
-      filterMode: 1
-      aniso: 1
-      wrapMode: 0
-    textureAssignments:
-    - shaderProp:
-        name: _MainTex
-      material: {instanceID: 0}
-      baseUID: 740536026
-    - shaderProp:
-        name: _BumpMap
-      material: {instanceID: 0}
-      baseUID: 740536024
-    - shaderProp:
-        name: _OcclusionMap
-      material: {instanceID: 0}
-      baseUID: 774523383
-    - shaderProp:
-        name: _MetallicGlossMap
-      material: {instanceID: 0}
-      baseUID: 740536028
-    buildTargetSettings:
-    - serializedVersion: 2
-      buildTarget: 
-      textureWidth: 512
-      textureHeight: 512
-      textureFormat: 0
-      loadingBehavior: 1
-  deletedPrototypes: []
+ScriptedImporter:
+  fileIDToRecycleName:
+    100000: Spaceship_Metal_Colony/Spaceship_Metal_Colony
+    400000: Spaceship_Metal_Colony/Spaceship_Metal_Colony/Transform
+    2100000: mat.metal_colony_test
+    2100002: mat.Spaceship_Metal_Colony
+    2300000: Spaceship_Metal_Colony/Spaceship_Metal_Colony/MeshRenderer
+    2800000: metal_colony_test_baseColor
+    2800002: metal_colony_test_normal
+    2800004: metal_colony_test_metallic
+    2800006: metal_colony_test_ambientOcclusion
+    2800008: Spaceship_Metal_Colony_baseColor
+    2800010: Spaceship_Metal_Colony_normal
+    2800012: Spaceship_Metal_Colony_metallic
+    2800014: Spaceship_Metal_Colony_ambientOcclusion
+    3300000: Spaceship_Metal_Colony/Spaceship_Metal_Colony/MeshFilter
+    11400000: graph1
+    11400002: sbsar
+    11400004: graph0
+    13500000: Spaceship_Metal_Colony/Spaceship_Metal_Colony/SphereCollider
+    100100000: Spaceship_Metal_Colony
+  externalObjects: {}
   userData: 
   assetBundleName: 
   assetBundleVariant: 
+  script: {fileID: 232528478, guid: 43a8bbf65be290d44ba52b94476242b9, type: 3}
+  version: 13
+  mGraphInstanceData:
+  - graphLabel: metal_colony_test
+    prototypeName: Spaceship_Metal_Colony
+    graphDescIndex: 0
+    generateAllOutputs: 0
+    generateMipMaps: 1
+    preset: " <sbspreset pkgurl=\"pkg://Spaceship_Metal_Colony\" label=\"\" >\n  <presetinput
+      identifier=\"$randomseed\" uid=\"165101241\" type=\"4\" value=\"1248\" />\n
+      \ <presetinput identifier=\"Bevel_Shape\" uid=\"774613085\" type=\"0\" value=\"0.03\"
+      />\n  <presetinput identifier=\"TIle_Metal_Color\" uid=\"774614203\" type=\"3\"
+      value=\"0.537255,0.603922,0.694118,1\" />\n  <presetinput identifier=\"Tilling_Pattern_Size_Width\"
+      uid=\"774613660\" type=\"0\" value=\"1000\" />\n  <presetinput identifier=\"Plating_Tiling_Amount\"
+      uid=\"774591105\" type=\"4\" value=\"0\" />\n  <presetinput identifier=\"Tiling_Disorder\"
+      uid=\"774614445\" type=\"0\" value=\"0\" />\n  <presetinput identifier=\"Dirt_Level\"
+      uid=\"774614640\" type=\"0\" value=\"0.974\" />\n </sbspreset>\n"
+    shaderName: Standard
+    outputNames: baseColor,normal,metallic,ambientOcclusion
+    texturePackingList:
+    - outputName: baseColor
+      alphaSource: source
+    - outputName: normal
+      alphaSource: source
+    - outputName: roughness
+      alphaSource: roughness
+    - outputName: metallic
+      alphaSource: smoothness
+    - outputName: ambientOcclusion
+      alphaSource: ambientOcclusion
+    textureParameters:
+    - textureName: metal_colony_test_baseColor
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    - textureName: metal_colony_test_normal
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    - textureName: metal_colony_test_metallic
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    - textureName: metal_colony_test_metal_colony_test_amvient_Occlusion
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    - textureName: metal_colony_test_roughness
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    - textureName: metal_colony_test_ambientOcclusion
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    colorSpaceList:
+    - outputName: baseColor
+      bLinear: 0
+    - outputName: normal
+      bLinear: 1
+    - outputName: roughness
+      bLinear: 1
+    - outputName: metallic
+      bLinear: 1
+    - outputName: ambientOcclusion
+      bLinear: 1
+    inputTextureMap: []
+    targetSettingList:
+    - label: Default
+      bLockRatio: 1
+      bHighQuality: 0
+      textureWidth: 512
+      textureHeight: 512
+      textureFormat: 0
+      bGenerateOnLoad: 0
+    material: {instanceID: 0}
+    generatedTextures: []
+  - graphLabel: Spaceship_Metal_Colony
+    prototypeName: Spaceship_Metal_Colony
+    graphDescIndex: 0
+    generateAllOutputs: 0
+    generateMipMaps: 1
+    preset: " <sbspreset pkgurl=\"pkg://Spaceship_Metal_Colony\" label=\"\" >\n  <presetinput
+      identifier=\"Bevel_Shape\" uid=\"774613085\" type=\"0\" value=\"0.0256\" />\n
+      \ <presetinput identifier=\"Tilling_Pattern_Size_Width\" uid=\"774613660\" type=\"0\"
+      value=\"895\" />\n  <presetinput identifier=\"Tiling_Pattern_Size_Height\" uid=\"774614360\"
+      type=\"0\" value=\"882\" />\n  <presetinput identifier=\"Plating_Tiling_Amount\"
+      uid=\"774591105\" type=\"4\" value=\"5\" />\n  <presetinput identifier=\"Plating_Roughness\"
+      uid=\"774591615\" type=\"0\" value=\"0.513\" />\n  <presetinput identifier=\"Dirt_Level\"
+      uid=\"774614640\" type=\"0\" value=\"0.496\" />\n  <presetinput identifier=\"Dirt_Variation\"
+      uid=\"774614739\" type=\"0\" value=\"0.273\" />\n  <presetinput identifier=\"Fibre_Texture_Tiling\"
+      uid=\"774623573\" type=\"4\" value=\"9\" />\n </sbspreset>\n"
+    shaderName: Standard
+    outputNames: baseColor,normal,metallic,ambientOcclusion
+    texturePackingList:
+    - outputName: baseColor
+      alphaSource: source
+    - outputName: normal
+      alphaSource: source
+    - outputName: roughness
+      alphaSource: roughness
+    - outputName: metallic
+      alphaSource: smoothness
+    - outputName: ambientOcclusion
+      alphaSource: ambientOcclusion
+    textureParameters:
+    - textureName: Spaceship_Metal_Colony_baseColor
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    - textureName: Spaceship_Metal_Colony_normal
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    - textureName: Spaceship_Metal_Colony_metallic
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    - textureName: Spaceship_Metal_Colony_Spaceship_Metal_Colony_amvient_Occlusion
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    - textureName: Spaceship_Metal_Colony_roughness
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    - textureName: Spaceship_Metal_Colony_ambientOcclusion
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    colorSpaceList:
+    - outputName: baseColor
+      bLinear: 0
+    - outputName: normal
+      bLinear: 1
+    - outputName: roughness
+      bLinear: 1
+    - outputName: metallic
+      bLinear: 1
+    - outputName: ambientOcclusion
+      bLinear: 1
+    inputTextureMap: []
+    targetSettingList:
+    - label: Default
+      bLockRatio: 1
+      bHighQuality: 0
+      textureWidth: 512
+      textureHeight: 512
+      textureFormat: 0
+      bGenerateOnLoad: 0
+    material: {instanceID: 0}
+    generatedTextures: []

@@ -6,5 +6,6 @@ namespace AI.Task
     {
          float GetPriority();
          Vector3 GetTarget();
+        AITaskType taskType { get; }
     }
 }

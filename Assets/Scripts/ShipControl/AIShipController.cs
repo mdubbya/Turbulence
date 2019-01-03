@@ -1,6 +1,5 @@
 ﻿using System;
 using UnityEngine;
-using AI.Process;
 
 using AI.Task;
 using AI.PathCalculation;
@@ -28,9 +27,6 @@ namespace AI
 
         private PIDController _angularThrustPidController;
 
-        private float _integralTerm=0;
-        private float _previousError=0;
-
         private Vector3 _target;
         
         private float _elapsedTime=0;
@@ -54,7 +50,7 @@ namespace AI
             if(_elapsedTime >= targetUpdateRate)
             {
                 _elapsedTime=0;
-                _target = _taskPrioritizer.GetCurrentPriority();
+                _target = _taskPrioritizer.GetCurrentPriority().GetTarget();
             }
         }
 
